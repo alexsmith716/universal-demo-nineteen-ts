@@ -1,0 +1,102 @@
+
+@mixin bg-color-lightsteelblue() {
+  background-color: #b0c4de;
+}
+
+@mixin bg-color-midnightblue() {
+  background-color: #191970;
+}
+
+@mixin color-purple() {
+  color: #9b30ff;
+}
+
+@mixin color-olive() {
+  color: #808000;
+}
+
+@mixin color-crimson() {
+  color: #dc143c;
+}
+
+@mixin color-gold() {
+  color: #ffd700;
+}
+
+@mixin color-lightblue() {
+  color: #bfefff;
+}
+
+@mixin color-lavender() {
+  color: #e6e6fa;
+}
+
+@mixin color-turquoise() {
+  color: #00f5ff;
+}
+
+@mixin color-yellow() {
+  color: #ff0;
+}
+
+@mixin color-springgreen() {
+  color: #00ee76;
+}
+
+@mixin color-azure() {
+  color: #f0ffff;
+}
+
+@mixin color-dodgerblue() {
+  color: #1e90ff;
+}
+
+@mixin color-gold() {
+  color: #ffd700;
+}
+
+@mixin color-green() {
+  color: #008b00;
+}
+
+@mixin color-darkorange() {
+  color: #cd6600;
+}
+
+@mixin color-teal() {
+  color: #008080;
+}
+
+@mixin color-dodgerblue-4() {
+  color: #104e8b;
+}
+
+@mixin color-banana() {
+  color: #e3cf57;
+}
+
+// dodgerblue 4       104E8B
+// teal               008080
+// darkorange         CD6600
+// green              008B00
+// cyan 2:            00EEEE
+// rosybrown 1:       FFC1C1
+// orange 1:          FFA500
+// yellow:            FFFF00
+// springgreen 1:     00EE76
+// slate gray:        C6E2FF
+// turquoise:         00F5FF
+// darkturquoise:     00CED1
+// darkolivegreen:    CAFF70
+// olive:             808000
+// salmon:            FF8C69
+// burlywood:         FFD39B
+// dodgerblue:        1E90FF
+// palevioletred:     DB7093
+// purple:            9B30FF
+// crimson:           DC143C
+// lightblue:         BFEFFF
+// lavender:          E6E6FA
+// azure:             F0FFFF
+// ivory:             FFFFF0
+// snow:              FFFAFA

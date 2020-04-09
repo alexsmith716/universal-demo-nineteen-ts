@@ -1,0 +1,43 @@
+
+@import '../../sharedresources.scss';
+
+.colorMarginStyleLocal {
+  margin-top: calculate-rem(30px);
+  color: #5c6ac4;
+  border: calculate-rem(3px) solid #5c6ac4;
+}
+
+.colorGoldLocal {
+  color: #ffd700;
+}
+
+.coloredText1Local {
+  color: #090;
+}
+
+.coloredText2Local {
+  color: #999000;
+}
+
+.coloredText3Local {
+  font-size: calculate-rem(20px);
+  color: #00cd00;
+}
+
+.montserratLightFontGlobalToLocal {
+  @include montserratlight-font;
+}
+
+.testColorFont {
+  color: #ffc0cb;
+  @include norwester-font;
+}
+
+.specialAppFontColor {
+  color: #e0e; // magenta 2
+  @include old-english-font;
+}
+
+.sharedVarColorRutgersScarletXX {
+  color: $shared-var-color-rutgers-scarletx;
+}

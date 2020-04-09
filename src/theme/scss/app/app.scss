@@ -1,0 +1,250 @@
+// ================================================================================
+// GLOBAL STYLING
+// ================================================================================
+
+.spinner-layered {
+  pointer-events: none;
+  // position: relative;
+  position: absolute;
+  z-index: 9999;
+  top: 11px;
+  right: 6px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height plus a 'margin-top: 15px' */
+  // margin-bottom: calculate-rem($footer-height + $footer-margin-top);
+  margin-bottom: calculate-rem($footer-height);
+  overflow-x:hidden;
+}
+
+#main-nav .navbar-collapse .navbar-nav .nav-item .nav-link {
+  cursor: pointer;
+}
+
+hr {
+  border-color: $secondary;
+}
+
+hr.light {
+  border-color: $light;
+}
+
+.pre-style-inline {
+  background-color: #f8f8ff;
+  padding: calculate-rem(4px);
+}
+
+.pre-style {
+  background-color: #f8f8ff;
+  padding: calculate-rem(16px);
+}
+
+.svg-padding-right {
+  padding-right: calculate-rem(4px);
+}
+
+.fa-padding {
+  padding-left: calculate-rem(4px);
+  padding-right: calculate-rem(4px);
+}
+
+.button-facebook,
+.button-google {
+  line-height: 1.2;
+  width: calculate-rem(116px);
+  height: calculate-rem(40px);
+  border-radius: calculate-rem(3px);
+  border: calculate-rem(1px) solid #b8b8b8;
+  background-color: #fff;
+  transition: all 0.4s;
+}
+
+.button-facebook {
+  color: #3b5998;
+}
+
+.button-facebook i {
+  font-size: calculate-rem(20px);
+  margin-right: calculate-rem(10px);
+  padding-bottom: calculate-rem(1px);
+}
+
+.button-google {
+  color: #555;
+}
+
+.button-google img {
+  width: calculate-rem(19px);
+  margin-right: calculate-rem(10px);
+  padding-bottom: calculate-rem(1px);
+}
+
+.button-facebook:hover,
+.button-google:hover {
+  border-color: #eeeee0;
+}
+
+.form-control-feedback {
+  text-align: inherit;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+.font-weight-600 {
+  font-weight: 600;
+}
+
+.font-size-smaller-90 {
+  font-size: 90%;
+}
+
+.width-one-third {
+  width: 33%;
+}
+
+.width-100 {
+  width: calculate-rem(100px);
+}
+
+.width-200 {
+  width: calculate-rem(200px);
+}
+
+.width-300 {
+  width: calculate-rem(300px);
+}
+
+.width-400 {
+  width: calculate-rem(400px);
+}
+
+.width-500 {
+  width: calculate-rem(500px);
+}
+
+.width-600 {
+  width: calculate-rem(600px);
+}
+
+.width-800 {
+  width: calculate-rem(800px);
+}
+
+.basic-border-goldenrod-1 {
+  border: calculate-rem(1px) solid #daa520;
+  border-radius: calculate-rem(3px);
+}
+
+.svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.svg-content {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .line {
+    stroke-width: 2;
+    fill: #4f94cd;
+  }
+
+  .axis path {
+    stroke: black;
+  }
+}
+
+// ===============================================================
+
+// BOX -------------------------------------------------
+// margin >
+//    background-color >
+//      background: image >
+//        border >
+//          outline > padding > content (centered)
+
+// ===============================================================
+
+.basic-outer-box {
+  border: calculate-rem(1px) solid #d8dee2;
+  padding: calculate-rem(2px) calculate-rem(2px);
+}
+
+.basic-inner-box {
+  border: calculate-rem(1px) solid #d8dee2;
+  padding: calculate-rem(5px) calculate-rem(5px);
+}
+
+.padding-two-border-radius-six {
+  padding: calculate-rem(2px);
+  border-radius: calculate-rem(6px);
+}
+
+.padding-five-border-radius-three {
+  padding: calculate-rem(5px);
+  border-radius: calculate-rem(3px);
+}
+
+.container-padding-border-radius-1 {
+  padding: calculate-rem(10px) calculate-rem(10px);
+  border: calculate-rem(1px) solid #090;
+  border-radius: calculate-rem(3px);
+}
+
+.container-padding-border-radius-2 {
+  padding: calculate-rem(10px) calculate-rem(10px);
+  border: calculate-rem(2px) solid #b0c4de;
+  border-radius: calculate-rem(3px);
+}
+
+.container-padding-border-radius-3 {
+  padding: calculate-rem(10px);
+  border: calculate-rem(4px) solid #090;
+  border-radius: calculate-rem(3px);
+}
+
+.container-padding-10-border-1-radius-2 {
+  padding: calculate-rem(10px);
+  border: calculate-rem(1px) solid #090;
+  border-radius: calculate-rem(2px);
+}
+
+.container-padding-5-border-1-radius-1 {
+  padding: calculate-rem(5px);
+  border: calculate-rem(1px) solid #090;
+  border-radius: calculate-rem(1px);
+}
+
+// ---------------------------------------------------------------
+// GLOBAL @imports
+// ---------------------------------------------------------------
+
+// Drag And Drop
+
+// @import './drag-and-drop.scss';
+
+// FONTS
+
+@import './global-fonts.scss';
+
+// BACKGROUNDS
+
+@import './global-backgrounds.scss';
+
+// COLORS
+
+@import './global-colors.scss';

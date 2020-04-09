@@ -1,0 +1,13 @@
+@import '../../sharedresources.scss';
+
+.infoBar {
+  @include philosopher-bold-webfont-font;
+
+  .message {
+    color: #ee2c2c;
+
+    @include roboto-mono-v4-latin-regular-font;
+
+    font-size: small;
+  }
+}

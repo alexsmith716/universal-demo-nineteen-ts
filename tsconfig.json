@@ -1,0 +1,175 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": false,
+    "declaration": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "lib": ["esnext", "dom"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": false,
+    // "baseUrl": "./src",
+    // "paths": {
+    //   "~hooks/*": ["./hooks/*"]
+    // }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "build"
+    "node_modules",
+  ]
+}
+
+// https://github.com/babel/babel/blob/e74efd2c0a03badef66c28f29d566967ac8af0ef/scripts/parser-tests/typescript/whitelist.txt
+// https://babeljs.io/docs/en/next/babel-plugin-transform-typescript.html
+// https://babeljs.io/docs/en/babel-parser#options
+// https://babeljs.io/docs/en/plugins
+
+// 'babel-plugin-transform-typescript'
+// "jsx": "preserve", /* Specify JSX code generation: 'preserve', 'react-native', or 'react' */
+// --isolatedModules (false): 
+//    Perform additional checks to ensure that separate compilation 
+//      (such as with transpileModule or @babel/plugin-transform-typescript) would be safe.
+
+// Changes to 'tsconfig.json' are not reflected in babel
+// The build process will always behave as though isolateModules is turne--alwaysStrictd on
+// there are Babel-native alternative ways to set some 'tsconfig.json' options
+
+// Babel (TypeScript Compiler) Options:
+// many don't apply
+// TypeScript Compiler Options that can be enabled by Babel equivalent config options/plugins
+// below TS options that relate to Babel
+// =================================================================================================
+// --alwaysStrict
+// --downlevelIteration
+// --emitDecoratorMetadata
+// --esModuleInterop
+// --experimentalDecorators
+// --importHelpers
+// --inlineSourceMap
+// --isolatedModules
+// --jsx
+// --jsxFactory
+// --module
+// --outDir
+// --outFile
+// --sourceMap
+// --target
+// --watch
+// =================================================================================================
+
+// provide types for all declarations
+// define the types of the property and state object
+// enable strict null checks as a best practice
+// "strict": true >>> Enable all strict type checking options:
+//      --noImplicitAny, 
+//      --noImplicitThis, 
+//      --alwaysStrict, 
+//      --strictBindCallApply, 
+//      --strictNullChecks, 
+//      --strictFunctionTypes,
+//      --strictPropertyInitialization
+
+// "./src/**/*.tsx",
+// "./src/**/*.ts"
+
+// @babel/preset-typescript : Transform TypeScript into ES.next
+// https://babeljs.io/docs/en/next/babel-preset-typescript.html
+// https://babeljs.io/docs/en/next/babel-plugin-transform-typescript.html
+
+// '@babel/preset-typescript' includes the plugins of '@babel/plugin-transform-typescript'
+ 
+// ==========================================================================================
+// ========================= @babel/plugin-transform-typescript =============================
+// ==========================================================================================
+
+// '@babel/plugin-transform-typescript' adds support for the syntax used by the TypeScript programming language. 
+// However, this plugin does not add the ability to type-check the JavaScript passed to it. 
+// For that, you will need to install and set up TypeScript.
+
+// '@babel/plugin-transform-typescript' >>>>>> TypeScript Compiler Options:
+
+// 'The official TypeScript compiler' has many options for configuring how it compiles and type checks. 
+// 'While many don't apply', 'some' behaviors might be useful 
+//   and 'their equivalents in Babel' can be enabled by 'some' configuration options or plugins.
+
+//  --module, -m: 
+//      If you are using a bundler (Webpack or Rollup), this option is set automatically. 
+//      If you are using @babel/preset-env, you can use the modules option; 
+//      otherwise you can load the specific plugin.
+
+//  --target: 
+//      Babel doesn't support targeting a specific version of the language, 
+//      but you can choose which engines you want to target using @babel/preset-env. 
+//      If you prefer, you can enable individual plugins for every ECMAScript feature.
+
+// ==========================================================================================
+// ==========================================================================================
+// ==========================================================================================
+
+// https://github.com/TypeStrong/fork-ts-checker-webpack-plugin
+// https://babeljs.io/docs/en/babel-preset-env#modules
+
+// Node.js uses the commonjs module system, so the value for the module setting is commonjs
+// the target version of JavaScript is es6, which is compatible with modern versions of Node.js
+
+// https://blog.angularindepth.com/configuring-typescript-compiler-a84ed8f87e3
+// TypeScript is a superset of ES6, so you're essentially writing TS code using ES6 version of JavaScript.
+// However, when compiled, the resulting JS code can be in ES5 or earlier.
+// all browsers support most of ES6 spec, so ES6 may be a good option with some shims
+// target option: define which version of JS the compiler should transpile into
+// By default, TS compiler outputs transpiled files to the same directory where the original TS files is found.
+
+// lib =============================:
+// library files to be included in compilation
+// Note: If --lib is not specified a default list of libraries are injected
+// The default libraries injected are:
+// ► For --target ES5: DOM,ES5,ScriptHost
+// ► For --target ES6: DOM,ES6,DOM.Iterable,ScriptHost
+// ----------------
+// 'libs' make a promise to the compiler, "please don't complain about these APIs, I promise the browser will support them."
+// E.g. If you add es6 and don't include polyfills, old browsers will choke
+// ----------------
+// including "es2015.promise" doesn't include a polyfill into compiled code
+// you are notifying the compiler that code is using promises and it should be okay with that
+// If adding promise polyfills, import the polyfill in code or use babel (babel-preset-env) as a post-step (or next loader in webpack)
+// ----------------
+// By specifying 'lib' you simply tell TS compiler to not throw error 
+//  if classes or API's from those libraries are encountered during transpilation process
+// This option has no effect on the output since a library is simply ad.ts file with lib API interfaces
+
+// module =============================:
+// which module system to expect
+// target === "ES3" or "ES5" ? "CommonJS" : "ES6"
+// Specify module code generation: "None", "CommonJS", "AMD", "System", "UMD", "ES6", "ES2015" or "ESNext"
+// "ES6" and "ES2015" values may be used when targeting "ES5" or lower
+
+// target =============================:
+// ECMAScript version to compile to
+// specify ECMAScript target version
+// target those version features for the runtime
+// using target ES6 instructs compiler not to transform ES6-specific features
+// ► "ES3" (default)
+// ► "ES5"
+// ► "ES6"/"ES2015"
+// ► "ES2016"
+// ► "ES2017"
+// ► "ES2018"
+// ► "ES2019"
+// ► "ES2020"
+// ► "ESNext"

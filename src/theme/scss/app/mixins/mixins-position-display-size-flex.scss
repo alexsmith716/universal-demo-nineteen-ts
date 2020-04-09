@@ -1,0 +1,28 @@
+
+@mixin transition-all() {
+  transition: all 0.2s;
+}
+
+@mixin background-cover() {
+  background-size: cover;
+}
+
+@mixin display-flex-wrap() {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@mixin display-flex() {
+  display: flex;
+}
+
+@mixin container-box-shadow-form() {
+  // box-shadow: h-offset v-offset blur-radius spread-radius color;
+  box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+@mixin display-flex-align-content-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

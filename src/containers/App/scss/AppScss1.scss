@@ -1,0 +1,51 @@
+
+@import '../../sharedresources.scss';
+
+.app {
+
+  nav :global(.fas) {
+    padding-top: 4px;
+  }
+  // @media (max-width: 992px) {
+  //   .navbarScrollableDropdown {
+  //     height: auto;
+  //     max-height: 200px;
+  //     overflow-x: hidden;
+  //   }
+  // }
+}
+
+%footerHeight {
+  height: calculate-rem(100px);
+}
+
+// used for fixed-top navbar
+// .appContent {
+//   margin-top: calculate-rem(53px);
+// }
+
+.appInfoBar {
+  margin-top: calculate-rem(15px);
+}
+
+.notifs {
+  margin: calculate-rem(15px) 0;
+  color: #f0f8ff;
+  border: 3px solid #f0f8ff;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  // background-color: #009900;
+  // background-color: #0000FF;
+  background-color: $shared-var-color-syracuse-orange;
+  // @extend %footerHeight;
+  height: calculate-rem($footer-height);
+
+  .copyright {
+    color: #fff;
+    @include lobster-v20-latin-regular-font;
+  }
+}

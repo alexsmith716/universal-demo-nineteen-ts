@@ -59,7 +59,6 @@ module.exports = {
 			},
 			{
 				test: /\.(scss)$/,
-				// exclude: /node_modules/,
 				use: [
 					{
 						loader: 'css-loader',
@@ -118,7 +117,6 @@ module.exports = {
 			},
 			{
 				test: /\.(css)$/,
-				// exclude: /node_modules/,
 				use: [
 					{
 						loader: 'css-loader',

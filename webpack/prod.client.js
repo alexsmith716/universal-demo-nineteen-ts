@@ -258,7 +258,6 @@ module.exports = {
 		// ],
 		// Code Splitting: Prevent Duplication: Use the SplitChunksPlugin to dedupe and split chunks!
 		// https://webpack.js.org/plugins/split-chunks-plugin/
-		// react-hot-loader | react-redux | react-router-dom | react-router
 		splitChunks: {
 			cacheGroups: {
 				vendors: {
@@ -500,9 +499,9 @@ module.exports = {
 		// }),
 
 		// new DuplicatesPlugin({
-		//   emitErrors: false,
-		//   emitHandler: undefined,
-		//   verbose: true
+		// 	emitErrors: false,
+		// 	emitHandler: undefined,
+		// 	verbose: true
 		// }),
 	],
 };

@@ -3,6 +3,22 @@
 * ----------------------------------------
 * ----------------------------------------
 
+GraphiQLExample > DuplicatesPlugin > `import 'graphiql/graphiql.css';`
+
+`WARNING in ℹ ｢wdm｣: Compiled with warnings.
+[1mMissing sources: Expected 2, found 0.
+    Found map: {}
+    Duplicate Sources / Packages - Duplicates found! ⚠️
+    * Duplicates: Found 2 similar files across 2 code sources (both identical + similar)
+      accounting for 44449 bundled bytes.
+    * Packages: Found 0 packages with 0 resolved, 0 installed, and 0 depended versions.`
+
+https://github.com/FormidableLabs/inspectpack/#diagnosing-duplicates
+https://github.com/FormidableLabs/inspectpack/issues/125
+
+* ----------------------------------------
+* ----------------------------------------
+
 1) Describe your data
 
 `type Project {

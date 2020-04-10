@@ -4,6 +4,10 @@ import Loading from '../../components/Loading/Loading';
 import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
 
+// inspectpack / DuplicatesPlugin: seems to have a problem with 'graphiql/graphiql.css' import
+// https://github.com/FormidableLabs/inspectpack/#diagnosing-duplicates
+// https://github.com/FormidableLabs/inspectpack/issues/125
+
 // {
 //   person(personID: 3) {
 //     name
@@ -31,7 +35,7 @@ class GraphiQLExample extends Component {
 
 				<h1 className={styles.uniqueColor}>GraphiQL Webpack Example</h1>
 
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti eum ratione ex ea praesentium quibusdam? Aut, in eum facere corrupti necessitatibus perspiciatis quis?</p>
+				<p>An graphical interactive in-browser GraphQL IDE</p>
 
 				{/* (>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>) */}
 

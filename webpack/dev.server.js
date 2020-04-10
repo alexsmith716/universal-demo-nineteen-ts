@@ -37,6 +37,12 @@ const webpackServerConfig = {
 	module: {
 		rules: [
 			{
+				type: 'javascript/auto',
+				test: /\.mjs$/,
+				use: [],
+				include: /node_modules/,
+			},
+			{
 				test: /\.(ts|js)x?$/,
 				exclude: /node_modules/,
 				loader: 'babel-loader',
@@ -49,7 +55,6 @@ const webpackServerConfig = {
 			},
 			{
 				test: /\.(scss)$/,
-				exclude: /node_modules/,
 				use: [
 					{
 						loader: 'css-loader',
@@ -111,7 +116,6 @@ const webpackServerConfig = {
 			},
 			{
 				test: /\.(css)$/,
-				exclude: /node_modules/,
 				use: [
 					{
 						loader: 'css-loader',
@@ -120,6 +124,9 @@ const webpackServerConfig = {
 								getLocalIdent: (loaderContext, localIdentName, localName) => {
 									const lr = loaderContext.resourcePath;
 									if (path.basename(lr).indexOf('global.scss') !== -1) {
+										return localName;
+									}
+									if (path.basename(lr).indexOf('graphiql.css') !== -1) {
 										return localName;
 									}
 									return generatedIdent(
@@ -201,7 +208,7 @@ const webpackServerConfig = {
 	},
 
 	resolve: {
-		extensions: ['.ts', '.tsx', '.js', '.json', '.jsx', '.css', '.scss'],
+		extensions: ['.ts', '.tsx', '.js', '.json', '.jsx', '.css', '.scss', '.mjs'],
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },

@@ -23,7 +23,7 @@ module.exports = {
 
 	name: 'server',
 	target: 'node',
-	externals,
+	// externals,
 	mode: 'production',
 	// devtool: (none) > fastest > quality: bundled code
 
@@ -258,9 +258,9 @@ module.exports = {
 		// }),
 
 		// new DuplicatesPlugin({
-		//   emitErrors: false,
-		//   emitHandler: undefined,
-		//   verbose: true
+		// 	emitErrors: true,
+		// 	emitHandler: undefined,
+		// 	verbose: true
 		// }),
 	],
 };

@@ -15,6 +15,7 @@ GraphiQLExample > DuplicatesPlugin > `import 'graphiql/graphiql.css';`
 
 https://github.com/FormidableLabs/inspectpack/#diagnosing-duplicates
 https://github.com/FormidableLabs/inspectpack/issues/125
+https://github.com/FormidableLabs/inspectpack/issues/132
 
 * ----------------------------------------
 * ----------------------------------------

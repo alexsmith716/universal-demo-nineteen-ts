@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../../components/Loading/Loading';
 import GraphiQL from 'graphiql';
-import 'graphiql/graphiql.css';
+// import 'graphiql/graphiql.css';
 
 // inspectpack / DuplicatesPlugin: seems to have a problem with 'graphiql/graphiql.css' import
 // https://github.com/FormidableLabs/inspectpack/#diagnosing-duplicates
 // https://github.com/FormidableLabs/inspectpack/issues/125
+// Fix?:
+// https://github.com/FormidableLabs/inspectpack/issues/132
 
 // {
 //   person(personID: 3) {
@@ -26,6 +28,7 @@ class GraphiQLExample extends Component {
 	render() {
 
 		const styles = require('./scss/GraphiQLExample.scss');
+		require('graphiql/graphiql.css');
 
 		return (
 

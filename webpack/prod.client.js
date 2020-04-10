@@ -26,7 +26,7 @@ const buildPath = path.resolve(rootPath, './build');
 const assetPath = path.resolve(rootPath, './build/dist');
 
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-// const { DuplicatesPlugin } = require('inspectpack/plugin');
+const { DuplicatesPlugin } = require('inspectpack/plugin');
 
 const generatedIdent = (name, localName, lr) => {
 	const b = Buffer.from(lr).toString('base64');
@@ -65,6 +65,9 @@ module.exports = {
 				use: [],
 				include: /node_modules/,
 			},
+
+			// ====================================================================================
+			
 			{
 				test: /\.(ts|js)x?$/,
 				exclude: /node_modules/,
@@ -76,6 +79,9 @@ module.exports = {
 					// cacheCompression: false,
 				},
 			},
+
+			// ====================================================================================
+
 			{
 				test: /\.(scss)$/,
 				use: [
@@ -140,6 +146,9 @@ module.exports = {
 					},
 				],
 			},
+
+			// ====================================================================================
+
 			{
 				test: /\.(css)$/,
 				use: [
@@ -186,6 +195,9 @@ module.exports = {
 					},
 				],
 			},
+
+			// ====================================================================================
+
 			{
 				test: /\.(jpg|jpeg|gif|png)$/,
 				loader: 'url-loader',
@@ -498,10 +510,11 @@ module.exports = {
 		//   generateStatsFile: false
 		// }),
 
-		// new DuplicatesPlugin({
-		// 	emitErrors: false,
-		// 	emitHandler: undefined,
-		// 	verbose: true
-		// }),
+		new DuplicatesPlugin({
+			emitErrors: false,
+			emitHandler: undefined,
+			ignoredPackages: ['graphiql'],
+			verbose: true
+		}),
 	],
 };

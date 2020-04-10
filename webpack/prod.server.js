@@ -5,7 +5,7 @@ process.env.IS_CLIENT = false;
 
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-// const { DuplicatesPlugin } = require('inspectpack/plugin');
+const { DuplicatesPlugin } = require('inspectpack/plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const externals = require('./node-externals');
@@ -46,6 +46,9 @@ module.exports = {
 				use: [],
 				include: /node_modules/,
 			},
+
+			// ====================================================================================
+
 			{
 				test: /\.(ts|js)x?$/,
 				exclude: /node_modules/,
@@ -57,6 +60,9 @@ module.exports = {
 					// cacheCompression: false,
 				},
 			},
+
+			// ====================================================================================
+
 			{
 				test: /\.(scss)$/,
 				use: [
@@ -115,6 +121,9 @@ module.exports = {
 					},
 				],
 			},
+
+			// ====================================================================================
+
 			{
 				test: /\.(css)$/,
 				use: [
@@ -156,6 +165,9 @@ module.exports = {
 					},
 				],
 			},
+
+			// ====================================================================================
+			
 			{
 				test: /\.(jpg|jpeg|gif|png)$/,
 				loader: 'url-loader',
@@ -257,10 +269,11 @@ module.exports = {
 		//   generateStatsFile: false
 		// }),
 
-		// new DuplicatesPlugin({
-		// 	emitErrors: true,
-		// 	emitHandler: undefined,
-		// 	verbose: true
-		// }),
+		new DuplicatesPlugin({
+			emitErrors: true,
+			emitHandler: undefined,
+			ignoredPackages: ['graphiql'],
+			verbose: true
+		}),
 	],
 };

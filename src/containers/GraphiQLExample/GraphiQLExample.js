@@ -15,13 +15,6 @@ import GraphiQL from 'graphiql';
 //     name
 //   }
 // }
-// >>>>>>>> {
-// >>>>>>>>   "data": {
-// >>>>>>>>     "person": {
-// >>>>>>>>       "name": "R2-D2"
-// >>>>>>>>     }
-// >>>>>>>>   }
-// >>>>>>>> }
 
 class GraphiQLExample extends Component {
 

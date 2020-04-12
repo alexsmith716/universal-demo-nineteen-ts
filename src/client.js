@@ -59,7 +59,12 @@ const providers = {
 // =====================================================
 const cache = new InMemoryCache();
 
+// nedd to compare 'CLIENT' client to 'SERVER' client for apollo state
+// https://github.com/apollographql/apollo-client/blob/master/docs/source/performance/server-side-rendering.mdx
+// ssrMode: When using Apollo Client for [server-side rendering](../../performance/server-side-rendering/), set this to `true` so that React Apollo's `getDataFromTree` function can work effectively.
+// https://github.com/apollographql/apollo-client/tree/master/docs/source/api/link
 const clientApollo = new ApolloClient({
+	// ssrMode:
   cache,
   link: new HttpLink({
     uri: 'http://localhost:4000/graphql',

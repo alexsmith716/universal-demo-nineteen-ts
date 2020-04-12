@@ -12,6 +12,11 @@ import localForage from 'localforage';
 import { getStoredState } from 'redux-persist';
 import { AppContainer } from 'react-hot-loader';
 
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
+import { ApolloProvider } from '@apollo/react-hooks';
+
 import { Provider } from 'react-redux';
 import asyncGetPromises from './utils/asyncGetPromises';
 
@@ -50,6 +55,17 @@ const client = apiClient();
 const providers = {
 	client,
 };
+
+// =====================================================
+const cache = new InMemoryCache();
+
+const clientApollo = new ApolloClient({
+  cache,
+  link: new HttpLink({
+    uri: 'http://localhost:4000/graphql',
+  }),
+});
+// =====================================================
 
 (async () => {
 	// redux-persist:
@@ -92,20 +108,22 @@ const providers = {
 		const element = (
 			<HelmetProvider>
 				<AppContainer>
-					<Provider store={store} {...providers}>
-						{/* ---------------------------------------------------------------- */}
-						<Router history={history}>
-							{/* ------------- */}
-							<ScrollToTop />
-							{/* ------------- */}
-							{/* ------------------------------------------------- */}
-							<RouterTriggerTEST triggerProp={(pathname) => triggerHooks(_routes, pathname)}>
-								{renderRoutes(_routes)}
-							</RouterTriggerTEST>
-							{/* ------------- */}
-						</Router>
-						{/* ---------------------------------------------------------------- */}
-					</Provider>
+					<ApolloProvider client={clientApollo}>
+						<Provider store={store} {...providers}>
+							{/* ---------------------------------------------------------------- */}
+							<Router history={history}>
+								{/* ------------- */}
+								<ScrollToTop />
+								{/* ------------- */}
+								{/* ------------------------------------------------- */}
+								<RouterTriggerTEST triggerProp={(pathname) => triggerHooks(_routes, pathname)}>
+									{renderRoutes(_routes)}
+								</RouterTriggerTEST>
+								{/* ------------- */}
+							</Router>
+							{/* ---------------------------------------------------------------- */}
+						</Provider>
+					</ApolloProvider>
 				</AppContainer>
 			</HelmetProvider>
 		);

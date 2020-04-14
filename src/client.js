@@ -13,6 +13,9 @@ import { getStoredState } from 'redux-persist';
 import { AppContainer } from 'react-hot-loader';
 
 import { ApolloClient } from 'apollo-client';
+
+// Apollo Client uses an Apollo Cache instance to handle its caching strategy.
+// The recommended cache is apollo-cache-inmemory, which exports an { InMemoryCache }
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -57,15 +60,19 @@ const providers = {
 };
 
 // =====================================================
-const cache = new InMemoryCache();
+// InMemoryCache: https://github.com/apollographql/apollo-client/blob/master/docs/source/caching/cache-interaction.md
 
-// nedd to compare 'CLIENT' client to 'SERVER' client for apollo state
+// need to compare 'CLIENT' client to 'SERVER' client for apollo state
 // https://github.com/apollographql/apollo-client/blob/master/docs/source/performance/server-side-rendering.mdx
 // ssrMode: When using Apollo Client for [server-side rendering](../../performance/server-side-rendering/), set this to `true` so that React Apollo's `getDataFromTree` function can work effectively.
 // https://github.com/apollographql/apollo-client/tree/master/docs/source/api/link
+
+// ssrMode: for SSR, set to true so that React Apollo's 'getDataFromTree' function workd
+// uri: 'uri' pointing to the backend GraphQL endpoint that Apollo Client will communicate with
+// link: 'link' instance to serving as Apollo Client's network layer
 const clientApollo = new ApolloClient({
-	// ssrMode:
-  cache,
+	ssrMode: false,
+  cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
   link: new HttpLink({
     uri: 'http://localhost:4000/graphql',
   }),
@@ -73,6 +80,7 @@ const clientApollo = new ApolloClient({
 // =====================================================
 
 (async () => {
+
 	// redux-persist:
 	// delays rendering of app UI until persisted state has been retrieved and saved to redux
 	const preloadedState = await getStoredState(persistConfig);

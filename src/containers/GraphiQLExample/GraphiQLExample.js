@@ -16,6 +16,24 @@ import GraphiQL from 'graphiql';
 //   }
 // }
 
+// <GraphiQL
+// 	fetcher={async graphQLParams => {
+// 		const data = await fetch(
+// 			'https://swapi-graphql.netlify.com/.netlify/functions/index',
+// 			{
+// 				method: 'POST',
+// 				headers: {
+// 					Accept: 'application/json',
+// 					'Content-Type': 'application/json',
+// 				},
+// 				body: JSON.stringify(graphQLParams),
+// 				credentials: 'same-origin',
+// 			},
+// 		);
+// 		return data.json().catch(() => data.text());
+// 	}}
+// />
+
 class GraphiQLExample extends Component {
 
 	render() {
@@ -58,7 +76,7 @@ class GraphiQLExample extends Component {
 										<GraphiQL
 											fetcher={async graphQLParams => {
 												const data = await fetch(
-													'https://swapi-graphql.netlify.com/.netlify/functions/index',
+													'http://localhost:4000/graphql',
 													{
 														method: 'POST',
 														headers: {

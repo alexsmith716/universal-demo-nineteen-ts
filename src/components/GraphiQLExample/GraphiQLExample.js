@@ -2,6 +2,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import GraphiQL from 'graphiql';
 // import 'graphiql/graphiql.css';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 // 'http://localhost:4000/graphql',
 // {
@@ -17,10 +19,22 @@ import GraphiQL from 'graphiql';
 //   }
 // }
 
+export const GET_R2_D2 = gql`
+{
+  droid(id: 2001) {
+    name
+  }
+}
+`;
+
 export const GraphiQLExample = () => {
 
 	const styles = require('./scss/GraphiQLExample.scss');
 	require('graphiql/graphiql.css');
+
+	const { loading, error, data } = useQuery(GET_R2_D2);
+
+	console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > GET_R2_D2 > name: ', data);
 
 	return (
 

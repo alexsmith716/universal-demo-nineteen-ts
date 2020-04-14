@@ -20,11 +20,11 @@ import gql from 'graphql-tag';
 // }
 
 export const GET_R2_D2 = gql`
-{
-  droid(id: 2001) {
-    name
+  query getDroid($droidID: ID!) {
+    droid(id: $droidID) {
+      name
+    }
   }
-}
 `;
 
 export const GraphiQLExample = () => {
@@ -32,7 +32,7 @@ export const GraphiQLExample = () => {
 	const styles = require('./scss/GraphiQLExample.scss');
 	require('graphiql/graphiql.css');
 
-	const { loading, error, data } = useQuery(GET_R2_D2);
+	const { loading, error, data } = useQuery(GET_R2_D2, { variables: { droidID: 2001 } });
 
 	console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > GET_R2_D2 > name: ', data);
 

@@ -9,7 +9,6 @@ import AboutFour from './containers/AboutFour/Loadable';
 import StickyFooter from './containers/StickyFooter/Loadable';
 import Login from './containers/Login/Loadable';
 import Register from './containers/Register/Loadable';
-import GraphiQLExample from './containers/GraphiQLExample/Loadable';
 
 import { preloadData as preloadDataApp } from './containers/App/preloadData';
 import { preloadData as preloadDataAboutThree } from './containers/AboutThree/preloadData';
@@ -35,7 +34,6 @@ const routes = [
 			{ path: '/stickyfooter', component: StickyFooter },
 			{ path: '/login', component: Login },
 			{ path: '/register', component: Register },
-			{ path: '/grapiqlexample', component: GraphiQLExample },
 			{ component: NotFound },
 		],
 	},

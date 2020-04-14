@@ -84,7 +84,6 @@ const App = (props) => {
 										<Link to='/aboutthree' className="dropdown-item js-scroll-trigger">About Three</Link>
 										<Link to='/aboutfour' className="dropdown-item js-scroll-trigger">About Four</Link>
 										<Link to='/stickyfooter' className="dropdown-item js-scroll-trigger">StickyFooter</Link>
-										<Link to='/grapiqlexample' className="dropdown-item js-scroll-trigger">GraphiQL Example</Link>
 									</div>
 								</li>
 							</ul>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet-async';
 
+import GraphiQLExample from '../../components/GraphiQLExample';
+
 class StickyFooter extends Component {
 
   render() {
@@ -15,11 +17,17 @@ class StickyFooter extends Component {
 
         <h1 className={styles.uniqueColor}>Sticky Footer Test!</h1>
 
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti eum ratione ex ea praesentium quibusdam? Aut, in eum facere corrupti necessitatibus perspiciatis quis?</p>
+
+        {/* (>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>) */}
+
         <div className="row">
-          <div className="col">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti eum ratione ex ea praesentium quibusdam? Aut, in eum facere corrupti necessitatibus perspiciatis quis?</p>
-          </div>
+
+          <GraphiQLExample />
+
         </div>
+
+        {/* (>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>) */}
 
       </div>
     );

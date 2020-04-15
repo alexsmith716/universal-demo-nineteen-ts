@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import GraphiQL from 'graphiql';
+// import GraphiQL from 'graphiql';
 // import 'graphiql/graphiql.css';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -68,7 +68,7 @@ export const GraphiQLExample = () => {
 
 								<div className="card-body-content vh-100">
 
-									<GraphiQL
+									{/* <GraphiQL
 										fetcher={async graphQLParams => {
 											const data = await fetch(
 												'http://localhost:4000/graphql',
@@ -84,7 +84,7 @@ export const GraphiQLExample = () => {
 											);
 											return data.json().catch(() => data.text());
 										}}
-									/>
+									/> */}
 
 								</div>
 							</div>

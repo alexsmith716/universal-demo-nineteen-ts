@@ -47,7 +47,7 @@
 		"graphql-tag": "^2.10.3",
 		"history": "^4.10.1",
 		"immutable": "^4.0.0-rc.12",
-		"jquery": "^3.5.0",
+		"jquery": "3.4.1",
 		"localforage": "^1.7.3",
 		"lru-memoize": "^1.1.0",
 		"mongoose": "^5.9.9",

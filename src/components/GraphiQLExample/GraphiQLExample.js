@@ -20,11 +20,11 @@ import gql from 'graphql-tag';
 // }
 
 export const GET_R2_D2 = gql`
-  query getDroid($droidID: ID!) {
-    droid(id: $droidID) {
-      name
-    }
-  }
+	query getDroid($droidID: ID!) {
+		droid(id: $droidID) {
+			name
+		}
+	}
 `;
 
 export const GraphiQLExample = () => {

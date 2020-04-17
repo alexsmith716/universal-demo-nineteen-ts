@@ -12,13 +12,13 @@ import localForage from 'localforage';
 import { getStoredState } from 'redux-persist';
 import { AppContainer } from 'react-hot-loader';
 
-import { ApolloClient } from 'apollo-client';
-
-// Apollo Client uses an Apollo Cache instance to handle its caching strategy.
-// The recommended cache is apollo-cache-inmemory, which exports an { InMemoryCache }
-import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { ApolloProvider } from '@apollo/react-hooks';
+// Apollo Client uses an Apollo Cache instance to handle its caching strategy
+import {
+  ApolloProvider,
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache
+} from '@apollo/client';
 
 import { Provider } from 'react-redux';
 import asyncGetPromises from './utils/asyncGetPromises';
@@ -73,7 +73,7 @@ const providers = {
 const clientApollo = new ApolloClient({
 	ssrMode: false,
   cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
-  link: new HttpLink({
+  link: new createHttpLink({
     uri: 'http://localhost:4000/graphql',
   }),
 });

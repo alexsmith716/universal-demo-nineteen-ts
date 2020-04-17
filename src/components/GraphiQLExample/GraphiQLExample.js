@@ -1,20 +1,19 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import GraphiQL from 'graphiql';
-// import 'graphiql/graphiql.css';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import 'graphiql/graphiql.css';
+import { useQuery, gql } from '@apollo/client';
 
 // 'http://localhost:4000/graphql',
 // {
-//   person(personID: 3) {
+//   droid(id: 2001) {
 //     name
 //   }
 // }
 
 // 'https://swapi-graphql.netlify.com/.netlify/functions/index',
 // {
-//   droid(id: 2001) {
+//   person(personID: 3) {
 //     name
 //   }
 // }
@@ -30,7 +29,7 @@ export const GET_R2_D2 = gql`
 export const GraphiQLExample = () => {
 
 	const styles = require('./scss/GraphiQLExample.scss');
-	require('graphiql/graphiql.css');
+	// require('graphiql/graphiql.css');
 
 	const { loading, error, data } = useQuery(GET_R2_D2, { variables: { droidID: 2001 } });
 

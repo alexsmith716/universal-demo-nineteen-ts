@@ -23,7 +23,7 @@ module.exports = {
 
 	name: 'server',
 	target: 'node',
-	// externals,
+	externals,
 	mode: 'production',
 	// devtool: (none) > fastest > quality: bundled code
 
@@ -221,7 +221,8 @@ module.exports = {
 		extensions: ['.ts', '.tsx', '.js', '.json', '.jsx', '.css', '.scss', '.mjs'],
 		alias: {
 			react: path.resolve('./node_modules/react'),
-			// https://github.com/facebook/react/issues/13991 (duplicate react's in dependency tree)
+			graphql: path.resolve('./node_modules/graphql'),
+			// https://github.com/facebook/react/issues/13991 (duplicate react in dependency tree)
 			// '~hooks': path.resolve(__dirname, '../src/hooks'),
 		},
 	},

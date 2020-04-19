@@ -260,6 +260,7 @@ const webpackServerConfig = {
 		// new DuplicatesPlugin({
 		//   emitErrors: false,
 		//   emitHandler: undefined,
+		//   ignoredPackages: ['graphiql'],
 		//   verbose: true,
 		// }),
 	],

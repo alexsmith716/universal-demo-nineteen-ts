@@ -25,8 +25,8 @@ const rootPath = path.resolve(__dirname, '../');
 const buildPath = path.resolve(rootPath, './build');
 const assetPath = path.resolve(rootPath, './build/dist');
 
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-// const { DuplicatesPlugin } = require('inspectpack/plugin');
+//const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+//const { DuplicatesPlugin } = require('inspectpack/plugin');
 
 const generatedIdent = (name, localName, lr) => {
 	const b = Buffer.from(lr).toString('base64');
@@ -289,6 +289,7 @@ module.exports = {
 		extensions: ['.ts', '.tsx', '.js', '.json', '.jsx', '.css', '.scss', '.mjs'],
 		alias: {
 			react: path.resolve('./node_modules/react'),
+			graphql: path.resolve('./node_modules/graphql'),
 			// https://github.com/facebook/react/issues/13991 (duplicate react in dependency tree)
 			// '~hooks': path.resolve(rootPath, './src/hooks'),
 		},
@@ -510,11 +511,11 @@ module.exports = {
 		//   generateStatsFile: false
 		// }),
 
-		// new DuplicatesPlugin({
-		// 	emitErrors: false,
-		// 	emitHandler: undefined,
-		// 	ignoredPackages: ['graphiql'],
-		// 	verbose: true
-		// }),
+		//	new DuplicatesPlugin({
+		//		emitErrors: false,
+		//		emitHandler: undefined,
+		//		// ignoredPackages: ['graphiql'],
+		//		verbose: true
+		//	}),
 	],
 };

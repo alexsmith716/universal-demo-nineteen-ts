@@ -7,11 +7,11 @@ GraphiQLExample > DuplicatesPlugin > `import 'graphiql/graphiql.css';`
 
 `WARNING in ℹ ｢wdm｣: Compiled with warnings.
 [1mMissing sources: Expected 2, found 0.
-    Found map: {}
-    Duplicate Sources / Packages - Duplicates found! ⚠️
-    * Duplicates: Found 2 similar files across 2 code sources (both identical + similar)
-      accounting for 44449 bundled bytes.
-    * Packages: Found 0 packages with 0 resolved, 0 installed, and 0 depended versions.`
+		Found map: {}
+		Duplicate Sources / Packages - Duplicates found! ⚠️
+		* Duplicates: Found 2 similar files across 2 code sources (both identical + similar)
+			accounting for 44449 bundled bytes.
+		* Packages: Found 0 packages with 0 resolved, 0 installed, and 0 depended versions.`
 
 https://github.com/FormidableLabs/inspectpack/#diagnosing-duplicates
 https://github.com/FormidableLabs/inspectpack/issues/125
@@ -106,17 +106,17 @@ App developers can delete thousands of lines of tedious boilerplate code, move f
 
 // ====================================================
 dependencies:
-		"apollo-boost": 							| apollo-client
-		"apollo-link-schema": 				| apollo-link
-		"apollo-server-express": 			| apollo-server
-    "express":
-    "express-graphql":
-		"graphql": 										| graphql-js
-		"graphql-query-complexity": 	| graphql-query-complexity
-		"graphql-tools": 							| graphql-tools
-		"react-apollo": 							| react-apollo
+		"apollo-boost": 							| apollographql/apollo-client
+		"apollo-link-schema": 				| apollographql/apollo-link
+		"apollo-server-express": 			| apollographql/apollo-server
+		"express":
+		"express-graphql":						| graphql/express-graphql
+		"graphql": 										| graphql/graphql-js
+		"graphql-query-complexity": 	| slicknode/graphql-query-complexity
+		"graphql-tools": 							| apollographql/graphql-tools
+		"react-apollo": 							| apollographql/react-apollo
 // ====================================================
 devDependencies:
-		"@apollo/react-testing": 		| https://github.com/apollographql/react-apollo
+		"@apollo/react-testing": 			| apollographql/react-apollo
 		"@types/graphql": 
 // ====================================================

@@ -289,7 +289,6 @@ module.exports = {
 		extensions: ['.ts', '.tsx', '.js', '.json', '.jsx', '.css', '.scss', '.mjs'],
 		alias: {
 			react: path.resolve('./node_modules/react'),
-			graphql: path.resolve('./node_modules/graphql'),
 			// https://github.com/facebook/react/issues/13991 (duplicate react in dependency tree)
 			// '~hooks': path.resolve(rootPath, './src/hooks'),
 		},

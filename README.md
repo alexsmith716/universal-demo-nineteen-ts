@@ -3,6 +3,31 @@
 * ----------------------------------------
 * ----------------------------------------
 
+Errors on builds using `"graphql": "^15.0.0"`
+
+From dev build:
+
+`ERROR in ./node_modules/graphql-language-service-utils/esm/validateWithCustomRules.js
+Module not found: Error: Can't resolve 'graphql/validation/rules/KnownFragmentNames' in '/universal-demo-nineteen-ts/node_modules/graphql-language-service-utils/esm'
+@ ./node_modules/graphql-language-service-utils/esm/validateWithCustomRules.js 7:40-94`
+
+`ERROR in ./node_modules/graphql-language-service-utils/esm/validateWithCustomRules.js
+Module not found: Error: Can't resolve 'graphql/validation/rules/NoUnusedFragments' in '/universal-demo-nineteen-ts/node_modules/graphql-language-service-utils/esm'
+@ ./node_modules/graphql-language-service-utils/esm/validateWithCustomRules.js 3:35-88`
+
+`"graphql": "^15.0.0"`:
+`'graphql/validation/rules/KnownFragmentNamesRule'`
+`'graphql/validation/rules/NoUnusedFragmentsRule'` 
+
+`"graphql": "^14.6.0"`:
+`'graphql/validation/rules/KnownFragmentNames'`
+`'graphql/validation/rules/NoUnusedFragments'`
+
+Two module file names chenged in graphql v15.0.0 and not updated in `graphql-language-service-utils`
+
+* ----------------------------------------
+* ----------------------------------------
+
 GraphiQLExample > DuplicatesPlugin > `import 'graphiql/graphiql.css';`
 
 `WARNING in ℹ ｢wdm｣: Compiled with warnings.

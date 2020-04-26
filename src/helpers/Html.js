@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import config from '../../config/config';
 
-function Html({ assets, content, store }) {
+function Html({ assets, content, store, graphqlState }) {
+
+	// console.log('>>>> HTML > store: ', store);
+	console.log('>>>> HTML > graphqlState: ', graphqlState);
+
 	return (
 		<>
 			<head>
@@ -46,6 +50,11 @@ function Html({ assets, content, store }) {
 						dangerouslySetInnerHTML={{ __html: `window.__PRELOADED__=true; window.REDUX_DATA=${store};`}}
 						charSet="UTF-8"
 					/>
+				)}
+
+				{/* (>>>>>>> GRAPHQL <<<<<<<<<<<<<<<<<<<<<<<<<<<<<) */}
+				{graphqlState && (
+					<script>{`window.__APOLLO_STATE__=${graphqlState}`}</script>
 				)}
 
 				{/* (>>>>>>> SCRIPTS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<) */}

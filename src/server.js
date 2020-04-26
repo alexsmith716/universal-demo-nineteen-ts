@@ -97,7 +97,7 @@ export default ({ clientStats }) => async (req, res) => {
 		);
 
 		await getDataFromTree(component);
-		// const dataFromTree = await Promise.all([getDataFromTree(component)]);
+		// await Promise.all([getDataFromTree(component)]);
 
 		const content = ReactDOM.renderToString(component);
 		const assets = flushChunks(clientStats, { chunkNames: flushChunkNames() });
@@ -120,11 +120,9 @@ export default ({ clientStats }) => async (req, res) => {
 
 		const reduxStore = serialize(store.getState());
 
-		const graphqlInitialState = clientApollo.extract();
-		console.log('>>>> SERVER > graphqlInitialState: ', graphqlInitialState);
-		//const html = <Html assets={assets} content={content} store={reduxStore} graphqlState={graphqlInitialState} />;
+		const graphqlInitialState = serialize(clientApollo.extract());
 
-		const html = <Html assets={assets} content={content} store={reduxStore} />;
+		const html = <Html assets={assets} content={content} store={reduxStore} graphqlState={graphqlInitialState} />;
 
 		const ssrHtml = `<!DOCTYPE html><html lang="en-US">${ReactDOM.renderToString(html)}</html>`;
 		res.status(200).send(ssrHtml);

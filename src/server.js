@@ -22,10 +22,10 @@ import Html from './helpers/Html';
 import apiClient from './helpers/apiClient';
 
 import {
-  ApolloProvider,
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache
+	ApolloProvider,
+	ApolloClient,
+	createHttpLink,
+	InMemoryCache
 } from '@apollo/client';
 // import { SchemaLink } from '@apollo/link-schema';
 import { getDataFromTree } from 'react-apollo';
@@ -58,10 +58,10 @@ export default ({ clientStats }) => async (req, res) => {
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
 		link: createHttpLink({
-		  uri: 'http://localhost:4000/graphql',
-		  fetch: axios,
+			uri: 'http://localhost:4000/graphql',
+			fetch: axios,
 		}),
-	  cache: new InMemoryCache(),
+		cache: new InMemoryCache(),
 	});
 	// =====================================================
 
@@ -84,7 +84,7 @@ export default ({ clientStats }) => async (req, res) => {
 
 		const component = (
 			<HelmetProvider context={helmetContext}>
-				{/* <ApolloProvider client={clientApollo}> */}
+				<ApolloProvider client={clientApollo}>
 					<Provider store={store} {...providers}>
 						<Router history={history}>
 							<StaticRouter location={req.originalUrl} context={context}>
@@ -92,12 +92,12 @@ export default ({ clientStats }) => async (req, res) => {
 							</StaticRouter>
 						</Router>
 					</Provider>
-				{/* </ApolloProvider> */}
+				</ApolloProvider>
 			</HelmetProvider>
 		);
 
-		// await getDataFromTree(component);
-    // const XXX = await Promise.all([getDataFromTree(component)]);
+		await getDataFromTree(component);
+		// const dataFromTree = await Promise.all([getDataFromTree(component)]);
 
 		const content = ReactDOM.renderToString(component);
 		const assets = flushChunks(clientStats, { chunkNames: flushChunkNames() });
@@ -120,8 +120,8 @@ export default ({ clientStats }) => async (req, res) => {
 
 		const reduxStore = serialize(store.getState());
 
-		//const graphqlInitialState = clientApollo.extract();
-		//console.log('>>>> SERVER > graphqlInitialState: ', graphqlInitialState);
+		const graphqlInitialState = clientApollo.extract();
+		console.log('>>>> SERVER > graphqlInitialState: ', graphqlInitialState);
 		//const html = <Html assets={assets} content={content} store={reduxStore} graphqlState={graphqlInitialState} />;
 
 		const html = <Html assets={assets} content={content} store={reduxStore} />;

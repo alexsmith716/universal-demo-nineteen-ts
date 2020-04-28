@@ -117,13 +117,25 @@ export default ({ clientStats }) => async (req, res) => {
 
 	try {
 
-		// console.log('>>>> SERVER > store.getState() 1111 ####: ', store.getState());
 		await asyncGetPromises(routes, req.path, store);
 
 		// -------------------------------------------------------------------
 
-		// console.log('>>>> SERVER > DATA PRE-FETCH COMPLETE!! ####');
-		// console.log('>>>> SERVER > store.getState() 2222 ####: ', store.getState());
+		await clientApollo.query({query: gql`{
+				__schema {
+					types {
+						name
+						kind
+						description
+						fields {
+							name
+						}
+					}
+				}
+			}
+		`});
+
+		// -------------------------------------------------------------------
 
 		const helmetContext = {};
 		const context = {};

@@ -10,6 +10,7 @@ import flushChunks from 'webpack-flush-chunks';
 import { HelmetProvider } from 'react-helmet-async';
 import serialize from 'serialize-javascript';
 import axios from 'axios';
+import fetch from 'node-fetch';
 
 import asyncGetPromises from './utils/asyncGetPromises';
 
@@ -67,13 +68,35 @@ export default ({ clientStats }) => async (req, res) => {
 	// *** override any default option in 'defaultOptions' by providing a different value for the same option in individual function calls
 	// useQuery: called when components are mounted
 
+	// GraphQL axios HTTP request
+	// Fetching Data from a GraphQL API
+	// Forming Calls with GraphQL
+
+	//	The `HttpLink` constructor accepts the following options:
+	//		uri:               A string endpoint or function that resolves to the GraphQL server you want to execute operations against. (default: `/graphql`)
+	//		includeExtensions: If `true`, you can pass an `extensions` field to your GraphQL server. (default: `false`)
+	//		fetch:             A `fetch`-compatible API for making a request. See [Providing a `fetch` replacement for certain environments](#providing-a-fetch-replacement-for-certain-environments).
+	//		headers:           An object containing header names and values to include in each request.
+	//		credentials:       A string representing the credentials policy to use for the `fetch` call. (valid values: `omit`, `include`, `same-origin`)
+	//		fetchOptions:      Include this to override the values of certain options that are provided to the `fetch` call.
+	//		useGETForQueries:  If `true`, `HttpLink` uses `GET` requests instead of `POST` requests to execute query operations (but not mutation operations). (default: `false`)
+
+	//	########## Providing a `fetch` replacement for certain environments ##########
+	//		`HttpLink` requires that `fetch` is present in your runtime environment. 
+	//		This is the case for React Native and most modern browsers. 
+	//		If you're targeting an environment that _doesn't_ include `fetch` (such as older browsers or the server), 
+	//			you need to pass your own `fetch` to `HttpLink` via its [constructor options](#constructor-options). 
+	//		We recommend [`unfetch`](https://github.com/developit/unfetch) for older browsers 
+	//			and [`node-fetch`](https://github.com/bitinn/node-fetch) for Node.js.
+
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
-			fetch: axios,
+			fetch: fetch,
 		}),
 		cache: new InMemoryCache(),
+		//	queryDeduplication: false,
 		//	defaultOptions: {
 		//		watchQuery: {
 		//			fetchPolicy: 'cache-and-network',
@@ -93,14 +116,6 @@ export default ({ clientStats }) => async (req, res) => {
 	}
 
 	try {
-
-		// The `getDataFromTree` function takes your React tree, determines which queries are needed to render them, and then fetches them all. 
-		// It does this recursively down the whole tree if you have nested queries. 
-		// It returns a promise which resolves when the data is ready in your Apollo Client store.
-
-		// At the point that the promise resolves, your Apollo Client store will be completely initialized, 
-		//   which should mean your app will now render instantly (since all queries are prefetched) and 
-		//   you can return the stringified results in the response:
 
 		// console.log('>>>> SERVER > store.getState() 1111 ####: ', store.getState());
 		await asyncGetPromises(routes, req.path, store);
@@ -126,6 +141,16 @@ export default ({ clientStats }) => async (req, res) => {
 				</ApolloProvider>
 			</HelmetProvider>
 		);
+
+		// -------------------------------------------------------------------
+
+		// The `getDataFromTree` function takes your React tree, determines which queries are needed to render them, and then fetches them all. 
+		// It does this recursively down the whole tree if you have nested queries. 
+		// It returns a promise which resolves when the data is ready in your Apollo Client store.
+
+		// At the point that the promise resolves, your Apollo Client store will be completely initialized, 
+		//   which should mean your app will now render instantly (since all queries are prefetched) and 
+		//   you can return the stringified results in the response:
 
 		await getDataFromTree(component);
 		// await Promise.all([getDataFromTree(component)]);

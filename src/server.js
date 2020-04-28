@@ -25,7 +25,8 @@ import {
 	ApolloProvider,
 	ApolloClient,
 	createHttpLink,
-	InMemoryCache
+	InMemoryCache,
+	gql
 } from '@apollo/client';
 // import { SchemaLink } from '@apollo/link-schema';
 import { getDataFromTree } from 'react-apollo';
@@ -55,6 +56,17 @@ export default ({ clientStats }) => async (req, res) => {
 
 	// =====================================================
 	// URI pointing to the backend GraphQL endpoint that Apollo Client will communicate with
+	// "ssrMode": Apollo Client for SSR, set to true for 'getDataFromTree' function
+	// "link":  Apollo Client Link instance to serve as its network layer
+	// "cache": Apollo Client Cache instance to handle caching strategy
+	// "ssrForceFetchDelay": A time interval before Apollo Client force-fetches queries after SSR render
+	// "queryDeduplication": set to false to force all created queries to be sent to server, 
+	// 		even if a query with completely identical parameters (query, variables, operationName) is already in flight
+	// "defaultOptions": provide to set application-wide default values for options 'watchQuery', 'query', and mutate functions
+	// "ObservableQuery"
+	// *** override any default option in 'defaultOptions' by providing a different value for the same option in individual function calls
+	// useQuery: called when components are mounted
+
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
 		link: createHttpLink({
@@ -62,6 +74,16 @@ export default ({ clientStats }) => async (req, res) => {
 			fetch: axios,
 		}),
 		cache: new InMemoryCache(),
+		//	defaultOptions: {
+		//		watchQuery: {
+		//			fetchPolicy: 'cache-and-network',
+		//			errorPolicy: 'ignore',
+		//		},
+		//		query: {
+		//			fetchPolicy: 'network-only',
+		//			errorPolicy: 'all',
+		//		},
+		//	},
 	});
 	// =====================================================
 
@@ -71,6 +93,15 @@ export default ({ clientStats }) => async (req, res) => {
 	}
 
 	try {
+
+		// The `getDataFromTree` function takes your React tree, determines which queries are needed to render them, and then fetches them all. 
+		// It does this recursively down the whole tree if you have nested queries. 
+		// It returns a promise which resolves when the data is ready in your Apollo Client store.
+
+		// At the point that the promise resolves, your Apollo Client store will be completely initialized, 
+		//   which should mean your app will now render instantly (since all queries are prefetched) and 
+		//   you can return the stringified results in the response:
+
 		// console.log('>>>> SERVER > store.getState() 1111 ####: ', store.getState());
 		await asyncGetPromises(routes, req.path, store);
 
@@ -97,7 +128,7 @@ export default ({ clientStats }) => async (req, res) => {
 		);
 
 		await getDataFromTree(component);
-		// const dataFromTree = await Promise.all([getDataFromTree(component)]);
+		// await Promise.all([getDataFromTree(component)]);
 
 		const content = ReactDOM.renderToString(component);
 		const assets = flushChunks(clientStats, { chunkNames: flushChunkNames() });
@@ -120,11 +151,9 @@ export default ({ clientStats }) => async (req, res) => {
 
 		const reduxStore = serialize(store.getState());
 
-		const graphqlInitialState = clientApollo.extract();
-		console.log('>>>> SERVER > graphqlInitialState: ', graphqlInitialState);
-		//const html = <Html assets={assets} content={content} store={reduxStore} graphqlState={graphqlInitialState} />;
+		const graphqlInitialState = serialize(clientApollo.extract());
 
-		const html = <Html assets={assets} content={content} store={reduxStore} />;
+		const html = <Html assets={assets} content={content} store={reduxStore} graphqlState={graphqlInitialState} />;
 
 		const ssrHtml = `<!DOCTYPE html><html lang="en-US">${ReactDOM.renderToString(html)}</html>`;
 		res.status(200).send(ssrHtml);

@@ -135,6 +135,8 @@ export default ({ clientStats }) => async (req, res) => {
 			}
 		`});
 
+		await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`});
+
 		// -------------------------------------------------------------------
 
 		const helmetContext = {};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
@@ -18,7 +18,7 @@ import { useQuery, gql } from '@apollo/client';
 //   }
 // }
 
-export const GET_R2_D2 = gql`
+export const GET_A_DROID = gql`
 	query getDroid($droidID: ID!) {
 		droid(id: $droidID) {
 			name
@@ -31,9 +31,25 @@ export const GraphiQLExample = () => {
 	const styles = require('./scss/GraphiQLExample.scss');
 	// require('graphiql/graphiql.css');
 
-	const { loading, error, data } = useQuery(GET_R2_D2, { variables: { droidID: 2001 } });
+	const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 } });
 
-	console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > GET_R2_D2 > name: ', data);
+	useEffect(
+		() => {
+			// componentDidMount
+			console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > (componentDidMount)');
+
+			// componentDidUpdate
+			if (data) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > (componentDidMount) > GET_A_DROID > name: ', data);
+			}
+
+			// componentWillUnmount
+			return () => {
+				// some effects might require cleanup
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > (componentWillUnmount) > cleanup phase');
+			};
+		},
+	);
 
 	return (
 

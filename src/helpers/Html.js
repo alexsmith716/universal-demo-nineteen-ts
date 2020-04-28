@@ -4,8 +4,13 @@ import config from '../../config/config';
 
 function Html({ assets, content, store, graphqlState }) {
 
-	// console.log('>>>> HTML > store: ', store);
-	console.log('>>>> HTML > graphqlState: ', graphqlState);
+	//	console.log('>>>> HTML > store: ', store);
+	//	console.log('>>>> HTML > graphqlState: ', graphqlState);
+
+	//	{/* (>>>>>>> GRAPHQL <<<<<<<<<<<<<<<<<<<<<<<<<<<<<) */}
+	//	{graphqlState && (
+	//		<script>{`window.__APOLLO_STATE__=${graphqlState}`}</script>
+	//	)}
 
 	return (
 		<>
@@ -54,7 +59,10 @@ function Html({ assets, content, store, graphqlState }) {
 
 				{/* (>>>>>>> GRAPHQL <<<<<<<<<<<<<<<<<<<<<<<<<<<<<) */}
 				{graphqlState && (
-					<script>{`window.__APOLLO_STATE__=${graphqlState}`}</script>
+					<script
+						dangerouslySetInnerHTML={{ __html: `window.__APOLLO_STATE__=${graphqlState};`}}
+						charSet="UTF-8"
+					/>
 				)}
 
 				{/* (>>>>>>> SCRIPTS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<) */}

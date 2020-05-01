@@ -88,6 +88,8 @@ export default ({ clientStats }) => async (req, res) => {
 	//			you need to pass your own `fetch` to `HttpLink` via its [constructor options](#constructor-options). 
 	//		We recommend [`unfetch`](https://github.com/developit/unfetch) for older browsers 
 	//			and [`node-fetch`](https://github.com/bitinn/node-fetch) for Node.js.
+	//		fetchOptions
+	//		customFetch
 
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
@@ -96,17 +98,6 @@ export default ({ clientStats }) => async (req, res) => {
 			fetch: fetch,
 		}),
 		cache: new InMemoryCache(),
-		//	queryDeduplication: false,
-		//	defaultOptions: {
-		//		watchQuery: {
-		//			fetchPolicy: 'cache-and-network',
-		//			errorPolicy: 'ignore',
-		//		},
-		//		query: {
-		//			fetchPolicy: 'network-only',
-		//			errorPolicy: 'all',
-		//		},
-		//	},
 	});
 	// =====================================================
 
@@ -135,6 +126,7 @@ export default ({ clientStats }) => async (req, res) => {
 			}
 		`});
 
+		await clientApollo.query({query: gql`query {droid(id: 2001) {name}}`});
 		await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`});
 
 		// -------------------------------------------------------------------

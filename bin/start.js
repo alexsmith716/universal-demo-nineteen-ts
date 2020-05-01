@@ -10,6 +10,7 @@ const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const { getUserAgent } = require('../src/utils/device');
 const { isBot } = require('../src/utils/device');
 const logger = require('../src/utils/logger');
+
 // const device = require('../src/utils/device'); // getUserAgent isBot
 
 /* eslint-disable global-require */

@@ -4,14 +4,6 @@ import config from '../../config/config';
 
 function Html({ assets, content, store, graphqlState }) {
 
-	//	console.log('>>>> HTML > store: ', store);
-	//	console.log('>>>> HTML > graphqlState: ', graphqlState);
-
-	//	{/* (>>>>>>> GRAPHQL <<<<<<<<<<<<<<<<<<<<<<<<<<<<<) */}
-	//	{graphqlState && (
-	//		<script>{`window.__APOLLO_STATE__=${graphqlState}`}</script>
-	//	)}
-
 	return (
 		<>
 			<head>

@@ -9,7 +9,6 @@ import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 import { HelmetProvider } from 'react-helmet-async';
 import serialize from 'serialize-javascript';
-import axios from 'axios';
 import fetch from 'node-fetch';
 
 import asyncGetPromises from './utils/asyncGetPromises';
@@ -21,6 +20,7 @@ import { getUserAgent, isBot } from './utils/device';
 
 import Html from './helpers/Html';
 import apiClient from './helpers/apiClient';
+// import makeAxiosRequest from './helpers/makeAxiosRequest';
 
 import {
 	ApolloProvider,
@@ -31,6 +31,23 @@ import {
 } from '@apollo/client';
 // import { SchemaLink } from '@apollo/link-schema';
 import { getDataFromTree } from 'react-apollo';
+
+//	async function makeAxiosRequest(uri, options) {
+//		const config = {
+//			url: 'http://localhost:4000/graphql', 
+//			method: 'post', 
+//			headers: options.headers, 
+//			data: options.body
+//		}
+//		console.log('CONFIG: ', config);
+//		try {
+//			let response = await axios(config)
+//			console.log('response.data.data: ', response.data.data);
+//			return response.data.data
+//		} catch (error) {
+//			console.log('error: ',error);
+//		}
+//	}
 
 /* eslint-disable consistent-return */
 
@@ -54,23 +71,6 @@ export default ({ clientStats }) => async (req, res) => {
 		data: { ...preloadedState },
 		helpers: providers,
 	});
-
-	async function makeAxiosRequest(uri, options) {
-		const config = {
-			url: 'http://localhost:4000/graphql', 
-			method: 'post', 
-			headers: options.headers, 
-			data: options.body
-		}
-		console.log('CONFIG: ', config);
-		try {
-			let response = await axios(config)
-			console.log('response.data.data: ', response.data.data);
-			return response.data.data
-		} catch (error) {
-			console.log('error: ',error);
-		}
-	}
 
 	// =====================================================
 	// URI pointing to the backend GraphQL endpoint that Apollo Client will communicate with
@@ -112,7 +112,7 @@ export default ({ clientStats }) => async (req, res) => {
 		ssrMode: true,
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
-			fetch: makeAxiosRequest,
+			fetch: fetch,
 		}),
 		cache: new InMemoryCache(),
 	});

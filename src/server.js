@@ -55,6 +55,23 @@ export default ({ clientStats }) => async (req, res) => {
 		helpers: providers,
 	});
 
+	async function makeAxiosRequest(uri, options) {
+		const config = {
+			url: 'http://localhost:4000/graphql', 
+			method: 'post', 
+			headers: options.headers, 
+			data: options.body
+		}
+		console.log('CONFIG: ', config);
+		try {
+			let response = await axios(config)
+			console.log('response.data.data: ', response.data.data);
+			return response.data.data
+		} catch (error) {
+			console.log('error: ',error);
+		}
+	}
+
 	// =====================================================
 	// URI pointing to the backend GraphQL endpoint that Apollo Client will communicate with
 	// "ssrMode": Apollo Client for SSR, set to true for 'getDataFromTree' function
@@ -95,7 +112,7 @@ export default ({ clientStats }) => async (req, res) => {
 		ssrMode: true,
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
-			fetch: fetch,
+			fetch: makeAxiosRequest,
 		}),
 		cache: new InMemoryCache(),
 	});

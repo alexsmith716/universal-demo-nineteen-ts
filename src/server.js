@@ -110,11 +110,11 @@ export default ({ clientStats }) => async (req, res) => {
 
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
+		cache: new InMemoryCache(),
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
 			fetch: fetch,
 		}),
-		cache: new InMemoryCache(),
 	});
 	// =====================================================
 
@@ -143,8 +143,12 @@ export default ({ clientStats }) => async (req, res) => {
 			}
 		`});
 
-		await clientApollo.query({query: gql`query {droid(id: 2001) {name}}`});
-		await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`});
+		await clientApollo.query({query: gql`query {droid(id: 2001) {name}}`
+			}
+		);
+
+		await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`}
+		);
 
 		// -------------------------------------------------------------------
 

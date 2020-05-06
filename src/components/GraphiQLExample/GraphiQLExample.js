@@ -2,26 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
-import { useQuery, gql } from '@apollo/client';
-
-// 'http://localhost:4000/graphql',
-// {
-//   droid(id: 2001) {
-//     name
-//   }
-// }
-
-// 'https://swapi-graphql.netlify.com/.netlify/functions/index',
-// {
-//   person(personID: 3) {
-//     name
-//   }
-// }
+import { gql, useQuery, useMutation } from '@apollo/client';
 
 export const GET_A_DROID = gql`
-	query getDroid($droidID: ID!) {
+	query GetADroid($droidID: ID!) {
 		droid(id: $droidID) {
+			id
 			name
+			friends {
+			  id
+			  name
+			}
+			appearsIn
+			primaryFunction
 		}
 	}
 `;
@@ -31,16 +24,24 @@ export const GraphiQLExample = () => {
 	const styles = require('./scss/GraphiQLExample.scss');
 	// require('graphiql/graphiql.css');
 
-	const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 } });
+	const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
 
 	useEffect(
 		() => {
 			// componentDidMount
 			console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > (componentDidMount)');
 
+			if (error) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > (componentDidMount) > useQuery > error: ', error);
+			}
+
+			if (loading) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > (componentDidMount) > useQuery > loading: ', loading);
+			}
+
 			// componentDidUpdate
 			if (data) {
-				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > (componentDidMount) > GET_A_DROID > name: ', data);
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > (componentDidMount) > useQuery > data: ', data);
 			}
 
 			// componentWillUnmount

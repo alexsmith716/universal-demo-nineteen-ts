@@ -59,6 +59,7 @@ dependencies:
 		"graphql-query-complexity": 	| slicknode/graphql-query-complexity
 		"graphql-tools": 							| apollographql/apollo
 		"react-apollo": 							| apollographql/react-apollo
+		"graphql-request":						| prisma-labs/graphql-request (minimal GraphQL client)
 // ====================================================
 devDependencies:
 		"@apollo/react-testing": 			| apollographql/react-apollo

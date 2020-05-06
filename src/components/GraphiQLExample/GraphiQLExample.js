@@ -19,12 +19,22 @@ export const GET_A_DROID = gql`
 	}
 `;
 
+export const GET_REVIEWS = gql`
+	query GetEpisodeReviews($episode: Episode!) {
+		reviews(episode: $episode) {
+			stars
+			commentary
+		}
+	}
+`;
+
 export const GraphiQLExample = () => {
 
 	const styles = require('./scss/GraphiQLExample.scss');
 	// require('graphiql/graphiql.css');
 
-	const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
+	// const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
+	const { loading, error, data } = useQuery(GET_REVIEWS, { variables: { episode: "EMPIRE" }});
 
 	useEffect(
 		() => {

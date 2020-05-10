@@ -4,14 +4,20 @@ import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
 import { gql, useQuery, useMutation } from '@apollo/client';
 
+//	curl \
+//	  -X POST \
+//	  -H "Content-Type: application/json" \
+//	  --data '{ "query": "{ droid(id: 2001) { id name friends {id name} appearsIn primaryFunction } }" }' \
+//	  http://localhost:4000/graphql
+
 export const GET_A_DROID = gql`
 	query GetADroid($droidID: ID!) {
 		droid(id: $droidID) {
 			id
 			name
 			friends {
-			  id
-			  name
+				id
+				name
 			}
 			appearsIn
 			primaryFunction

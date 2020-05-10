@@ -72,42 +72,6 @@ export default ({ clientStats }) => async (req, res) => {
 		helpers: providers,
 	});
 
-	// =====================================================
-	// URI pointing to the backend GraphQL endpoint that Apollo Client will communicate with
-	// "ssrMode": Apollo Client for SSR, set to true for 'getDataFromTree' function
-	// "link":  Apollo Client Link instance to serve as its network layer
-	// "cache": Apollo Client Cache instance to handle caching strategy
-	// "ssrForceFetchDelay": A time interval before Apollo Client force-fetches queries after SSR render
-	// "queryDeduplication": set to false to force all created queries to be sent to server, 
-	// 		even if a query with completely identical parameters (query, variables, operationName) is already in flight
-	// "defaultOptions": provide to set application-wide default values for options 'watchQuery', 'query', and mutate functions
-	// "ObservableQuery"
-	// *** override any default option in 'defaultOptions' by providing a different value for the same option in individual function calls
-	// useQuery: called when components are mounted
-
-	// GraphQL axios HTTP request
-	// Fetching Data from a GraphQL API
-	// Forming Calls with GraphQL
-
-	//	The `HttpLink` constructor accepts the following options:
-	//		uri:               A string endpoint or function that resolves to the GraphQL server you want to execute operations against. (default: `/graphql`)
-	//		includeExtensions: If `true`, you can pass an `extensions` field to your GraphQL server. (default: `false`)
-	//		fetch:             A `fetch`-compatible API for making a request. See [Providing a `fetch` replacement for certain environments](#providing-a-fetch-replacement-for-certain-environments).
-	//		headers:           An object containing header names and values to include in each request.
-	//		credentials:       A string representing the credentials policy to use for the `fetch` call. (valid values: `omit`, `include`, `same-origin`)
-	//		fetchOptions:      Include this to override the values of certain options that are provided to the `fetch` call.
-	//		useGETForQueries:  If `true`, `HttpLink` uses `GET` requests instead of `POST` requests to execute query operations (but not mutation operations). (default: `false`)
-
-	//	########## Providing a `fetch` replacement for certain environments ##########
-	//		`HttpLink` requires that `fetch` is present in your runtime environment. 
-	//		This is the case for React Native and most modern browsers. 
-	//		If you're targeting an environment that _doesn't_ include `fetch` (such as older browsers or the server), 
-	//			you need to pass your own `fetch` to `HttpLink` via its [constructor options](#constructor-options). 
-	//		We recommend [`unfetch`](https://github.com/developit/unfetch) for older browsers 
-	//			and [`node-fetch`](https://github.com/bitinn/node-fetch) for Node.js.
-	//		fetchOptions
-	//		customFetch
-
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
 		cache: new InMemoryCache(),
@@ -143,9 +107,29 @@ export default ({ clientStats }) => async (req, res) => {
 			}
 		`});
 
-		await clientApollo.query({query: gql`query {droid(id: 2001) {name}}`});
+		// await clientApollo.query({query: gql`query {droid(id: 2001) {name}}`});
+		// await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`});
 
-		await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`});
+		await clientApollo.query({query: gql`
+			query GetHeroName {
+				hero {
+					name
+				}
+			}
+		`});
+
+		const GetADroid = await clientApollo.query({query: gql`
+			query GetADroid {
+				droid(id: 2001) {
+					id
+					name
+					appearsIn
+					primaryFunction
+				}
+			}
+		`});
+
+		console.log('>>>> SERVER > await clientApollo.query > GetADroid: ', GetADroid);
 
 		// -------------------------------------------------------------------
 

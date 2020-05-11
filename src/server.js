@@ -10,6 +10,7 @@ import flushChunks from 'webpack-flush-chunks';
 import { HelmetProvider } from 'react-helmet-async';
 import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
+import axios from 'axios';
 
 import asyncGetPromises from './utils/asyncGetPromises';
 
@@ -32,20 +33,20 @@ import {
 // import { SchemaLink } from '@apollo/link-schema';
 import { getDataFromTree } from 'react-apollo';
 
-//	async function makeAxiosRequest(uri, options) {
+//	async function customFetch(uri, options) {
 //		const config = {
-//			url: 'http://localhost:4000/graphql', 
-//			method: 'post', 
+//			url: uri, 
+//			method: options.method, 
 //			headers: options.headers, 
 //			data: options.body
 //		}
-//		console.log('CONFIG: ', config);
+//		console.log('>>>> SERVER > customFetch > config: ', config);
 //		try {
-//			let response = await axios(config)
-//			console.log('response.data.data: ', response.data.data);
-//			return response.data.data
+//			const response = await axios(config)
+//			console.log('>>>> SERVER > customFetch > response.data: ', response.data);
+//			return response.data;
 //		} catch (error) {
-//			console.log('error: ',error);
+//			console.log('>>>> SERVER > customFetch > ERROR: ', error);
 //		}
 //	}
 
@@ -78,6 +79,7 @@ export default ({ clientStats }) => async (req, res) => {
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
 			fetch: fetch,
+			// fetch: customFetch
 		}),
 	});
 	// =====================================================
@@ -93,19 +95,19 @@ export default ({ clientStats }) => async (req, res) => {
 
 		// -------------------------------------------------------------------
 
-		await clientApollo.query({query: gql`{
-				__schema {
-					types {
-						name
-						kind
-						description
-						fields {
-							name
-						}
-					}
-				}
-			}
-		`});
+		//	await clientApollo.query({query: gql`{
+		//			__schema {
+		//				types {
+		//					name
+		//					kind
+		//					description
+		//					fields {
+		//						name
+		//					}
+		//				}
+		//			}
+		//		}
+		//	`});
 
 		// await clientApollo.query({query: gql`query {droid(id: 2001) {name}}`});
 		// await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`});

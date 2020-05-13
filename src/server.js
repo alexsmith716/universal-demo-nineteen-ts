@@ -34,6 +34,19 @@ import { getDataFromTree } from 'react-apollo';
 
 // -------------------------------------------------------------------
 
+const customFetch = (uri, options) => {
+	const initialRequest = fetch(uri, {
+		method: options.method,
+		body: options.body,
+		headers: options.headers
+	});
+
+	// Promise { <pending> }
+	return initialRequest.then(response => {
+		return response;
+	})
+};
+
 /* eslint-disable consistent-return */
 
 // -------------------------------------------------------------------
@@ -62,8 +75,8 @@ export default ({ clientStats }) => async (req, res) => {
 		cache: new InMemoryCache(),
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
-			fetch: fetch,
-			// fetch: customFetch,
+			// fetch: fetch,
+			fetch: customFetch,
 		}),
 	});
 	// =====================================================

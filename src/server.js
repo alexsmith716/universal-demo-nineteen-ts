@@ -11,7 +11,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
-// import axios from 'axios';
+import axios from 'axios';
 
 import asyncGetPromises from './utils/asyncGetPromises';
 

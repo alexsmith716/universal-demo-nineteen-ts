@@ -47,6 +47,20 @@ const customFetch = (uri, options) => {
 	})
 };
 
+//	const customFetchAxios = (uri, options) => {
+//		const initialRequest = axios({
+//		  url: uri,
+//		  method: options.method,
+//		  headers: options.headers,
+//		  data: options.body
+//		});
+//	
+//		// Promise { <pending> }
+//		initialRequest.then(response => {
+//			return response;
+//		})
+//	};
+
 /* eslint-disable consistent-return */
 
 // -------------------------------------------------------------------

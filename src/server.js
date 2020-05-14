@@ -12,6 +12,7 @@ import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
 import axios from 'axios';
+import qs from 'qs';
 
 import asyncGetPromises from './utils/asyncGetPromises';
 
@@ -39,27 +40,33 @@ const customFetch = (uri, options) => {
 		method: options.method,
 		body: options.body,
 		headers: options.headers
-	});
-
+	})
 	// Promise { <pending> }
-	return initialRequest.then(response => {
+	return initialRequest.then((response) => {
+		console.log('>>>> SERVER > customFetch > response: ', response);
 		return response;
+	}, (error) => {
+		console.log('>>>> SERVER > customFetch > error: ', error);
 	})
 };
 
-//	const customFetchAxios = (uri, options) => {
-//		const initialRequest = axios({
-//		  url: uri,
-//		  method: options.method,
-//		  headers: options.headers,
-//		  data: options.body
-//		});
-//	
-//		// Promise { <pending> }
-//		initialRequest.then(response => {
-//			return response;
-//		})
-//	};
+const customFetchAxios = (uri, options) => {
+	const initialRequest = axios({
+		baseURL: uri,
+		method: options.method,
+		data: options.body,
+		// params: {}
+		headers: options.headers,
+	})
+	// Promise { <pending> }
+	initialRequest.then((response) => {
+		console.log('>>>> SERVER > customFetchAxios > response: ', response);
+		// return response;
+		return response
+	}, (error) => {
+		console.log('>>>> SERVER > customFetchAxios > error: ', error);
+	})
+};
 
 /* eslint-disable consistent-return */
 
@@ -106,41 +113,41 @@ export default ({ clientStats }) => async (req, res) => {
 
 		// -------------------------------------------------------------------
 
-		await clientApollo.query({query: gql`{
-				__schema {
-					types {
-						name
-						kind
-						description
-						fields {
-							name
-						}
-					}
-				}
-			}
-		`});
+		//await clientApollo.query({query: gql`{
+		//		__schema {
+		//			types {
+		//				name
+		//				kind
+		//				description
+		//				fields {
+		//					name
+		//				}
+		//			}
+		//		}
+		//	}
+		//`});
 
-		// await clientApollo.query({query: gql`query {droid(id: 2001) {name}}`});
+		await clientApollo.query({query: gql`query {droid(id: 2001) {name}}`});
 		// await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`});
 
-		await clientApollo.query({query: gql`
-			query GetHeroName {
-				hero {
-					name
-				}
-			}
-		`});
+		//await clientApollo.query({query: gql`
+		//	query GetHeroName {
+		//		hero {
+		//			name
+		//		}
+		//	}
+		//`});
 
-		const GetADroid = await clientApollo.query({query: gql`
-			query GetADroid {
-				droid(id: 2001) {
-					id
-					name
-					appearsIn
-					primaryFunction
-				}
-			}
-		`});
+		//const GetADroid = await clientApollo.query({query: gql`
+		//	query GetADroid {
+		//		droid(id: 2001) {
+		//			id
+		//			name
+		//			appearsIn
+		//			primaryFunction
+		//		}
+		//	}
+		//`});
 
 		console.log('>>>> SERVER > await clientApollo.query > GetADroid: ', GetADroid);
 

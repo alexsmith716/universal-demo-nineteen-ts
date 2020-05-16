@@ -17,16 +17,16 @@
     tslib "^1.10.0"
     zen-observable "^0.8.14"
 
-"@apollo/client@^3.0.0-beta.46":
-  version "3.0.0-james.33.0"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-james.33.0.tgz#51fa63f4448137fb2a5ec537bc05d8360c00cd35"
-  integrity sha512-EqdYCEvV/xiNBP8CVPKay4rzNBN4bT58juDZLP0jckXUscdceZ0dCo7ZIdRAR1Oo/tzy9Wd0ENm//eZrz8kSfQ==
+"@apollo/client@^3.0.0-beta.48":
+  version "3.0.0-beta.48"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.48.tgz#87bf789f1342e22c55a8d06b10066ef851cb705e"
+  integrity sha512-QeVNxR0cTR8alqTI5tprvnMkw01td6mnBCdSASB9zhIAyB3kQrtTMh0XScBzfZ8b40msK19w1kidd111XP6ckg==
   dependencies:
     "@types/zen-observable" "^0.8.0"
     "@wry/equality" "^0.1.9"
     fast-json-stable-stringify "^2.0.0"
-    graphql-tag "^2.10.1"
-    optimism "^0.11.5"
+    graphql-tag "^2.10.2"
+    optimism "^0.12.1"
     symbol-observable "^1.2.0"
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
@@ -2195,7 +2195,7 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@wry/context@^0.5.0":
+"@wry/context@^0.5.0", "@wry/context@^0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@wry/context/-/context-0.5.2.tgz#f2a5d5ab9227343aa74c81e06533c1ef84598ec7"
   integrity sha512-B/JLuRZ/vbEKHRUiGj6xiMojST1kHhu4WcreLfNN7q9DqQFrb97cWgf/kiYsPSUCAMVN0HzfFc8XjJdzgZzfjw==
@@ -6221,7 +6221,7 @@ graphql-language-service-utils@^2.4.0-alpha.6:
   dependencies:
     graphql-language-service-types "^1.6.0-alpha.5"
 
-graphql-tag@^2.10.1, graphql-tag@^2.10.2:
+graphql-tag@^2.10.2:
   version "2.10.3"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.3.tgz#ea1baba5eb8fc6339e4c4cf049dabe522b0edf03"
   integrity sha512-4FOv3ZKfA4WdOKJeHdz6B3F/vxBLSgmBcGeAFPf4n1F64ltJUvOOerNj0rsJxONQGdhUMynQIvd6LzB+1J5oKA==
@@ -9118,6 +9118,13 @@ optimism@^0.11.5:
   integrity sha512-twCHmBb64DYzEZ8A3O+TLCuF/RmZPBhXPQYv4agoiALRLlW9SidMzd7lwUP9mL0jOZhzhnBmb8ajqA00ECo/7g==
   dependencies:
     "@wry/context" "^0.5.0"
+
+optimism@^0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/optimism/-/optimism-0.12.1.tgz#933f9467b9aef0e601655adb9638f893e486ad02"
+  integrity sha512-t8I7HM1dw0SECitBYAqFOVHoBAHEQBTeKjIL9y9ImHzAVkdyPK4ifTgM4VJRDtTUY4r/u5Eqxs4XcGPHaoPkeQ==
+  dependencies:
+    "@wry/context" "^0.5.2"
 
 optimize-css-assets-webpack-plugin@^5.0.3:
   version "5.0.3"

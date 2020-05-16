@@ -11,8 +11,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
-import axios from 'axios';
-import qs from 'qs';
+// import axios from 'axios';
+// import qs from 'qs';
+// import FormData from 'form-data';
 
 import asyncGetPromises from './utils/asyncGetPromises';
 
@@ -36,13 +37,15 @@ import { getDataFromTree } from 'react-apollo';
 // -------------------------------------------------------------------
 
 const customFetch = (uri, options) => {
-	const initialRequest = fetch(uri, {
+	console.log('>>>> SERVER > customFetch > uri: ', uri);
+	console.log('>>>> SERVER > customFetch > options: ', options);
+	const request = fetch(uri, {
 		method: options.method,
 		body: options.body,
 		headers: options.headers
 	})
 	// Promise { <pending> }
-	return initialRequest.then((response) => {
+	return request.then((response) => {
 		console.log('>>>> SERVER > customFetch > response: ', response);
 		return response;
 	}, (error) => {
@@ -50,23 +53,31 @@ const customFetch = (uri, options) => {
 	})
 };
 
-const customFetchAxios = (uri, options) => {
-	const initialRequest = axios({
-		baseURL: uri,
-		method: options.method,
-		data: options.body,
-		// params: {}
-		headers: options.headers,
-	})
-	// Promise { <pending> }
-	initialRequest.then((response) => {
-		console.log('>>>> SERVER > customFetchAxios > response: ', response);
-		// return response;
-		return response
-	}, (error) => {
-		console.log('>>>> SERVER > customFetchAxios > error: ', error);
-	})
-};
+//	http://localhost:4000/graphql
+//	{
+//		method: 'POST',
+//		headers: { accept: '*/*', 'content-type': 'application/json' },
+//		credentials: undefined,
+//		body: '{"operationName":null,"variables":{},"query":"{\\n  droid(id: 2001) {\\n    name\\n    __typename\\n  }\\n}\\n"}'
+//	}
+
+//	const customFetchAxios = async (uri, options) => {
+//		console.log('>>>> SERVER > customFetchAxios > uri: ', uri);
+//		console.log('>>>> SERVER > customFetchAxios > options: ', options);
+//		const configOptions = {
+//			url: uri,
+//			method: options.method,
+//			headers: options.headers,
+//			data: {query: "query GetADroid {droid(id: 2001) {name}}"}
+//		};
+//		try {
+//			const request = await axios(configOptions);
+//			console.log('>>>> SERVER > customFetchAxios > request: ', request);
+//			return request;
+//		} catch (error) {
+//			console.log('>>>> SERVER > customFetchAxios > error: ', error);
+//		}
+//	};
 
 /* eslint-disable consistent-return */
 
@@ -91,11 +102,14 @@ export default ({ clientStats }) => async (req, res) => {
 		helpers: providers,
 	});
 
+	// the default ApolloClient function takes (optional) parameters
+	// fetchOptions: overrides of the fetch options argument to pass to the fetch call
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
 		cache: new InMemoryCache(),
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
+			// fetch: customFetchAxios,
 			// fetch: fetch,
 			fetch: customFetch,
 		}),
@@ -108,6 +122,8 @@ export default ({ clientStats }) => async (req, res) => {
 	}
 
 	try {
+
+		await clientApollo.query({query: gql`query GetADroid {droid(id: 2001) {name}}`});
 
 		await asyncGetPromises(routes, req.path, store);
 
@@ -127,7 +143,7 @@ export default ({ clientStats }) => async (req, res) => {
 		//	}
 		//`});
 
-		await clientApollo.query({query: gql`query {droid(id: 2001) {name}}`});
+		// await clientApollo.query({query: gql`query GetADroid {droid(id: 2001) {name}}`});
 		// await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`});
 
 		//await clientApollo.query({query: gql`
@@ -148,8 +164,7 @@ export default ({ clientStats }) => async (req, res) => {
 		//		}
 		//	}
 		//`});
-
-		console.log('>>>> SERVER > await clientApollo.query > GetADroid: ', GetADroid);
+		//console.log('>>>> SERVER > await clientApollo.query > GetADroid: ', GetADroid);
 
 		// -------------------------------------------------------------------
 

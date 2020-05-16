@@ -24,7 +24,7 @@
 		"format": "prettier --config .prettierrc --write ./bin/start.js"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.0.0-beta.46",
+		"@apollo/client": "^3.0.0-beta.48",
 		"@babel/register": "^7.9.0",
 		"@babel/runtime-corejs3": "^7.9.6",
 		"@fortawesome/fontawesome-free": "^5.13.0",

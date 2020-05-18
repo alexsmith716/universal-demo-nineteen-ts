@@ -40,6 +40,7 @@ export const GraphiQLExample = () => {
 	// require('graphiql/graphiql.css');
 
 	// const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
+	// const { loading, error, data } = useQuery(GET_REVIEWS, { variables: { episode: "EMPIRE" }});
 	const { loading, error, data } = useQuery(GET_REVIEWS, { variables: { episode: "EMPIRE" }});
 
 	useEffect(

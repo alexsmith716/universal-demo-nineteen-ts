@@ -11,10 +11,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
-// import axios from 'axios';
-// import qs from 'qs';
-// import FormData from 'form-data';
 
+import * as graphqlQueries from "./graphql/queries";
 import asyncGetPromises from './utils/asyncGetPromises';
 
 import routes from './routes';
@@ -37,47 +35,32 @@ import { getDataFromTree } from 'react-apollo';
 // -------------------------------------------------------------------
 
 const customFetch = (uri, options) => {
-	console.log('>>>> SERVER > customFetch > uri: ', uri);
-	console.log('>>>> SERVER > customFetch > options: ', options);
-	const request = fetch(uri, {
+	const pending = fetch(uri, {
 		method: options.method,
 		body: options.body,
 		headers: options.headers
 	})
-	// Promise { <pending> }
-	return request.then((response) => {
+	return pending.then((response) => {
 		console.log('>>>> SERVER > customFetch > response: ', response);
 		return response;
 	}, (error) => {
-		console.log('>>>> SERVER > customFetch > error: ', error);
+		console.log('>>>> SERVER > customFetch > ERROR: ', error);
 	})
 };
 
-//	http://localhost:4000/graphql
-//	{
-//		method: 'POST',
-//		headers: { accept: '*/*', 'content-type': 'application/json' },
-//		credentials: undefined,
-//		body: '{"operationName":null,"variables":{},"query":"{\\n  droid(id: 2001) {\\n    name\\n    __typename\\n  }\\n}\\n"}'
-//	}
-
-//	const customFetchAxios = async (uri, options) => {
-//		console.log('>>>> SERVER > customFetchAxios > uri: ', uri);
-//		console.log('>>>> SERVER > customFetchAxios > options: ', options);
-//		const configOptions = {
-//			url: uri,
-//			method: options.method,
-//			headers: options.headers,
-//			data: {query: "query GetADroid {droid(id: 2001) {name}}"}
-//		};
-//		try {
-//			const request = await axios(configOptions);
-//			console.log('>>>> SERVER > customFetchAxios > request: ', request);
-//			return request;
-//		} catch (error) {
-//			console.log('>>>> SERVER > customFetchAxios > error: ', error);
-//		}
-//	};
+const customFetchAsync = async (uri, options) => {
+	const response = await fetch(uri, {
+		method: options.method,
+		body: options.body,
+		headers: options.headers
+	})
+	try {
+		console.log('>>>> SERVER > customFetchAsync > response: ', response);
+		return response;
+	} catch (error) {
+		console.log('>>>> SERVER > customFetchAsync > ERROR: ', error);
+	}
+};
 
 /* eslint-disable consistent-return */
 
@@ -102,16 +85,13 @@ export default ({ clientStats }) => async (req, res) => {
 		helpers: providers,
 	});
 
-	// the default ApolloClient function takes (optional) parameters
-	// fetchOptions: overrides of the fetch options argument to pass to the fetch call
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
 		cache: new InMemoryCache(),
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
-			// fetch: customFetchAxios,
+			fetch: customFetchAsync,
 			// fetch: fetch,
-			fetch: customFetch,
 		}),
 	});
 	// =====================================================
@@ -123,48 +103,63 @@ export default ({ clientStats }) => async (req, res) => {
 
 	try {
 
-		await clientApollo.query({query: gql`query GetADroid {droid(id: 2001) {name}}`});
-
 		await asyncGetPromises(routes, req.path, store);
+
+		//	await clientApollo.query({query: gql`
+		//		{
+		//			droid(id: 2001) {
+		//				name
+		//			}
+		//		}
+		//	`});
+
+		await clientApollo.query({ query: graphqlQueries.GET_A_DROID, });
+		// await clientApollo.query({ query: graphqlQueries. , variables: { : } });
 
 		// -------------------------------------------------------------------
 
-		//await clientApollo.query({query: gql`{
-		//		__schema {
-		//			types {
-		//				name
-		//				kind
-		//				description
-		//				fields {
+		//	await clientApollo.query({query: gql`
+		//		{
+		//			__schema {
+		//				types {
 		//					name
+		//					kind
+		//					description
+		//					fields {
+		//						name
+		//					}
 		//				}
 		//			}
 		//		}
-		//	}
-		//`});
+		//	`});
 
-		// await clientApollo.query({query: gql`query GetADroid {droid(id: 2001) {name}}`});
-		// await clientApollo.query({query: gql`query {droid(id: 2000) {name}}`});
-
-		//await clientApollo.query({query: gql`
-		//	query GetHeroName {
-		//		hero {
-		//			name
+		//	await clientApollo.query({query: gql`
+		//		{
+		//			droid(id: 2000) {
+		//				name
+		//			}
 		//		}
-		//	}
-		//`});
+		//	`});
 
-		//const GetADroid = await clientApollo.query({query: gql`
-		//	query GetADroid {
-		//		droid(id: 2001) {
-		//			id
-		//			name
-		//			appearsIn
-		//			primaryFunction
+		//	await clientApollo.query({query: gql`
+		//		{
+		//			hero {
+		//				name
+		//			}
 		//		}
-		//	}
-		//`});
-		//console.log('>>>> SERVER > await clientApollo.query > GetADroid: ', GetADroid);
+		//	`});
+
+		//	const GetADroid = await clientApollo.query({query: gql`
+		//		{
+		//			droid(id: 2001) {
+		//				id
+		//				name
+		//				appearsIn
+		//				primaryFunction
+		//			}
+		//		}
+		//	`});
+		//	console.log('>>>> SERVER > await clientApollo.query > GetADroid: ', GetADroid);
 
 		// -------------------------------------------------------------------
 
@@ -226,6 +221,7 @@ export default ({ clientStats }) => async (req, res) => {
 		const ssrHtml = `<!DOCTYPE html><html lang="en-US">${ReactDOM.renderToString(html)}</html>`;
 		res.status(200).send(ssrHtml);
 	} catch (error) {
+		console.log('>>>> SERVER > RESPONSE > ERRRRRRROOOOORRRR!!!: ', error);
 		res.status(500);
 		hydrate(flushChunks(clientStats, { chunkNames: flushChunkNames() }));
 	}

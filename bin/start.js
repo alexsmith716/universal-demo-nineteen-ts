@@ -3,6 +3,7 @@ const express = require('express');
 const compression = require('compression');
 const http = require('http');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -44,6 +45,8 @@ const server = http.createServer(app);
 
 app.set('port', port);
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
 
 app.use((req, res, next) => {
@@ -125,8 +128,8 @@ if (__DEVELOPMENT__) {
 	app.use(webpackHotServerMiddleware(compiler));
 
 	devMiddleware.waitUntilValid(() => {
-	  console.log('>>>> BIN > START > Package is in a valid state');
-	  done();
+		console.log('>>>> BIN > START > Package is in a valid state');
+		done();
 	});
 } else {
 	const clientConfigProd = require('../webpack/prod.client');

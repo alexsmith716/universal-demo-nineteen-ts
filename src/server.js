@@ -1,7 +1,3 @@
-import fs from 'fs';
-import axios from 'axios';
-import path from 'path';
-
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -65,24 +61,6 @@ const customFetchAsync = async (uri, options) => {
 		console.log('>>>> SERVER > customFetchAsync > ERROR: ', error);
 	}
 };
-
-//	async function customFetchAsyncAxios (uri, options) {
-//	  return new Promise(async (resolve, reject) => {
-//	
-//	    const writer = fs.createWriteStream(uri)
-//	
-//	    const response = await axios({
-//	      uri,
-//	      method: 'POST',
-//	      data: options.body,
-//	      responseType: 'stream'
-//	    })
-//	
-//	    response.data.pipe(writer)
-//	    writer.on('finish', resolve)
-//	    writer.on('error', reject)
-//	  })
-//	}
 
 /* eslint-disable consistent-return */
 

@@ -92,6 +92,7 @@ export default ({ clientStats }) => async (req, res) => {
 			uri: 'http://localhost:4000/graphql',
 			fetch: customFetchAsync,
 			// fetch: fetch,
+			// fetch: customFetchAsyncAxios
 		}),
 	});
 	// =====================================================

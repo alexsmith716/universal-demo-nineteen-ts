@@ -299,16 +299,18 @@ module.exports = {
 
 		new ForkTsCheckerWebpackPlugin(),
 
-		new CopyPlugin([
-			{ from: path.resolve(buildPath, './favicon.ico'), to: assetPath },
-			{ from: path.resolve(buildPath, './manifest.json'), to: assetPath },
-			{ from: path.resolve(buildPath, './launcher-icon-48-48.png'), to: assetPath },
-			{ from: path.resolve(buildPath, './launcher-icon-72-72.png'), to: assetPath },
-			{ from: path.resolve(buildPath, './launcher-icon-96-96.png'), to: assetPath },
-			{ from: path.resolve(buildPath, './launcher-icon-144-144.png'), to: assetPath },
-			{ from: path.resolve(buildPath, './launcher-icon-192-192.png'), to: assetPath },
-			{ from: path.resolve(buildPath, './launcher-icon-512-512.png'), to: assetPath },
-		]),
+		new CopyPlugin({
+			patterns: [
+				{ from: path.resolve(buildPath, './favicon.ico'), to: assetPath },
+				{ from: path.resolve(buildPath, './manifest.json'), to: assetPath },
+				{ from: path.resolve(buildPath, './launcher-icon-48-48.png'), to: assetPath },
+				{ from: path.resolve(buildPath, './launcher-icon-72-72.png'), to: assetPath },
+				{ from: path.resolve(buildPath, './launcher-icon-96-96.png'), to: assetPath },
+				{ from: path.resolve(buildPath, './launcher-icon-144-144.png'), to: assetPath },
+				{ from: path.resolve(buildPath, './launcher-icon-192-192.png'), to: assetPath },
+				{ from: path.resolve(buildPath, './launcher-icon-512-512.png'), to: assetPath },
+			],
+		}),
 
 		new ExtractCssChunks({
 			filename: '[name].[contenthash].css',

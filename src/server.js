@@ -1,3 +1,7 @@
+import fs from 'fs';
+import axios from 'axios';
+import path from 'path';
+
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -62,6 +66,24 @@ const customFetchAsync = async (uri, options) => {
 	}
 };
 
+//	async function customFetchAsyncAxios (uri, options) {
+//	  return new Promise(async (resolve, reject) => {
+//	
+//	    const writer = fs.createWriteStream(uri)
+//	
+//	    const response = await axios({
+//	      uri,
+//	      method: 'POST',
+//	      data: options.body,
+//	      responseType: 'stream'
+//	    })
+//	
+//	    response.data.pipe(writer)
+//	    writer.on('finish', resolve)
+//	    writer.on('error', reject)
+//	  })
+//	}
+
 /* eslint-disable consistent-return */
 
 // -------------------------------------------------------------------
@@ -92,6 +114,7 @@ export default ({ clientStats }) => async (req, res) => {
 			uri: 'http://localhost:4000/graphql',
 			fetch: customFetchAsync,
 			// fetch: fetch,
+			// fetch: customFetchAsyncAxios
 		}),
 	});
 	// =====================================================

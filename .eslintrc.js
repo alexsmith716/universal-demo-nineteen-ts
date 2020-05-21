@@ -28,7 +28,6 @@ module.exports = {
 		__SERVER__: true,
 		__DISABLE_SSR__: true,
 		__DEVTOOLS__: true,
-		__DLLS__: true,
 	},
 
 	settings: {

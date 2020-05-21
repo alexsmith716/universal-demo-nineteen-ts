@@ -18,7 +18,7 @@ import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
 
-import * as graphqlQueries from "./graphql/queries";
+import * as graphqlQueries from "./graphql/queries.graphql";
 import asyncGetPromises from './utils/asyncGetPromises';
 
 import routes from './routes';
@@ -80,10 +80,9 @@ const customFetch = (uri, options) => {
 const customFetchAsync = async (uri, options) => {
 	console.log('>>>> SERVER > customFetchAsync > uri: ', uri);
 	console.log('>>>> SERVER > customFetchAsync > options: ', options);
-	const d = '{ "query": "{ droid(id: 2999999999) { name } }" }'
 	const response = await fetch(uri, {
 		method: options.method,
-		body: '{"variables":{},"query":"{\\n  droid(id: 2000) {\\n    name\\n    __typename\\n  }\\n}\\n"}',
+		body: options.body,
 		headers: options.headers
 	})
 	try {
@@ -93,61 +92,6 @@ const customFetchAsync = async (uri, options) => {
 		console.log('>>>> SERVER > customFetchAsync > ERROR: ', error);
 	}
 };
-
-async function customFetchAsyncAxiosSSS (uri, options) {
-	return new Promise(async (resolve, reject) => {
-
-		console.log('>>>> SERVER > customFetchAsyncAxios > uri: ', uri);
-		console.log('>>>> SERVER > customFetchAsyncAxios > options: ', options);
-
-		const response = await axios({
-			method: options.method,
-			url: uri,
-			data: Buffer.from(options.body),
-			headers: { accept: '*/*', 'content-type': 'application/json' }
-		})
-
-		console.log('>>>> SERVER > customFetchAsyncAxios > response: ', response)
-
-		const text = await response.text();
-
-		console.log('>>>> SERVER > customFetchAsyncAxios > text: ', text)
-
-		resolve(text);
-
-	})
-}
-
-//async function customFetchAsyncAxiosNNN (uri, options) {
-//	const writer = fs.createWriteStream(targetFile)
-//
-//	const response = await axios.get(sourceUrl, {
-//		responseType: 'stream',
-//	})
-//
-//	response.data.pipe(writer)
-//
-//	return new Promise((resolve, reject) => {
-//		writer.on('finish', resolve)
-//		writer.on('error', reject)
-//	})
-//}
-//
-//async function customFetchAsyncAxiosNNN (uri, options) {
-//	axios({
-//		url: uri,
-//		method: 'post',
-//		data: {
-//			query: `
-//				query PostsForAuthor {
-//					droid(id: 2001) {
-//						name
-//						}
-//					}
-//				`
-//		}
-//	})
-//}
 
 /* eslint-disable consistent-return */
 
@@ -177,9 +121,8 @@ export default ({ clientStats }) => async (req, res) => {
 		cache: new InMemoryCache(),
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
-			// fetch: customFetchAsync,
-			fetch: fetch,
-			// fetch: customFetchAsyncAxios
+			fetch: customFetchAsync,
+			// fetch: fetch,
 		}),
 	});
 	// =====================================================

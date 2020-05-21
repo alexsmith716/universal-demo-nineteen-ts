@@ -1,3 +1,9 @@
+import util from 'util';
+import fs from 'fs';
+import axios from 'axios';
+import path from 'path';
+const streamPipeline = util.promisify(require('stream').pipeline);
+
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -32,6 +38,29 @@ import {
 } from '@apollo/client';
 import { getDataFromTree } from 'react-apollo';
 
+//	####################################################################################################
+//	method: 'POST',
+//	headers: { accept: '*/*', 'content-type': 'application/json' },
+//	credentials: undefined,
+//	body: '{"variables":{},"query":"{\\n  droid(id: 2001) {\\n    name\\n    __typename\\n  }\\n}\\n"}'
+//	####################################################################################################
+
+//	CURL:
+//	data '{ "query": "{ event(id: \"5983706debf3140039d1e8b4\") { title description } }" }' \
+//	data '{ "query": "{ droid(id: 2001) { name } }" }' \
+
+//	AXIOS POST:
+//	data: { query: `query PostsForAuthor {author(id: 1) {firstName}}` }
+
+//	window.__APOLLO_STATE__={"ROOT_QUERY":{"__typename":"Query","droid({\"id\":2001})":{"name":"R2-D2"}}};
+//	window.__APOLLO_STATE__={"ROOT_QUERY":{"__typename":"Query","droid({\"id\":2001})":{"name":"C-3PO"}}};
+//	window.__APOLLO_STATE__={"ROOT_QUERY":{"__typename":"Query","droid({\"id\":2001})":{"__typename":"Droid","name":"C-3PO"}}};
+
+//	'gql': function for parsing a query string into a query document
+//	'ApolloProvider': wraps React app and places the client on the context
+//	'ApolloProvider': allows access to 'ApolloClient' from anywhere in the component tree
+//	'ApolloProvider': placed high in app (outside of root route component)
+
 // -------------------------------------------------------------------
 
 const customFetch = (uri, options) => {
@@ -49,9 +78,12 @@ const customFetch = (uri, options) => {
 };
 
 const customFetchAsync = async (uri, options) => {
+	console.log('>>>> SERVER > customFetchAsync > uri: ', uri);
+	console.log('>>>> SERVER > customFetchAsync > options: ', options);
+	const d = '{ "query": "{ droid(id: 2999999999) { name } }" }'
 	const response = await fetch(uri, {
 		method: options.method,
-		body: options.body,
+		body: '{"variables":{},"query":"{\\n  droid(id: 2000) {\\n    name\\n    __typename\\n  }\\n}\\n"}',
 		headers: options.headers
 	})
 	try {
@@ -61,6 +93,61 @@ const customFetchAsync = async (uri, options) => {
 		console.log('>>>> SERVER > customFetchAsync > ERROR: ', error);
 	}
 };
+
+async function customFetchAsyncAxiosSSS (uri, options) {
+	return new Promise(async (resolve, reject) => {
+
+		console.log('>>>> SERVER > customFetchAsyncAxios > uri: ', uri);
+		console.log('>>>> SERVER > customFetchAsyncAxios > options: ', options);
+
+		const response = await axios({
+			method: options.method,
+			url: uri,
+			data: Buffer.from(options.body),
+			headers: { accept: '*/*', 'content-type': 'application/json' }
+		})
+
+		console.log('>>>> SERVER > customFetchAsyncAxios > response: ', response)
+
+		const text = await response.text();
+
+		console.log('>>>> SERVER > customFetchAsyncAxios > text: ', text)
+
+		resolve(text);
+
+	})
+}
+
+//async function customFetchAsyncAxiosNNN (uri, options) {
+//	const writer = fs.createWriteStream(targetFile)
+//
+//	const response = await axios.get(sourceUrl, {
+//		responseType: 'stream',
+//	})
+//
+//	response.data.pipe(writer)
+//
+//	return new Promise((resolve, reject) => {
+//		writer.on('finish', resolve)
+//		writer.on('error', reject)
+//	})
+//}
+//
+//async function customFetchAsyncAxiosNNN (uri, options) {
+//	axios({
+//		url: uri,
+//		method: 'post',
+//		data: {
+//			query: `
+//				query PostsForAuthor {
+//					droid(id: 2001) {
+//						name
+//						}
+//					}
+//				`
+//		}
+//	})
+//}
 
 /* eslint-disable consistent-return */
 
@@ -76,7 +163,7 @@ export default ({ clientStats }) => async (req, res) => {
 	const preloadedState = initialStatePreloaded(req);
 
 	const providers = {
-		client: apiClient(req),
+		//client: apiClient(req),
 	};
 
 	const store = configureStore({
@@ -90,8 +177,8 @@ export default ({ clientStats }) => async (req, res) => {
 		cache: new InMemoryCache(),
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
-			fetch: customFetchAsync,
-			// fetch: fetch,
+			// fetch: customFetchAsync,
+			fetch: fetch,
 			// fetch: customFetchAsyncAxios
 		}),
 	});

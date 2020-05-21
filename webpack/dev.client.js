@@ -71,6 +71,12 @@ const webpackClientConfig = {
 				include: /node_modules/,
 			},
 
+			{
+				test: /\.(graphql|gql)$/,
+				exclude: /node_modules/,
+				loader: 'graphql-tag/loader',
+			},
+
 			// ====================================================================================
 
 			{

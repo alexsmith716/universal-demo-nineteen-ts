@@ -1,0 +1,32 @@
+
+query GetADroidRd {
+	droid(id: 2001) {
+		id
+		name
+		friends {
+			id
+			name
+		}
+		appearsIn
+		primaryFunction
+	}
+}
+
+query GetHero {
+	hero {
+		name
+	}
+}
+
+query GetTheSchema {
+	__schema {
+		types {
+			name
+			kind
+			description
+			fields {
+				name
+			}
+		}
+	}
+}

@@ -18,7 +18,8 @@ import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
 
-import * as graphqlQueries from "./graphql/queries.graphql";
+import { GetADroidCp, GetADroidRd } from "./graphql/queries.graphql";
+import * as graphqlQueries from "./graphql/queries.js";
 import asyncGetPromises from './utils/asyncGetPromises';
 
 import routes from './routes';
@@ -34,7 +35,6 @@ import {
 	ApolloClient,
 	createHttpLink,
 	InMemoryCache,
-	gql
 } from '@apollo/client';
 import { getDataFromTree } from 'react-apollo';
 
@@ -136,61 +136,12 @@ export default ({ clientStats }) => async (req, res) => {
 
 		await asyncGetPromises(routes, req.path, store);
 
-		//	await clientApollo.query({query: gql`
-		//		{
-		//			droid(id: 2001) {
-		//				name
-		//			}
-		//		}
-		//	`});
-
-		await clientApollo.query({ query: graphqlQueries.GET_A_DROID, });
-		// await clientApollo.query({ query: graphqlQueries. , variables: { : } });
-
 		// -------------------------------------------------------------------
 
-		//	await clientApollo.query({query: gql`
-		//		{
-		//			__schema {
-		//				types {
-		//					name
-		//					kind
-		//					description
-		//					fields {
-		//						name
-		//					}
-		//				}
-		//			}
-		//		}
-		//	`});
-
-		//	await clientApollo.query({query: gql`
-		//		{
-		//			droid(id: 2000) {
-		//				name
-		//			}
-		//		}
-		//	`});
-
-		//	await clientApollo.query({query: gql`
-		//		{
-		//			hero {
-		//				name
-		//			}
-		//		}
-		//	`});
-
-		//	const GetADroid = await clientApollo.query({query: gql`
-		//		{
-		//			droid(id: 2001) {
-		//				id
-		//				name
-		//				appearsIn
-		//				primaryFunction
-		//			}
-		//		}
-		//	`});
-		//	console.log('>>>> SERVER > await clientApollo.query > GetADroid: ', GetADroid);
+		await clientApollo.query({ query: GetADroidRd, });
+		await clientApollo.query({ query: graphqlQueries.GET_HERO, });
+		await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
+		// await clientApollo.query({ query: graphqlQueries. , variables: { : } });
 
 		// -------------------------------------------------------------------
 

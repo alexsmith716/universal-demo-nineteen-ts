@@ -1,9 +1,3 @@
-import util from 'util';
-import fs from 'fs';
-import axios from 'axios';
-import path from 'path';
-const streamPipeline = util.promisify(require('stream').pipeline);
-
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -18,8 +12,8 @@ import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
 
-import { GetADroidCp, GetADroidRd } from "./graphql/queries.graphql";
-import * as graphqlQueries from "./graphql/queries.js";
+import { GetADroidCp, GetADroidRd } from './graphql/queries.graphql';
+import * as graphqlQueries from './graphql/queries.js';
 import asyncGetPromises from './utils/asyncGetPromises';
 
 import routes from './routes';
@@ -36,6 +30,7 @@ import {
 	createHttpLink,
 	InMemoryCache,
 } from '@apollo/client';
+
 import { getDataFromTree } from 'react-apollo';
 
 //	####################################################################################################
@@ -138,9 +133,9 @@ export default ({ clientStats }) => async (req, res) => {
 
 		// -------------------------------------------------------------------
 
-		await clientApollo.query({ query: GetADroidRd, });
-		await clientApollo.query({ query: graphqlQueries.GET_HERO, });
-		await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
+		// await clientApollo.query({ query: GetADroidRd, });
+		// await clientApollo.query({ query: graphqlQueries.GET_HERO, });
+		// await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
 		// await clientApollo.query({ query: graphqlQueries. , variables: { : } });
 
 		// -------------------------------------------------------------------
@@ -164,20 +159,22 @@ export default ({ clientStats }) => async (req, res) => {
 
 		// -------------------------------------------------------------------
 
-		// The `getDataFromTree` function takes your React tree, determines which queries are needed to render them, and then fetches them all. 
-		// It does this recursively down the whole tree if you have nested queries. 
+		// The `getDataFromTree` function takes your React tree, determines which queries are needed to render them, and then fetches them all.
+		// It does this recursively down the whole tree if you have "nested queries".
 		// It returns a promise which resolves when the data is ready in your Apollo Client store.
 
-		// At the point that the promise resolves, your Apollo Client store will be completely initialized, 
-		//   which should mean your app will now render instantly (since all queries are prefetched) and 
+		// At the point that the promise resolves, your Apollo Client store will be completely initialized,
+		//   which should mean your app will now render instantly (since all queries are prefetched) and
 		//   you can return the stringified results in the response:
+		// getMarkupFromTree
 
+		// await GraphQL data coming from the API server
+		// determines which queries are needed to render, then fetch them all
 		await getDataFromTree(component);
 		// await Promise.all([getDataFromTree(component)]);
 
 		const content = ReactDOM.renderToString(component);
 		const assets = flushChunks(clientStats, { chunkNames: flushChunkNames() });
-		// const status = context.status || 200;
 
 		if (__DISABLE_SSR__) {
 			return hydrate(assets);

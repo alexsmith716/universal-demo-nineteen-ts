@@ -4,6 +4,10 @@ import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
 import { gql, useQuery, useMutation } from '@apollo/client';
 
+//	import { graphql } from '@apollo/react-hoc';
+//	import { GetADroidCp, GetADroidRd } from '../../graphql/queries.graphql';
+//	const withQuery = graphql(GetADroidCp);
+
 //	curl \
 //	  -X POST \
 //	  -H "Content-Type: application/json" \

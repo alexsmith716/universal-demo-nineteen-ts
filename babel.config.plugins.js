@@ -2,6 +2,7 @@ module.exports = {
 	plugins: [
 		['@babel/plugin-proposal-decorators', { legacy: true }],
 		'@babel/plugin-syntax-dynamic-import',
+		'universal-import',
 		'@babel/plugin-proposal-object-rest-spread',
 		'react-hot-loader/babel',
 		'@babel/plugin-proposal-class-properties',

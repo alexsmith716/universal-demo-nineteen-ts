@@ -31,7 +31,9 @@ import {
 	InMemoryCache,
 } from '@apollo/client';
 
-import { getDataFromTree } from 'react-apollo';
+import { onError } from "@apollo/link-error";
+
+import { getDataFromTree } from '@apollo/react-ssr';
 
 //	####################################################################################################
 //	method: 'POST',
@@ -111,15 +113,28 @@ export default ({ clientStats }) => async (req, res) => {
 		helpers: providers,
 	});
 
+	//	const errorLink = onError(({ graphQLErrors, networkError }) => {
+	//		if (graphQLErrors) {
+	//			graphQLErrors.map(({ message, locations, path }) =>
+	//				console.log(`>>>> SERVER > [GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,),
+	//			);
+	//		}
+
+	//		if (networkError) {
+	//			console.log(`>>>> SERVER > [Network error]: ${networkError}`);
+	//		}
+	//	});
+
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
 		cache: new InMemoryCache(),
 		link: createHttpLink({
 			uri: 'http://localhost:4000/graphql',
-			fetch: customFetchAsync,
-			// fetch: fetch,
+			// fetch: customFetchAsync,
+			fetch: fetch,
 		}),
 	});
+
 	// =====================================================
 
 	function hydrate(a) {

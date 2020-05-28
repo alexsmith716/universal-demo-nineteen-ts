@@ -12,13 +12,15 @@ import localForage from 'localforage';
 import { getStoredState } from 'redux-persist';
 import { AppContainer } from 'react-hot-loader';
 
-// Apollo Client uses an Apollo Cache instance to handle its caching strategy
 import {
-  ApolloProvider,
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache
+	ApolloProvider,
+	ApolloClient,
+	createHttpLink,
+	InMemoryCache,
+	ApolloLink
 } from '@apollo/client';
+
+import { onError } from "@apollo/link-error";
 
 import { Provider } from 'react-redux';
 import asyncGetPromises from './utils/asyncGetPromises';
@@ -60,24 +62,6 @@ const providers = {
 };
 
 // =====================================================
-// InMemoryCache: https://github.com/apollographql/apollo-client/blob/master/docs/source/caching/cache-interaction.md
-
-// need to compare 'CLIENT' client to 'SERVER' client for apollo state
-// https://github.com/apollographql/apollo-client/blob/master/docs/source/performance/server-side-rendering.mdx
-// ssrMode: When using Apollo Client for [server-side rendering](../../performance/server-side-rendering/), set this to `true` so that React Apollo's `getDataFromTree` function can work effectively.
-// https://github.com/apollographql/apollo-client/tree/master/docs/source/api/link
-
-// ssrMode: for SSR, set to true so that React Apollo's 'getDataFromTree' function workd
-// uri: 'uri' pointing to the backend GraphQL endpoint that Apollo Client will communicate with
-// link: 'link' instance to serving as Apollo Client's network layer
-const clientApollo = new ApolloClient({
-	ssrMode: false,
-  cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
-  link: new createHttpLink({
-    uri: 'http://localhost:4000/graphql',
-  }),
-});
-// =====================================================
 
 (async () => {
 
@@ -117,6 +101,33 @@ const clientApollo = new ApolloClient({
 		// console.log('>>>> CLIENT > triggerHooks > store.getState() 2222 ######: ', store.getState());
 	};
 
+	const httpLink = createHttpLink({
+		uri: 'http://localhost:4000/graphql',
+	});
+
+	const errorLink = onError(({ graphQLErrors, networkError }) => {
+		if (graphQLErrors) {
+			graphQLErrors.map(({ message, locations, path }) =>
+				console.log(`>>>> CLIENT > [GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,),
+			);
+		}
+
+		if (networkError) {
+			console.log(`>>>> CLIENT > [Network error]: ${networkError}`);
+		}
+	});
+
+	const link = ApolloLink.from([
+		errorLink,
+		httpLink,
+	]);
+
+	const clientApollo = new ApolloClient({
+		ssrMode: false,
+		cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
+		link,
+	});
+
 	const hydrate = (_routes) => {
 		const element = (
 			<HelmetProvider>
@@ -150,12 +161,12 @@ const clientApollo = new ApolloClient({
 
 	hydrate(routes);
 
-  if (module.hot) {
-    module.hot.accept('./routes', () => {
-      const nextRoutes = require('./routes');
-      hydrate(nextRoutes.__esModule ? nextRoutes.default : nextRoutes);
-    });
-  }
+	if (module.hot) {
+		module.hot.accept('./routes', () => {
+			const nextRoutes = require('./routes');
+			hydrate(nextRoutes.__esModule ? nextRoutes.default : nextRoutes);
+		});
+	}
 
 	if (!__DEVELOPMENT__ && 'serviceWorker' in navigator) {
 		try {

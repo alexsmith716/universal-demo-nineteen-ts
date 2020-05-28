@@ -42,6 +42,7 @@ export const GET_REVIEWS = gql`
 export const ADD_REVIEW = gql`
 	mutation createReview($episode: Episode, $review: ReviewInput!) {
 		createReview(episode: $episode, review: $review ) {
+			episode
 			stars
 			commentary
 		}
@@ -54,9 +55,10 @@ export const GraphiQLExample = () => {
 
 	// const { loading, error, data } = useQuery(GET_DROID_RD);
 	// const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
-	// const { loading, error, data } = useQuery(GET_REVIEWS, { variables: { episode: "EMPIRE" }});
+	const { loading: queryLoading, error: queryError, data: queryData } = useQuery(GET_REVIEWS, { variables: { episode: "EMPIRE" }});
 
-	const [addReview,{ loading, error, data },] = useMutation(ADD_REVIEW, {variables: {episode: "EMPIRE", review: {stars: 5, commentary: "Wow, that was awesome" }},});
+	const [addReview,{ loading: mutationLoading, error: mutationError, data: mutationData },] = useMutation(ADD_REVIEW, {variables: {episode: "EMPIRE", review: {stars: 5, commentary: "Wow, that was awesome" }},});
+	// const [addReview,{ loading, error, data },] = useMutation(ADD_REVIEW, { variables: {episode: "EMPIRE", review: {stars: 3, commentary: "Wow, that was awesome" }}, refetchQueries: () => [{ query: GET_REVIEWS, variables: { episode: "EMPIRE" }}],});
 	// const r = useCallback((r) => {addReview({ variables: {} });}, []);
 
 	useEffect(() => {
@@ -64,16 +66,29 @@ export const GraphiQLExample = () => {
 			console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample!!!! > useEffect() > componentDidMount');
 
 			// componentDidUpdate
-			if (error) {
-				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > error: ', error);
+			if (queryError) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > queryError: ', queryError);
 			}
 			// componentDidUpdate
-			if (loading) {
-				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > loading: ', loading);
+			if (queryLoading) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > queryLoading: ', queryLoading);
 			}
 			// componentDidUpdate
-			if (data) {
-				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > data: ', data);
+			if (queryData) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > queryData: ', queryData);
+			}
+
+			// componentDidUpdate
+			if (mutationError) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > mutationError: ', mutationError);
+			}
+			// componentDidUpdate
+			if (mutationLoading) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > mutationLoading: ', mutationLoading);
+			}
+			// componentDidUpdate
+			if (mutationData) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > mutationData: ', mutationData);
 			}
 
 			// componentWillUnmount
@@ -100,21 +115,39 @@ export const GraphiQLExample = () => {
 
 				    	<p>Apollo Mutation & Query Fun!</p>
 
-							{loading && (
+							{queryLoading && (
 								<div>
-									<p>Loading...</p>
+									<p>Loading queryLoading...</p>
 								</div>
 							)}
 							
-							{error && (
+							{queryError && (
 								<div>
-									<p>Error :(</p>
+									<p>Error queryError:(</p>
 								</div>
 							)}
 
-							{data && (
+							{queryData && (
 								<div>
-									YES, mutated data!!!!!!
+									YES, queryData data!!!!!!
+								</div>
+							)}
+
+							{mutationLoading && (
+								<div>
+									<p>Loading mutationLoading...</p>
+								</div>
+							)}
+							
+							{mutationError && (
+								<div>
+									<p>Error mutationError:(</p>
+								</div>
+							)}
+
+							{mutationData && (
+								<div>
+									YES, mutationData data!!!!!!
 								</div>
 							)}
 

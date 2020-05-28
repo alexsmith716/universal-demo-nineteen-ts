@@ -29,6 +29,7 @@ import {
 	ApolloClient,
 	createHttpLink,
 	InMemoryCache,
+	ApolloLink,
 } from '@apollo/client';
 
 import { onError } from "@apollo/link-error";
@@ -113,26 +114,35 @@ export default ({ clientStats }) => async (req, res) => {
 		helpers: providers,
 	});
 
-	//	const errorLink = onError(({ graphQLErrors, networkError }) => {
-	//		if (graphQLErrors) {
-	//			graphQLErrors.map(({ message, locations, path }) =>
-	//				console.log(`>>>> SERVER > [GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,),
-	//			);
-	//		}
+	const httpLink = createHttpLink({
+		uri: 'http://localhost:4000/graphql',
+		// fetch: customFetchAsync,
+		fetch: fetch,
+	});
 
-	//		if (networkError) {
-	//			console.log(`>>>> SERVER > [Network error]: ${networkError}`);
-	//		}
-	//	});
+	const cache = new InMemoryCache();
+
+	const errorLink = onError(({ graphQLErrors, networkError }) => {
+		if (graphQLErrors) {
+			graphQLErrors.map(({ message, locations, path }) =>
+				console.log(`>>>> SERVER > [GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,),
+			);
+		}
+
+		if (networkError) {
+			console.log(`>>>> SERVER > [Network error]: ${networkError}`);
+		}
+	});
+
+	const link = ApolloLink.from([
+		errorLink,
+		httpLink,
+	]);
 
 	const clientApollo = new ApolloClient({
 		ssrMode: true,
-		cache: new InMemoryCache(),
-		link: createHttpLink({
-			uri: 'http://localhost:4000/graphql',
-			// fetch: customFetchAsync,
-			fetch: fetch,
-		}),
+		cache,
+		link,
 	});
 
 	// =====================================================

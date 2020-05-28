@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
 import { gql, useQuery, useMutation } from '@apollo/client';
+import { graphql } from '@apollo/react-hoc';
 
 //	curl \
 //	  -X POST \
 //	  -H "Content-Type: application/json" \
 //	  --data '{ "query": "{ droid(id: 2001) { id name friends {id name} appearsIn primaryFunction } }" }' \
 //	  http://localhost:4000/graphql
+
+//	curl -X POST --data '{ "user_id": "123", "auth_token": "ABC123", \
+//	    "status": "hello world!", "media_ids": "ABC987" }' \
+//	    https://twitter.com/api/v1/tweet
 
 export const GET_A_DROID = gql`
 	query GetADroid($droidID: ID!) {
@@ -27,6 +32,16 @@ export const GET_A_DROID = gql`
 export const GET_REVIEWS = gql`
 	query GetEpisodeReviews($episode: Episode!) {
 		reviews(episode: $episode) {
+			episode
+			stars
+			commentary
+		}
+	}
+`;
+
+export const ADD_REVIEW = gql`
+	mutation createReview($episode: Episode, $review: ReviewInput!) {
+		createReview(episode: $episode, review: $review ) {
 			stars
 			commentary
 		}
@@ -40,7 +55,9 @@ export const GraphiQLExample = () => {
 	// const { loading, error, data } = useQuery(GET_DROID_RD);
 	// const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
 	// const { loading, error, data } = useQuery(GET_REVIEWS, { variables: { episode: "EMPIRE" }});
-	const { loading, error, data } = useQuery(GET_REVIEWS, { variables: { episode: "EMPIRE" }});
+
+	const [addReview,{ loading, error, data },] = useMutation(ADD_REVIEW, {variables: {episode: "EMPIRE", review: {stars: 5, commentary: "Wow, that was awesome" }},});
+	// const r = useCallback((r) => {addReview({ variables: {} });}, []);
 
 	useEffect(() => {
 			// componentDidMount
@@ -48,17 +65,15 @@ export const GraphiQLExample = () => {
 
 			// componentDidUpdate
 			if (error) {
-				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > useQuery > error: ', error);
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > error: ', error);
 			}
-
 			// componentDidUpdate
 			if (loading) {
-				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > useQuery > loading: ', loading);
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > loading: ', loading);
 			}
-
 			// componentDidUpdate
 			if (data) {
-				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > useQuery > data: ', data);
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > data: ', data);
 			}
 
 			// componentWillUnmount
@@ -75,9 +90,45 @@ export const GraphiQLExample = () => {
 
 			<h1 className={styles.uniqueColor}>GraphiQL Webpack Example</h1>
 
-			<p>An graphical interactive in-browser GraphQL IDE</p>
-
 			{/* (>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>) */}
+
+			<div className="row">
+				<div className="col-lg-12 mb-4">
+					<div className="bg-color-ivory container-padding-border-radius-1 text-break">
+
+				    <div className="mb-2">
+
+				    	<p>Apollo Mutation & Query Fun!</p>
+
+							{loading && (
+								<div>
+									<p>Loading...</p>
+								</div>
+							)}
+							
+							{error && (
+								<div>
+									<p>Error :(</p>
+								</div>
+							)}
+
+							{data && (
+								<div>
+									YES, mutated data!!!!!!
+								</div>
+							)}
+
+				    </div>
+
+						<div>
+							<button onClick={() => addReview()} className={`btn btn-success`} >
+								useMutation
+							</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
 
 			<div className="row">
 
@@ -92,43 +143,29 @@ export const GraphiQLExample = () => {
 						<div className="card-body">
 
 							<h5 className="card-title text-center">
-								Custom ES6 GraphiQL Implementation
+								An graphical interactive in-browser GraphQL IDE!
 							</h5>
 
 							<div className="card-body-container">
 
 								<div className="card-body-content vh-100">
 
-									{loading && (
-										<div>
-											<p>Loading...</p>
-										</div>
-									)}
-									
-									{error && (
-										<div>
-											<p>Error :(</p>
-										</div>
-									)}
-
-									{data && (
-										<GraphiQL
-											fetcher={async graphQLParams => {
-												const data = await fetch(
-													'http://localhost:4000/graphql',
-													{
-														method: 'POST',
-														headers: {
-															Accept: 'application/json',
-															'Content-Type': 'application/json',
-														},
-														body: JSON.stringify(graphQLParams),
+									<GraphiQL
+										fetcher={async graphQLParams => {
+											const data = await fetch(
+												'http://localhost:4000/graphql',
+												{
+													method: 'POST',
+													headers: {
+														Accept: 'application/json',
+														'Content-Type': 'application/json',
 													},
-												);
-												return data.json().catch(() => data.text());
-											}}
-										/>
-									)}
+													body: JSON.stringify(graphQLParams),
+												},
+											);
+											return data.json().catch(() => data.text());
+										}}
+									/>
 
 								</div>
 							</div>

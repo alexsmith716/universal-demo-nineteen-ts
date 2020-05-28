@@ -111,9 +111,9 @@ export const GraphiQLExample = () => {
 				<div className="col-lg-12 mb-4">
 					<div className="bg-color-ivory container-padding-border-radius-1 text-break">
 
-				    <div className="mb-2">
+						<div className="mb-2">
 
-				    	<p>Apollo Mutation & Query Fun!</p>
+							<p>Apollo Mutation & Query Fun!</p>
 
 							{queryLoading && (
 								<div>
@@ -151,7 +151,7 @@ export const GraphiQLExample = () => {
 								</div>
 							)}
 
-				    </div>
+						</div>
 
 						<div>
 							<button onClick={() => addReview()} className={`btn btn-success`} >

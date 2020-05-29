@@ -55,10 +55,32 @@ export const GraphiQLExample = () => {
 
 	// const { loading, error, data } = useQuery(GET_DROID_RD);
 	// const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
-	const { loading: queryLoading, error: queryError, data: queryData } = useQuery(GET_REVIEWS, { variables: { episode: "EMPIRE" }});
+	const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
+		GET_REVIEWS,
+		{
+			variables: {
+				episode: "EMPIRE",
+			}
+		}
+	);
 
-	const [addReview,{ loading: mutationLoading, error: mutationError, data: mutationData },] = useMutation(ADD_REVIEW, {variables: {episode: "EMPIRE", review: {stars: 5, commentary: "Wow, that was awesome" }},});
-	// const [addReview,{ loading, error, data },] = useMutation(ADD_REVIEW, { variables: {episode: "EMPIRE", review: {stars: 3, commentary: "Wow, that was awesome" }}, refetchQueries: () => [{ query: GET_REVIEWS, variables: { episode: "EMPIRE" }}],});
+	//	update local data in the cache with either 'direct cache writes' or 'client resolvers'
+	//	two ways to perform local state mutations:
+	//		1) directly write to the cache by calling cache.writeQuery
+	//		2) leveraging the useMutation hook with a GraphQL mutation that calls a local client-side resolver
+	//	@clien (directive): client property returned from the 'useApolloClient' hook
+	//	useApolloClient:
+	//	onCompleted:
+	const [addReview,{ loading: mutationLoading, error: mutationError, data: mutationData },] = useMutation(
+		ADD_REVIEW,
+		{
+			variables: {
+				episode: "EMPIRE",
+				review: {stars: 5, commentary: "Wow, that was awesome" }
+			},
+			refetchQueries: () => [{ query: GET_REVIEWS, variables: { episode: "EMPIRE" }}],
+		}
+	);
 	// const r = useCallback((r) => {addReview({ variables: {} });}, []);
 
 	useEffect(() => {

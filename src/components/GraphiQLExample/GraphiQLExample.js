@@ -68,7 +68,14 @@ export const GraphiQLExample = () => {
 	//	two ways to perform local state mutations:
 	//		1) directly write to the cache by calling cache.writeQuery
 	//		2) leveraging the useMutation hook with a GraphQL mutation that calls a local client-side resolver
-	//	@clien (directive): client property returned from the 'useApolloClient' hook
+
+	//	https://www.apollographql.com/docs/react/v3.0-beta/data/mutations/
+	//	https://www.apollographql.com/docs/react/v3.0-beta/data/local-state/
+	//		https://www.apollographql.com/docs/react/v3.0-beta/data/local-state/#local-data-query-flow
+	//	https://www.apollographql.com/docs/react/v3.0-beta/caching/cache-interaction/
+	//	https://www.apollographql.com/docs/react/v3.0-beta/api/react/hooks/
+
+	//	@client (directive):
 	//	useApolloClient:
 	//	onCompleted:
 	const [addReview,{ loading: mutationLoading, error: mutationError, data: mutationData },] = useMutation(

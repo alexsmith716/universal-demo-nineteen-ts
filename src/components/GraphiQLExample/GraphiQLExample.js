@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { 
+	gql, 
+	useQuery, 
+	useMutation,
+	useApolloClient, } from '@apollo/client';
 import { graphql } from '@apollo/react-hoc';
 
 //	curl \
@@ -32,7 +36,7 @@ export const GET_A_DROID = gql`
 export const GET_REVIEWS = gql`
 	query GetEpisodeReviews($episode: Episode!) {
 		reviews(episode: $episode) {
-			episode
+			episode @client(always: true)
 			stars
 			commentary
 		}
@@ -51,16 +55,21 @@ export const ADD_REVIEW = gql`
 
 export const GraphiQLExample = () => {
 
+	const client = useApolloClient();
+
 	const styles = require('./scss/GraphiQLExample.scss');
 
 	// const { loading, error, data } = useQuery(GET_DROID_RD);
 	// const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
-	const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
+	const { loading: queryLoading, error: queryError, data: queryData, refetch } = useQuery(
 		GET_REVIEWS,
 		{
 			variables: {
 				episode: "EMPIRE",
-			}
+			},
+			//	onCompleted() {
+			//		client.writeData({ data: { } });
+			//	}
 		}
 	);
 
@@ -76,7 +85,7 @@ export const GraphiQLExample = () => {
 	//	https://www.apollographql.com/docs/react/v3.0-beta/api/react/hooks/
 
 	//	@client (directive):
-	//	useApolloClient:
+	//	useApolloClient direct write to the cache
 	//	onCompleted:
 	const [addReview,{ loading: mutationLoading, error: mutationError, data: mutationData },] = useMutation(
 		ADD_REVIEW,
@@ -183,6 +192,18 @@ export const GraphiQLExample = () => {
 						</div>
 
 						<div>
+							<button onClick={() => refetch()}>refetch</button>
+
+							<button
+								onClick={() => client.writeQuery({
+									query: GET_REVIEWS,
+									data: queryData
+								})}
+								className={`btn btn-success`}
+							>
+								writeQuery
+							</button>
+
 							<button onClick={() => addReview()} className={`btn btn-success`} >
 								useMutation
 							</button>

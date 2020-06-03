@@ -91,6 +91,8 @@ export const GraphiQLExample = () => {
 
 	const client = useApolloClient();
 
+	console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > client.extract(): ', client.extract());
+
 	const styles = require('./scss/GraphiQLExample.scss');
 
 	// const { loading, error, data } = useQuery(GET_DROID_RD);
@@ -115,9 +117,16 @@ export const GraphiQLExample = () => {
 		}
 	);
 
+	const [clientExtract, setClientExtract] = useState(null);
+
 	useEffect(() => {
 			// componentDidMount
 			console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample!!!! > useEffect() > componentDidMount');
+
+			// componentDidUpdate
+			if (clientExtract) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > clientExtract: ', clientExtract);
+			}
 
 			// componentDidUpdate
 			if (queryError) {
@@ -172,6 +181,7 @@ export const GraphiQLExample = () => {
 									Loading queryLoading...
 								</p>
 							)}
+
 							
 							{queryError && (
 								<p>
@@ -203,34 +213,54 @@ export const GraphiQLExample = () => {
 								</p>
 							)}
 
+							{clientExtract !== null && (
+								<div>
+									<h5>ApolloClient Cache:</h5>
+									<p>
+										<div>----------------------------------</div>
+										<div>{JSON.stringify(clientExtract)}</div>
+										<div>----------------------------------</div>
+										{Object.keys(clientExtract).map((item, index) => (
+										  <div key={index}>{`${index+1}: ${item}: "${clientExtract[item]}"`}</div>
+										))}
+									</p>
+								</div>
+							)}
+
 						</div>
 
 						<div>
-							<button 
-								onClick={() => refetch()}
-								className={`btn btn-success`}
-							>
-								refetch
-							</button>
 
-							<button
-								onClick={() => client.writeQuery({
-									query: GET_REVIEWS,
-									data: queryData
-								})}
-								className={`btn btn-success`}
-							>
-								writeQuery
-							</button>
+								<button
+									onClick={ () => setClientExtract( client.extract() ) }
+									className={`btn btn-success`}
+								>
+									View Apollo Cache
+								</button>
 
-							<button 
-								onClick={() => addReview()} 
-								className={`btn btn-success`} 
-							>
-								useMutation
-							</button>
+								<button 
+									onClick={() => refetch()}
+									className={`btn btn-success`}
+								>
+									refetch
+								</button>
+
+								<button
+									onClick={() => client.writeQuery({
+										query: GET_REVIEWS,
+										data: queryData
+									})}
+									className={`btn btn-success`}
+								>
+									writeQuery
+								</button>
+
+								<button onClick={() => addReview()} className={`btn btn-success`} >
+									useMutation
+								</button>
 
 						</div>
+
 					</div>
 				</div>
 			</div>

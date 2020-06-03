@@ -8,15 +8,48 @@ import {
 	useApolloClient, } from '@apollo/client';
 import { graphql } from '@apollo/react-hoc';
 
+//	https://www.apollographql.com/docs/react/v3.0-beta/api/core/ApolloClient/
+//	https://www.apollographql.com/docs/react/v3.0-beta/data/queries/
+//	https://www.apollographql.com/docs/react/v3.0-beta/data/mutations/
+//	https://www.apollographql.com/docs/react/v3.0-beta/data/local-state/
+//	https://www.apollographql.com/docs/react/v3.0-beta/caching/cache-configuration/
+//	https://www.apollographql.com/docs/react/v3.0-beta/caching/cache-interaction/
+//	https://www.apollographql.com/docs/react/v3.0-beta/performance/performance/
+//	https://www.apollographql.com/docs/react/v3.0-beta/api/react/hooks/
+//	https://www.apollographql.com/docs/react/v3.0-beta/performance/optimistic-ui/
+//	https://www.apollographql.com/docs/react/v3.0-beta/migrating/apollo-client-3-migration/
+
+//	update local data in the cache with either 'direct cache writes' or 'client resolvers'
+//	two ways to perform local state mutations:
+//		1) directly write to the cache by calling "cache.writeQuery"
+//		2) leveraging the useMutation hook with a GraphQL mutation that calls a local client-side resolver
+
+//	@client directive: tells Apollo Client to fetch the field data locally (either from the cache or using a local resolver), 
+//		instead of sending it to GraphQL server
+
+//	=========================================================================================================
+//	ApolloClient functions:
+
+//		query():     resolves a single query and returns a Promise which is either resolved with data or an error
+//		readQuery(): read data from the store in shape of provided GraphQL query
+//									does not make network request
+//									method starts at the root query
+
+//		writeQuery(): write data in the shape of the provided GraphQL query directly to store
+//									method starts at the root query
+//	=========================================================================================================
+
+//	useMutation hook accepts some options:
+//		update: function used to update cache after a mutation occurs
+//		refetchQueries: array or function that specifies which queries to refetch after mutation has occurred. array values either queries or query strings
+//		onCompleted: callback executed once mutation successfully completes
+//		client: 'ApolloClient' instance. By default the client passed down via context, but a different client can be passed in
+
 //	curl \
 //	  -X POST \
 //	  -H "Content-Type: application/json" \
 //	  --data '{ "query": "{ droid(id: 2001) { id name friends {id name} appearsIn primaryFunction } }" }' \
 //	  http://localhost:4000/graphql
-
-//	curl -X POST --data '{ "user_id": "123", "auth_token": "ABC123", \
-//	    "status": "hello world!", "media_ids": "ABC987" }' \
-//	    https://twitter.com/api/v1/tweet
 
 export const GET_A_DROID = gql`
 	query GetADroid($droidID: ID!) {
@@ -67,37 +100,19 @@ export const GraphiQLExample = () => {
 			variables: {
 				episode: "EMPIRE",
 			},
-			//	onCompleted() {
-			//		client.writeData({ data: { } });
-			//	}
 		}
 	);
 
-	//	update local data in the cache with either 'direct cache writes' or 'client resolvers'
-	//	two ways to perform local state mutations:
-	//		1) directly write to the cache by calling cache.writeQuery
-	//		2) leveraging the useMutation hook with a GraphQL mutation that calls a local client-side resolver
-
-	//	https://www.apollographql.com/docs/react/v3.0-beta/data/mutations/
-	//	https://www.apollographql.com/docs/react/v3.0-beta/data/local-state/
-	//		https://www.apollographql.com/docs/react/v3.0-beta/data/local-state/#local-data-query-flow
-	//	https://www.apollographql.com/docs/react/v3.0-beta/caching/cache-interaction/
-	//	https://www.apollographql.com/docs/react/v3.0-beta/api/react/hooks/
-
-	//	@client (directive):
-	//	useApolloClient direct write to the cache
-	//	onCompleted:
 	const [addReview,{ loading: mutationLoading, error: mutationError, data: mutationData },] = useMutation(
 		ADD_REVIEW,
 		{
 			variables: {
 				episode: "EMPIRE",
-				review: {stars: 5, commentary: "Wow, that was awesome" }
+				review: {stars: 5, commentary: "Wow, how about EMPIRE!" }
 			},
 			refetchQueries: () => [{ query: GET_REVIEWS, variables: { episode: "EMPIRE" }}],
 		}
 	);
-	// const r = useCallback((r) => {addReview({ variables: {} });}, []);
 
 	useEffect(() => {
 			// componentDidMount

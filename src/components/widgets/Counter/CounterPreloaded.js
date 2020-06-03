@@ -6,47 +6,46 @@ import { incrementPreloadedState, decrementPreloadedState  } from '../../../redu
 
 // UI bindings
 @connect(
-  (state) => ({ count: state.counterPreloaded.counterPreloadedState }),
-  (dispatch) => bindActionCreators({ incrementPreloadedState, decrementPreloadedState }, dispatch)
+	(state) => ({ count: state.counterPreloaded.counterPreloadedState }),
+	(dispatch) => bindActionCreators({ incrementPreloadedState, decrementPreloadedState }, dispatch)
 )
 
 class CounterPreloaded extends Component {
 
-  // static propTypes = {
-  //   count: PropTypes.number.isRequired,
-  //   incrementPreloadedState: PropTypes.func.isRequired,
-  //   decrementPreloadedState: PropTypes.func.isRequired,
-  // };
+	// static propTypes = {
+	//   count: PropTypes.number.isRequired,
+	//   incrementPreloadedState: PropTypes.func.isRequired,
+	//   decrementPreloadedState: PropTypes.func.isRequired,
+	// };
 
-  render() {
+	render() {
 
-    const { count, incrementPreloadedState, decrementPreloadedState } = this.props;
+		const { count, incrementPreloadedState, decrementPreloadedState } = this.props;
 
-    return (
+		return (
 
-      <div className="text-center">
-        <div className="row">
+			<div className="text-center">
+				<div className="row">
 
-          <div className="col mb-3">
-            Counter Preloaded State Clicked: {count} times.
-          </div>
+					<div className="col mb-3">
+						Counter Preloaded State Clicked: {count} times.
+					</div>
 
-        </div>
+				</div>
 
-        <div className="row">
+				<div className="row">
 
-          <div className="col-lg-6 col-md-6 col-sm-12 mb-lg-0 mb-md-0 mb-sm-2 mb-2">
-            <button onClick={decrementPreloadedState} className="btn btn-primary">decrement counter</button>
-          </div>
+					<div className="col-lg-6 col-md-6 col-sm-12">
+						<button onClick={decrementPreloadedState} className="btn btn-primary">decrement counter</button>
+					</div>
 
-          <div className="col-lg-6 col-md-6 col-sm-12">
-            <button onClick={incrementPreloadedState} className="btn btn-primary">increment counter</button>
-          </div>
-
-        </div>
-      </div>
-    );
-  }
+					<div className="col-lg-6 col-md-6 col-sm-12">
+						<button onClick={incrementPreloadedState} className="btn btn-primary">increment counter</button>
+					</div>
+				</div>
+			</div>
+		);
+	}
 };
 
 export default CounterPreloaded;

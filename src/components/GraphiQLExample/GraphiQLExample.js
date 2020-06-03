@@ -16,6 +16,7 @@ import { graphql } from '@apollo/react-hoc';
 //	https://www.apollographql.com/docs/react/v3.0-beta/caching/cache-interaction/
 //	https://www.apollographql.com/docs/react/v3.0-beta/performance/performance/
 //	https://www.apollographql.com/docs/react/v3.0-beta/api/react/hooks/
+
 //	https://www.apollographql.com/docs/react/v3.0-beta/performance/optimistic-ui/
 //	https://www.apollographql.com/docs/react/v3.0-beta/migrating/apollo-client-3-migration/
 
@@ -69,7 +70,7 @@ export const GET_A_DROID = gql`
 export const GET_REVIEWS = gql`
 	query GetEpisodeReviews($episode: Episode!) {
 		reviews(episode: $episode) {
-			episode @client(always: true)
+			episode
 			stars
 			commentary
 		}
@@ -164,50 +165,53 @@ export const GraphiQLExample = () => {
 				<div className="col-lg-12 mb-4">
 					<div className="bg-color-ivory container-padding-border-radius-1 text-break">
 
-						<div className="mb-2">
-
-							<p>Apollo Mutation & Query Fun!</p>
+						<div>
 
 							{queryLoading && (
-								<div>
-									<p>Loading queryLoading...</p>
-								</div>
+								<p>
+									Loading queryLoading...
+								</p>
 							)}
 							
 							{queryError && (
-								<div>
-									<p>Error queryError:(</p>
-								</div>
+								<p>
+									Error queryError:(
+								</p>
 							)}
 
 							{queryData && (
-								<div>
-									YES, queryData data!!!!!!
-								</div>
+								<p>
+									YES, queryData data!
+								</p>
 							)}
 
 							{mutationLoading && (
-								<div>
-									<p>Loading mutationLoading...</p>
-								</div>
+								<p>
+									Loading mutationLoading...
+								</p>
 							)}
 							
 							{mutationError && (
-								<div>
-									<p>Error mutationError:(</p>
-								</div>
+								<p>
+									Error mutationError:(
+								</p>
 							)}
 
 							{mutationData && (
-								<div>
-									YES, mutationData data!!!!!!
-								</div>
+								<p>
+									YES, mutationData data!
+								</p>
 							)}
 
 						</div>
 
 						<div>
-							<button onClick={() => refetch()}>refetch</button>
+							<button 
+								onClick={() => refetch()}
+								className={`btn btn-success`}
+							>
+								refetch
+							</button>
 
 							<button
 								onClick={() => client.writeQuery({
@@ -219,11 +223,14 @@ export const GraphiQLExample = () => {
 								writeQuery
 							</button>
 
-							<button onClick={() => addReview()} className={`btn btn-success`} >
+							<button 
+								onClick={() => addReview()} 
+								className={`btn btn-success`} 
+							>
 								useMutation
 							</button>
-						</div>
 
+						</div>
 					</div>
 				</div>
 			</div>

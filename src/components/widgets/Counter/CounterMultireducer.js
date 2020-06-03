@@ -10,47 +10,46 @@ import { incrementMultireducer, decrementMultireducer  } from '../../../redux/mo
 
 // UI bindings
 @connect(
-  (state, { multireducerKey: key }) => ({  count: state.counterCollection[key].countMultireducer }),
-  (dispatch, { multireducerKey: key }) => bindActionCreators({ incrementMultireducer, decrementMultireducer  }, dispatch, key)
+	(state, { multireducerKey: key }) => ({  count: state.counterCollection[key].countMultireducer }),
+	(dispatch, { multireducerKey: key }) => bindActionCreators({ incrementMultireducer, decrementMultireducer  }, dispatch, key)
 )
 
 class CounterMultireducer extends Component {
 
-  // static propTypes = {
-  //   count: PropTypes.number.isRequired,
-  //   incrementMultireducer: PropTypes.func.isRequired,
-  //   decrementMultireducer: PropTypes.func.isRequired,
-  // };
+	// static propTypes = {
+	//   count: PropTypes.number.isRequired,
+	//   incrementMultireducer: PropTypes.func.isRequired,
+	//   decrementMultireducer: PropTypes.func.isRequired,
+	// };
 
-  render() {
+	render() {
 
-    const { count, incrementMultireducer, decrementMultireducer } = this.props;
+		const { count, incrementMultireducer, decrementMultireducer } = this.props;
 
-    return (
+		return (
 
-      <div className="text-center">
-        <div className="row">
+			<div className="text-center">
+				<div className="row">
 
-          <div className="col mb-3">
-            Counter Multireducer Clicked: {count} times
-          </div>
+					<div className="col mb-3">
+						Counter Multireducer Clicked: {count} times
+					</div>
 
-        </div>
+				</div>
 
-        <div className="row">
+				<div className="row">
 
-          <div className="col-lg-6 col-md-6 col-sm-12 mb-lg-0 mb-md-0 mb-sm-2 mb-2">
-            <button onClick={decrementMultireducer} className="btn btn-primary">decrement counter</button>
-          </div>
+					<div className="col-lg-6 col-md-6 col-sm-12">
+						<button onClick={decrementMultireducer} className="btn btn-primary">decrement counter</button>
+					</div>
 
-          <div className="col-lg-6 col-md-6 col-sm-12">
-            <button onClick={incrementMultireducer} className="btn btn-primary">increment counter</button>
-          </div>
-
-        </div>
-      </div>
-    );
-  }
+					<div className="col-lg-6 col-md-6 col-sm-12">
+						<button onClick={incrementMultireducer} className="btn btn-primary">increment counter</button>
+					</div>
+				</div>
+			</div>
+		);
+	}
 };
 
 export default CounterMultireducer;

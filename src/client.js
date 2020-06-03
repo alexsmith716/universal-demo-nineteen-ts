@@ -89,11 +89,11 @@ const providers = {
 		// Don't fetch data for initial route, server has already done the work:
 		if (window.__PRELOADED__) {
 			// Delete initial data so that subsequent data fetches can occur:
-			// console.log('>>>> CLIENT > triggerHooks > window.__PRELOADED__ YES: ', window.__PRELOADED__);
+			console.log('>>>> CLIENT > triggerHooks > window.__PRELOADED__ YES: ', window.__PRELOADED__);
 			delete window.__PRELOADED__;
 		} else {
 			// Fetch mandatory data dependencies for 2nd route change onwards:
-			// console.log('>>>> CLIENT > triggerHooks > window.__PRELOADED__ NO > await asyncGetPromises()');
+			console.log('>>>> CLIENT > triggerHooks > window.__PRELOADED__ NO > await asyncGetPromises()');
 			await asyncGetPromises(_routes, pathname, store);
 		}
 

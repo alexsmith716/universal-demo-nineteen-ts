@@ -156,13 +156,13 @@ export default ({ clientStats }) => async (req, res) => {
 
 		await asyncGetPromises(routes, req.path, store);
 
+		//	prefetch data (load data into cache): "client.query"
+		//	set "initialState" of data
 		// -------------------------------------------------------------------
-
-		// await clientApollo.query({ query: GetADroidRd, });
+		await clientApollo.query({ query: GetADroidRd, });
 		// await clientApollo.query({ query: graphqlQueries.GET_HERO, });
 		// await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
 		// await clientApollo.query({ query: graphqlQueries. , variables: { : } });
-
 		// -------------------------------------------------------------------
 
 		const helmetContext = {};

@@ -87,6 +87,12 @@ export const ADD_REVIEW = gql`
 	}
 `;
 
+export const JUST_GET_REVIEWS = gql`
+	query GetEpisodeReviews($episode: Episode!) {
+		reviews(episode: $episode)
+	}
+`;
+
 export const GraphiQLExample = () => {
 
 	const client = useApolloClient();
@@ -106,6 +112,11 @@ export const GraphiQLExample = () => {
 		}
 	);
 
+	//	If a mutation updates a single existing entity, 
+	//		Apollo Client can automatically update that entity's value in its cache when the mutation returns
+
+	//	If a mutation modifies multiple entities, or if it creates or deletes entities, 
+	//		the Apollo Client cache is not automatically updated to reflect the result of the mutation
 	const [addReview,{ loading: mutationLoading, error: mutationError, data: mutationData },] = useMutation(
 		ADD_REVIEW,
 		{
@@ -113,7 +124,18 @@ export const GraphiQLExample = () => {
 				episode: "EMPIRE",
 				review: {stars: 5, commentary: "Wow, how about EMPIRE!" }
 			},
-			refetchQueries: () => [{ query: GET_REVIEWS, variables: { episode: "EMPIRE" }}],
+			// refetchQueries: () => [{ query: GET_REVIEWS, variables: { episode: "EMPIRE" }}],
+			//	update(cache, { data: { createReview } }) {
+
+			//		const { reviews } = cache.readQuery({ query: JUST_GET_REVIEWS, variables: { episode: "EMPIRE" } });
+
+			//		cache.writeQuery({
+			//			query: JUST_GET_REVIEWS,
+			//			data: { reviews: reviews.concat([createReview]) },
+			//		});
+
+			//		// console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > cache.extract(): ', cache.extract());
+			//	}
 		}
 	);
 
@@ -182,16 +204,9 @@ export const GraphiQLExample = () => {
 								</p>
 							)}
 
-							
 							{queryError && (
 								<p>
 									Error queryError:(
-								</p>
-							)}
-
-							{queryData && (
-								<p>
-									YES, queryData data!
 								</p>
 							)}
 
@@ -207,23 +222,30 @@ export const GraphiQLExample = () => {
 								</p>
 							)}
 
-							{mutationData && (
-								<p>
-									YES, mutationData data!
-								</p>
+							{queryData && (
+								<div>
+									<h5>queryData Data:</h5>
+									<div>----------------------------------</div>
+									<div>{JSON.stringify(queryData)}</div>
+									<div>----------------------------------</div>
+								</div>
 							)}
 
 							{clientExtract !== null && (
 								<div>
 									<h5>ApolloClient Cache:</h5>
-									<p>
-										<div>----------------------------------</div>
-										<div>{JSON.stringify(clientExtract)}</div>
-										<div>----------------------------------</div>
-										{Object.keys(clientExtract).map((item, index) => (
-										  <div key={index}>{`${index+1}: ${item}: "${clientExtract[item]}"`}</div>
-										))}
-									</p>
+									<div>----------------------------------</div>
+									<div>{JSON.stringify(clientExtract)}</div>
+									<div>----------------------------------</div>
+								</div>
+							)}
+
+							{mutationData && (
+								<div>
+									<h5>mutationData Data:</h5>
+									<div>----------------------------------</div>
+									<div>{JSON.stringify(mutationData)}</div>
+									<div>----------------------------------</div>
 								</div>
 							)}
 
@@ -255,7 +277,10 @@ export const GraphiQLExample = () => {
 									writeQuery
 								</button>
 
-								<button onClick={() => addReview()} className={`btn btn-success`} >
+								<button 
+									onClick={() => addReview()} 
+									className={`btn btn-success`}
+								>
 									useMutation
 								</button>
 

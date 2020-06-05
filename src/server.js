@@ -158,7 +158,7 @@ export default ({ clientStats }) => async (req, res) => {
 
 		await asyncGetPromises(routes, req.path, store);
 
-		// console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract(): ', cache.extract());
+		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract(): ', cache.extract());
 
 		//	prefetch data (load data into cache): "client.query"
 		//	set "initialState" of data
@@ -169,16 +169,16 @@ export default ({ clientStats }) => async (req, res) => {
 		// await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
 		// -------------------------------------------------------------------
 
-		//	console.log('>>>> SERVER > clientApollo.query: ', JSON.stringify(q));
+		console.log('>>>> SERVER > clientApollo.query: ', JSON.stringify(q));
 
-		//	Object.keys(q).forEach(key => {
-		//		const k = q[key];
-		//		console.log('>>>> SERVER > clientApollo.query > Object.keys().forEach(): ', k);
-		//	});
+		Object.keys(q).forEach(key => {
+			const k = q[key];
+			console.log('>>>> SERVER > clientApollo.query > Object.keys().forEach(): ', k);
+		});
 
-		//	enumerateObjectValues(q);
+		enumerateObjectValues(q);
 
-		// console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract(): ', cache.extract());
+		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract(): ', cache.extract());
 
 		const helmetContext = {};
 		const context = {};

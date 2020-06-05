@@ -54,7 +54,7 @@
 		"lru-memoize": "^1.1.0",
 		"mongoose": "^5.9.15",
 		"multireducer": "^3.1.2",
-		"node-fetch": "^3.0.0-beta.5",
+		"node-fetch": "^3.0.0-beta.6-exportfix",
 		"popper.js": "^1.16.1",
 		"prop-types": "^15.7.2",
 		"qs": "^6.9.4",
@@ -76,7 +76,7 @@
 		"redux-persist-cookie-storage": "^1.0.0",
 		"regenerator-runtime": "^0.13.5",
 		"reselect": "^4.0.0",
-		"serialize-javascript": "^3.0.0",
+		"serialize-javascript": "^3.1.0",
 		"webpack-flush-chunks": "^2.0.3"
 	},
 	"devDependencies": {

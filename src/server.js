@@ -12,7 +12,7 @@ import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
 
-import { GetADroidCp, GetADroidRd } from './graphql/queries.graphql';
+import { GetReviews } from './graphql/queries.graphql';
 import * as graphqlQueries from './graphql/queries.js';
 import asyncGetPromises from './utils/asyncGetPromises';
 
@@ -20,6 +20,8 @@ import routes from './routes';
 import configureStore from './redux/configureStore';
 import initialStatePreloaded from './redux/initial-preloaded-state';
 import { getUserAgent, isBot } from './utils/device';
+
+import enumerateObjectValues from './utils/enumerateObjectValues';
 
 import Html from './helpers/Html';
 import apiClient from './helpers/apiClient';
@@ -156,14 +158,28 @@ export default ({ clientStats }) => async (req, res) => {
 
 		await asyncGetPromises(routes, req.path, store);
 
+		// console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract(): ', cache.extract());
+
 		//	prefetch data (load data into cache): "client.query"
 		//	set "initialState" of data
 		// -------------------------------------------------------------------
-		await clientApollo.query({ query: GetADroidRd, });
+		const q = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
+		// const q = await clientApollo.query({ query: GetADroidRd, });
 		// await clientApollo.query({ query: graphqlQueries.GET_HERO, });
 		// await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
 		// await clientApollo.query({ query: graphqlQueries. , variables: { : } });
 		// -------------------------------------------------------------------
+
+		// console.log('>>>> SERVER > clientApollo.query: ', JSON.stringify(q));
+
+		//	Object.keys(q).forEach(key => {
+		//		const k = q[key];
+		//		console.log('>>>> SERVER > clientApollo.query > Object.keys().forEach(): ', k);
+		//	});
+
+		//	enumerateObjectValues(q);
+
+		// console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract(): ', cache.extract());
 
 		const helmetContext = {};
 		const context = {};
@@ -219,6 +235,8 @@ export default ({ clientStats }) => async (req, res) => {
 		const reduxStore = serialize(store.getState());
 
 		const graphqlInitialState = serialize(clientApollo.extract());
+
+		console.log('>>>> SERVER > InMemoryCache > CACHE >>>>>>>>>>>>>>>>>>>: ', cache);
 
 		const html = <Html assets={assets} content={content} store={reduxStore} graphqlState={graphqlInitialState} />;
 

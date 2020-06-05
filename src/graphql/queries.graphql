@@ -1,4 +1,12 @@
 
+query GetReviews($episode: Episode!) {
+	reviews(episode: $episode) {
+		episode
+		stars
+		commentary
+	}
+}
+
 query GetADroidRd {
 	droid(id: 2001) {
 		id

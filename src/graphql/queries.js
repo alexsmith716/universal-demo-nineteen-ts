@@ -1,5 +1,15 @@
 import { gql } from '@apollo/client';
 
+export const GET_REVIEWS = gql`
+	query GetReviews($episode: Episode!) {
+		reviews(episode: $episode) {
+			episode
+			stars
+			commentary
+		}
+	}
+`;
+
 export const GET_A_DROID_CP = gql`
 	{
 		droid(id: 2000) {

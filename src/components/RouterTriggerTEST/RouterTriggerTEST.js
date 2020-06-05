@@ -23,8 +23,7 @@ const RouterTriggerTEST = (props) => {
 		setNeedTrigger(true);
 	}
 
-	useEffect(
-		() => {
+	useEffect(() => {
 			// componentDidMount
 			console.log('>>>>>>>>>>>>>>>>>>>>>>>> RouterTriggerTEST 2222 > useEffect() > (componentDidMount) > navigated: ', navigated);
 			console.log('>>>>>>>>>>>>>>>>>>>>>>>> RouterTriggerTEST 3333 > useEffect() > (componentDidUpdate) > needTrigger ???: ', needTrigger);

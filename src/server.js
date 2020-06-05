@@ -12,7 +12,7 @@ import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
 
-import { GetReviews } from './graphql/queries.graphql';
+import { GetReviews, GetADroid } from './graphql/queries.graphql';
 import * as graphqlQueries from './graphql/queries.js';
 import asyncGetPromises from './utils/asyncGetPromises';
 
@@ -163,14 +163,13 @@ export default ({ clientStats }) => async (req, res) => {
 		//	prefetch data (load data into cache): "client.query"
 		//	set "initialState" of data
 		// -------------------------------------------------------------------
-		const q = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
-		// const q = await clientApollo.query({ query: GetADroidRd, });
+		// const q = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
+		const q = await clientApollo.query({ query: GetADroid, variables: { droidID: 2001 } });
 		// await clientApollo.query({ query: graphqlQueries.GET_HERO, });
 		// await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
-		// await clientApollo.query({ query: graphqlQueries. , variables: { : } });
 		// -------------------------------------------------------------------
 
-		// console.log('>>>> SERVER > clientApollo.query: ', JSON.stringify(q));
+		//	console.log('>>>> SERVER > clientApollo.query: ', JSON.stringify(q));
 
 		//	Object.keys(q).forEach(key => {
 		//		const k = q[key];

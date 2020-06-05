@@ -97,7 +97,7 @@ export const GraphiQLExample = () => {
 
 	const client = useApolloClient();
 
-	console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > client.extract(): ', client.extract());
+	// console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > client.extract(): ', client.extract());
 
 	const styles = require('./scss/GraphiQLExample.scss');
 
@@ -182,6 +182,7 @@ export const GraphiQLExample = () => {
 				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentWillUnmount > cleanup phase');
 			};
 		},
+		//	[clientExtract] // only re-run the effect if an array item changes
 	);
 
 	return (

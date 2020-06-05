@@ -7,8 +7,8 @@ query GetReviews($episode: Episode!) {
 	}
 }
 
-query GetADroidRd {
-	droid(id: 2001) {
+query GetADroid($droidID: ID!) {
+	droid(id: $droidID) {
 		id
 		name
 		friends {

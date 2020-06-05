@@ -10,24 +10,9 @@ export const GET_REVIEWS = gql`
 	}
 `;
 
-export const GET_A_DROID_CP = gql`
-	{
-		droid(id: 2000) {
-			id
-			name
-			friends {
-				id
-				name
-			}
-			appearsIn
-			primaryFunction
-		}
-	}
-`;
-
-export const GET_A_DROID_RD = gql`
-	{
-		droid(id: 2001) {
+export const GET_A_DROID = gql`
+	query GetADroid($droidID: ID!) {
+		droid(id: $droidID) {
 			id
 			name
 			friends {

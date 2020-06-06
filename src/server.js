@@ -38,29 +38,6 @@ import { RestLink } from 'apollo-link-rest';
 import { onError } from "@apollo/link-error";
 import { getDataFromTree } from '@apollo/react-ssr';
 
-//	####################################################################################################
-//	method: 'POST',
-//	headers: { accept: '*/*', 'content-type': 'application/json' },
-//	credentials: undefined,
-//	body: '{"variables":{},"query":"{\\n  droid(id: 2001) {\\n    name\\n    __typename\\n  }\\n}\\n"}'
-//	####################################################################################################
-
-//	CURL:
-//	data '{ "query": "{ event(id: \"5983706debf3140039d1e8b4\") { title description } }" }' \
-//	data '{ "query": "{ droid(id: 2001) { name } }" }' \
-
-//	AXIOS POST:
-//	data: { query: `query PostsForAuthor {author(id: 1) {firstName}}` }
-
-//	window.__APOLLO_STATE__={"ROOT_QUERY":{"__typename":"Query","droid({\"id\":2001})":{"name":"R2-D2"}}};
-//	window.__APOLLO_STATE__={"ROOT_QUERY":{"__typename":"Query","droid({\"id\":2001})":{"name":"C-3PO"}}};
-//	window.__APOLLO_STATE__={"ROOT_QUERY":{"__typename":"Query","droid({\"id\":2001})":{"__typename":"Droid","name":"C-3PO"}}};
-
-//	'gql': function for parsing a query string into a query document
-//	'ApolloProvider': wraps React app and places the client on the context
-//	'ApolloProvider': allows access to 'ApolloClient' from anywhere in the component tree
-//	'ApolloProvider': placed high in app (outside of root route component)
-
 // -------------------------------------------------------------------
 
 const customFetch = (uri, options) => {

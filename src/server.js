@@ -34,8 +34,8 @@ import {
 	ApolloLink,
 } from '@apollo/client';
 
+import { RestLink } from 'apollo-link-rest';
 import { onError } from "@apollo/link-error";
-
 import { getDataFromTree } from '@apollo/react-ssr';
 
 //	####################################################################################################
@@ -116,11 +116,32 @@ export default ({ clientStats }) => async (req, res) => {
 		helpers: providers,
 	});
 
+	// =====================================================
+
+	//	Composing a link chain:
+	//	Each link should represent a self-contained modification to a GraphQL operation. 
+	//	By composing these links into a chain, you can create an arbitrarily complex model for your client's data flow.
+	//	
+	//	There are two forms of link composition: additive and directional.
+	//		* Additive composition involves combining a set of links into a serially executed chain.
+	//		* Directional composition involves branching to one of multiple links, depending on the details of an operation.
+	//	Directional composition: defined with the "split" method of an ApolloLink instance
+
+	//	https://www.apollographql.com/docs/react/v3.0-beta/api/link/apollo-link-rest/
+	//	setup "RestLink" instance:
+	//	specify endpoint to use in the rest directive:
+
+	//	https://github.com/afuh/rick-and-morty-api
+	//	REST:			https://rickandmortyapi.com/api/
+	//	GRAPHQL:	https://rickandmortyapi.com/graphql/
+
 	const httpLink = createHttpLink({
 		uri: 'http://localhost:4000/graphql',
 		// fetch: customFetchAsync,
 		fetch: fetch,
 	});
+
+	const restLink = new RestLink({ uri: 'api.server.com' });
 
 	const cache = new InMemoryCache();
 
@@ -158,13 +179,13 @@ export default ({ clientStats }) => async (req, res) => {
 
 		await asyncGetPromises(routes, req.path, store);
 
-		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract(): ', cache.extract());
+		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract() 1: ', cache.extract());
 
 		//	prefetch data (load data into cache): "client.query"
 		//	set "initialState" of data
 		// -------------------------------------------------------------------
-		// const q = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
-		const q = await clientApollo.query({ query: GetADroid, variables: { droidID: 2001 } });
+		const q = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
+		// const q = await clientApollo.query({ query: GetADroid, variables: { droidID: 2001 } });
 		// await clientApollo.query({ query: graphqlQueries.GET_HERO, });
 		// await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
 		// -------------------------------------------------------------------
@@ -178,7 +199,7 @@ export default ({ clientStats }) => async (req, res) => {
 
 		enumerateObjectValues(q);
 
-		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract(): ', cache.extract());
+		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract() 2: ', cache.extract());
 
 		const helmetContext = {};
 		const context = {};

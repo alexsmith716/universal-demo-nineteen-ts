@@ -34,6 +34,12 @@ function enumerateObjectValues(obj, i, z) {
 				}
 			}
 
+			if (isArray) {
+
+				console.log('--------------- !AAAAAAAA! ---------------');
+
+			}
+
 			// ---------------------------------------------
 
 			if (obj[prop] !== null && isArray) {

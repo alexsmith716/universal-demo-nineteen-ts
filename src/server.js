@@ -35,6 +35,7 @@ import {
 	createHttpLink,
 	InMemoryCache,
 	ApolloLink,
+	gql,
 } from '@apollo/client';
 
 import { RestLink } from 'apollo-link-rest';
@@ -124,8 +125,8 @@ export default ({ clientStats }) => async (req, res) => {
 	});
 
 	const restLink = new RestLink({ 
-		uri: 'http://localhost:4001/api',
-		fetch: fetch,
+		uri: 'http://localhost:4001/api/',
+		customFetch: fetch,
 	});
 
 	const cache = new InMemoryCache();
@@ -145,7 +146,10 @@ export default ({ clientStats }) => async (req, res) => {
 	//	"httpLink" is terminating so must be last, while retry & error wrap the links to their right
 	//	State & context links should happen before (to the left of) restLink
 	const link = ApolloLink.from([
+		//	authLink,
+		restLink,
 		errorLink,
+		//	retryLink,
 		httpLink,
 	]);
 
@@ -167,6 +171,16 @@ export default ({ clientStats }) => async (req, res) => {
 		await asyncGetPromises(routes, req.path, store);
 
 		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract() 1: ', cache.extract());
+
+		const r = await clientApollo.query({query: gql`
+			{
+				characters @rest(type: "character", path: "character/1/") {
+					name
+				}
+			}
+		`});
+
+		console.log('>>>> SERVER > RRRRRRRRRRRRRRRRRRRRRrrrrRRRRR: ', r);
 
 		//	prefetch data (load data into cache): "client.query"
 		//	set "initialState" of data

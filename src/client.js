@@ -111,7 +111,7 @@ const providers = {
 	});
 
 	const restLink = new RestLink({ 
-		uri: 'http://localhost:4001/api/',
+		uri: 'https://rickandmortyapi.com/api/',
 	});
 
 	const errorLink = onError(({ graphQLErrors, networkError }) => {

@@ -125,7 +125,7 @@ export default ({ clientStats }) => async (req, res) => {
 	});
 
 	const restLink = new RestLink({ 
-		uri: 'http://localhost:4001/api/',
+		uri: 'https://rickandmortyapi.com/api/',
 		customFetch: fetch,
 	});
 
@@ -172,15 +172,46 @@ export default ({ clientStats }) => async (req, res) => {
 
 		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract() 1: ', cache.extract());
 
-		const r = await clientApollo.query({query: gql`
-			{
-				characters @rest(type: "character", path: "character/1/") {
+		// ==========================================================================
+		// ==========================================================================
+
+		//	https://rickandmortyapi.com/documentation/
+		//	'https://rickandmortyapi.com/api/episode/'
+		//	`https://rickandmortyapi.com/api/character/${ids}`
+		//	`https://rickandmortyapi.com/api/episode/${id}`
+
+		const queryCharacter = await clientApollo.query({query: gql`
+			query Character($id: ID){
+				character(id: "1") @rest(type: "Post", path: "character/1/") {
+					id
 					name
+					status
+					species
+					type
+					gender
+					origin {
+						name
+						type
+						dimension
+					}
+					location {
+						name
+						type
+						dimension
+					}
+					image
+					episode {
+						name
+						episode
+					}
 				}
 			}
 		`});
 
-		console.log('>>>> SERVER > RRRRRRRRRRRRRRRRRRRRRrrrrRRRRR: ', r);
+		//	console.log('>>>> SERVER > clientApollo.query > REST: ', queryCharacter);
+
+		// ==========================================================================
+		// ==========================================================================
 
 		//	prefetch data (load data into cache): "client.query"
 		//	set "initialState" of data

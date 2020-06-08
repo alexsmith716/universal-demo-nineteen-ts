@@ -3,23 +3,7 @@
 * ----------------------------------------
 * ----------------------------------------
 
-@apollo/client 		3-0-0-beta-54
-
-* ----------------------------------------
-* ----------------------------------------
-
 Local Storage:
-
-KEY: 
-	graphiql:queries
-VALUE:
-	{"queries":[{"query":"{\n  droid(id: 2001) {\n    name\n  }\n}","variables":null}]}
-
-
-KEY:
-	graphiql:query
-VALUE:
-
 
 KEY:
 	localforage/persist:root
@@ -29,7 +13,46 @@ VALUE:
 
 window.__PRELOADED__=true; window.REDUX_DATA={"online":true,"counterCollection":{"AboutOneMultireducer1":{"countMultireducer":0},"AboutTwoMultireducer1":{"countMultireducer":0},"AboutTwoMultireducer2":{"countMultireducer":0},"AboutTwoMultireducer3":{"countMultireducer":0}},"counterPreloaded":{"counterPreloadedState":56},"device":{"userAgent":"desktop","isBot":false},"filterableTableCollection":{"AboutOneMultireducerFilterableTable1":{"loaded":false,"data":null},"AboutOneMultireducerFilterableTable2":{"loaded":false,"data":null}},"info":{"loaded":true,"data":{"time":1587752834668,"delay":6600,"message":"RESOLVED! 200 - Data Found. P1 Good Result!","status":200},"loading":false},"infoAlert":{"loaded":true,"data":{"time":1587752836274,"delay":1600,"message":"RESOLVED! 200 - Data Found. P1 Good Result!","status":200},"loading":false},"infoAlertOne":{"loaded":false,"data":null},"infoAlertTwo":{"loaded":false,"data":null},"infoAlertThree":{"loaded":false,"data":null},"infoAlertFour":{"loaded":false,"data":null},"lineChartCollection":{"AboutTwoMultireducerLineChart1":{"loaded":false,"data":null},"AboutTwoMultireducerLineChart2":{"loaded":false,"data":null}},"temperatureCalculatorCollection":{"AboutOne1":{"temperature":"","scale":"c"},"AboutOne2":{"temperature":"","scale":"c"},"AboutTwo1":{"temperature":"","scale":"c"},"AboutTwo2":{"temperature":"","scale":"c"}}};
 
-window.__APOLLO_STATE__={&quot;ROOT_QUERY&quot;:{&quot;__typename&quot;:&quot;Query&quot;,&quot;droid({\&quot;id\&quot;:2000})&quot;:{&quot;__typename&quot;:&quot;Droid&quot;,&quot;name&quot;:&quot;C-3PO&quot;}}}
+window.__APOLLO_STATE__ = {
+    "Post:1": {
+        "id": 1,
+        "__typename": "Post",
+        "name": "Rick Sanchez",
+        "status": "Alive",
+        "species": "Human",
+        "type": "",
+        "gender": "Male",
+        "origin": {
+            "name": "Earth (C-137)",
+            "type": null,
+            "dimension": null
+        },
+        "location": {
+            "name": "Earth (Replacement Dimension)",
+            "type": null,
+            "dimension": null
+        },
+        "image": "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fcharacter\u002Favatar\u002F1.jpeg",
+        "episode": [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+    },
+    "ROOT_QUERY": {
+        "__typename": "Query",
+        "character({\"id\":\"1\"})": {
+            "__ref": "Post:1"
+        },
+        "reviews({\"episode\":\"EMPIRE\"})": [{
+            "__typename": "Review",
+            "episode": "EMPIRE",
+            "stars": 4,
+            "commentary": "This IS a great movie?"
+        }, {
+            "__typename": "Review",
+            "episode": "EMPIRE",
+            "stars": 1,
+            "commentary": "This is NOT a great movie!"
+        }]
+    }
+};
 
 
 * ----------------------------------------

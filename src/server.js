@@ -11,6 +11,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
 // import fetch from 'cross-fetch';
+// mport fetch from 'isomorphic-unfetch';
+
+import defineHeaders from './graphql/defineHeaders';
 
 import { GetReviews, GetADroid } from './graphql/queries.graphql';
 import * as graphqlQueries from './graphql/queries.js';
@@ -35,7 +38,7 @@ import {
 } from '@apollo/client';
 
 import { RestLink } from 'apollo-link-rest';
-import { onError } from "@apollo/link-error";
+import { onError } from '@apollo/link-error';
 import { getDataFromTree } from '@apollo/react-ssr';
 
 // -------------------------------------------------------------------
@@ -112,13 +115,18 @@ export default ({ clientStats }) => async (req, res) => {
 	//	REST:			https://rickandmortyapi.com/api/
 	//	GRAPHQL:	https://rickandmortyapi.com/graphql/
 
+	defineHeaders();
+
 	const httpLink = createHttpLink({
 		uri: 'http://localhost:4000/graphql',
 		// fetch: customFetchAsync,
 		fetch: fetch,
 	});
 
-	const restLink = new RestLink({ uri: 'api.server.com' });
+	const restLink = new RestLink({ 
+		uri: 'http://localhost:4001/api',
+		fetch: fetch,
+	});
 
 	const cache = new InMemoryCache();
 
@@ -134,6 +142,8 @@ export default ({ clientStats }) => async (req, res) => {
 		}
 	});
 
+	//	"httpLink" is terminating so must be last, while retry & error wrap the links to their right
+	//	State & context links should happen before (to the left of) restLink
 	const link = ApolloLink.from([
 		errorLink,
 		httpLink,
@@ -204,7 +214,9 @@ export default ({ clientStats }) => async (req, res) => {
 		// At the point that the promise resolves, your Apollo Client store will be completely initialized,
 		//   which should mean your app will now render instantly (since all queries are prefetched) and
 		//   you can return the stringified results in the response:
-		// getMarkupFromTree
+
+		// getMarkupFromTree:
+		//		returns a promise for the generated HTML, so no an extra render to get the HTML
 
 		// await GraphQL data coming from the API server
 		// determines which queries are needed to render, then fetch them all

@@ -5,5 +5,4 @@ global.__CLIENT__ = false;
 global.__SERVER__ = true;
 global.__DISABLE_SSR__ = false;
 
-// require('@babel/register');
 require('./start');

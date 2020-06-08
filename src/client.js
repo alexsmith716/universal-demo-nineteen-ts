@@ -20,7 +20,10 @@ import {
 	ApolloLink
 } from '@apollo/client';
 
+import { RestLink } from 'apollo-link-rest';
 import { onError } from "@apollo/link-error";
+
+import defineHeaders from './graphql/defineHeaders';
 
 import { Provider } from 'react-redux';
 import asyncGetPromises from './utils/asyncGetPromises';
@@ -71,6 +74,8 @@ const providers = {
 	const online = window.REDUX_DATA ? true : await isOnline();
 	const history = createBrowserHistory();
 
+	defineHeaders();
+
 	const store = configureStore({
 		history,
 		data: {
@@ -103,6 +108,10 @@ const providers = {
 
 	const httpLink = createHttpLink({
 		uri: 'http://localhost:4000/graphql',
+	});
+
+	const restLink = new RestLink({ 
+		uri: 'http://localhost:4001/api',
 	});
 
 	const errorLink = onError(({ graphQLErrors, networkError }) => {

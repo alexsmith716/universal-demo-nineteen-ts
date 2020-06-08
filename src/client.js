@@ -111,7 +111,7 @@ const providers = {
 	});
 
 	const restLink = new RestLink({ 
-		uri: 'http://localhost:4001/api',
+		uri: 'http://localhost:4001/api/',
 	});
 
 	const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -127,6 +127,7 @@ const providers = {
 	});
 
 	const link = ApolloLink.from([
+		restLink,
 		errorLink,
 		httpLink,
 	]);

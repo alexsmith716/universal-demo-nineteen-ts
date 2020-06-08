@@ -7,7 +7,7 @@ import { Headers as ServerHeaders } from 'node-fetch';
 
 function defineHeaders() {
 	//	console.log('>>>> defineHeaders > process.env.IS_CLIENT: ', process.env.IS_CLIENT);
-  global.Headers = process.env.IS_CLIENT ? global.Headers : ServerHeaders;
+	global.Headers = process.env.IS_CLIENT ? global.Headers : ServerHeaders;
 }
 
 export default defineHeaders;

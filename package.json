@@ -51,6 +51,7 @@
 		"graphql": "^14.5.8",
 		"graphql-anywhere": "^4.2.7",
 		"history": "^4.10.1",
+		"http-proxy": "^1.18.1",
 		"immutable": "^4.0.0-rc.12",
 		"isomorphic-unfetch": "^3.0.0",
 		"jquery": "3.4.1",

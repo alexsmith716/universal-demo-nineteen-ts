@@ -1,20 +1,28 @@
 import axios from 'axios';
+// import config from 'config';
 
 export default function apiClient(req) {
 
-  const instance = axios.create();
+	const instance = axios.create({
+		// baseURL: !process.env.IS_CLIENT ? `http://${config.apiHost}:${config.apiPort}` : '/api'
+	});
 
-  instance.interceptors.request.use(
-    conf => {
-      return conf;
-    },
-    error => Promise.reject(error)
-  );
+	instance.interceptors.request.use(
+		conf => {
 
-  instance.interceptors.response.use(
-    response => response.data,
-    error => Promise.reject(error.response ? error.response.data : error)
-  );
+			if (!process.env.IS_CLIENT){
+				//
+			}
 
-  return instance;
+			return conf;
+		},
+		error => Promise.reject(error)
+	);
+
+	instance.interceptors.response.use(
+		response => response.data,
+		error => Promise.reject(error.response ? error.response.data : error)
+	);
+
+	return instance;
 }

@@ -77,6 +77,34 @@ export const GET_REVIEWS = gql`
 	}
 `;
 
+export const GET_CHARACTER = gql`
+	query Character($id: ID){
+		character(id: "1") @rest(type: "Post", path: "character/1/") {
+			id
+			name
+			status
+			species
+			type
+			gender
+			origin {
+				name
+				type
+				dimension
+			}
+			location {
+				name
+				type
+				dimension
+			}
+			image
+			episode {
+				name
+				episode
+			}
+		}
+	}
+`;
+
 export const ADD_REVIEW = gql`
 	mutation createReview($episode: Episode, $review: ReviewInput!) {
 		createReview(episode: $episode, review: $review ) {

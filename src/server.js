@@ -88,7 +88,7 @@ export default ({ clientStats }) => async (req, res) => {
 	const preloadedState = initialStatePreloaded(req);
 
 	const providers = {
-		//client: apiClient(req),
+		client: apiClient(req),
 	};
 
 	const store = configureStore({
@@ -174,6 +174,34 @@ export default ({ clientStats }) => async (req, res) => {
 
 		// ==========================================================================
 		// ==========================================================================
+
+		//	https://www.apollographql.com/docs/tutorial/local-state/
+		//	https://www.apollographql.com/docs/react/data/local-state/
+		//	https://www.apollographql.com/docs/react/v3.0-beta/data/local-state/
+
+		//	implement a client side GraphQL:
+		//		1) apollo-link-rest
+		//		2) local resolvers
+
+		//	Tools to manage local state:
+		//		How to store and query local data in the Apollo cache:
+		//			https://www.apollographql.com/docs/tutorial/local-state/
+
+		//	"local resolvers":
+		//		The same mechanisms that exist in a GraphQL server (schema paired with resolvers) are used for managing 'InMemoryCache'
+		//		result closely resembles a server-side GraphQL solution
+
+    //	write a client schema and resolvers for your local data
+    //	query (client schema/local data) with @client directive
+
+    //	-----------------------
+    //	TODO:
+    //	write local schema to be directly portable to a server-side (as if existed server-side)
+    //	write local resolvers that fetch requested data from a REST API
+    //		(wrapping a REST API on the client)
+    //	-----------------------
+
+    //	@client directive: query and update cache (InMemoryCache)
 
 		//	https://rickandmortyapi.com/documentation/
 		//	'https://rickandmortyapi.com/api/episode/'

@@ -15,8 +15,10 @@ import fetch from 'node-fetch';
 
 import defineHeaders from './graphql/defineHeaders';
 
-import { GetReviews, GetADroid } from './graphql/queries.graphql';
-import * as graphqlQueries from './graphql/queries.js';
+import { GetReviews, GetADroid, GetCharacter } from './graphql/queries/queries.graphql';
+import * as graphqlQueries from './graphql/queries/queries.js';
+import { resolvers } from './graphql/resolvers/resolvers.js';
+
 import asyncGetPromises from './utils/asyncGetPromises';
 
 import routes from './routes';
@@ -145,9 +147,10 @@ export default ({ clientStats }) => async (req, res) => {
 
 	//	"httpLink" is terminating so must be last, while retry & error wrap the links to their right
 	//	State & context links should happen before (to the left of) restLink
+	//	one of "uri" or "link" is required; if both are specified, "link" will take precedence
 	const link = ApolloLink.from([
 		//	authLink,
-		restLink,
+		// restLink,
 		errorLink,
 		//	retryLink,
 		httpLink,
@@ -157,7 +160,20 @@ export default ({ clientStats }) => async (req, res) => {
 		ssrMode: true,
 		cache,
 		link,
+		resolvers,
 	});
+
+	//	cache.writeFragment({
+	//		id: '2001',
+	//		fragment: gql`
+	//			fragment MyTodo on Todo {
+	//				completed
+	//			}
+	//		`,
+	//		data: {
+	//			completed: true,
+	//		},
+	//	});
 
 	// =====================================================
 
@@ -190,53 +206,69 @@ export default ({ clientStats }) => async (req, res) => {
 		//	"local resolvers":
 		//		The same mechanisms that exist in a GraphQL server (schema paired with resolvers) are used for managing 'InMemoryCache'
 		//		result closely resembles a server-side GraphQL solution
+		//	resolver: to implement the local state update as a GraphQL mutation
+		//	return the same type of data specified in the schema or a promise for that data
 
-    //	write a client schema and resolvers for your local data
-    //	query (client schema/local data) with @client directive
+		//	write a client schema and resolvers for your local data
+		//	query (client schema/local data) with @client directive
 
-    //	-----------------------
-    //	TODO:
-    //	write local schema to be directly portable to a server-side (as if existed server-side)
-    //	write local resolvers that fetch requested data from a REST API
-    //		(wrapping a REST API on the client)
-    //	-----------------------
+		//	-----------------------
+		//	TODO:
+		//	write local schema to be directly portable to a server-side (as if existed server-side)
+		//	write local resolvers that fetch requested data from a REST API
+		//		(wrapping a REST API on the client)
+		//	-----------------------
 
-    //	@client directive: query and update cache (InMemoryCache)
+		//	@client directive: query and update cache (InMemoryCache)
 
 		//	https://rickandmortyapi.com/documentation/
 		//	'https://rickandmortyapi.com/api/episode/'
 		//	`https://rickandmortyapi.com/api/character/${ids}`
 		//	`https://rickandmortyapi.com/api/episode/${id}`
+		//	https://rickandmortyapi.com/api/character/6
+		//	https://rickandmortyapi.com/api/character/?name=rick&status=alive
+		//	https://rickandmortyapi.com/api/location/3,21
 
-		const queryCharacter = await clientApollo.query({query: gql`
-			query Character($id: ID){
-				character(id: "1") @rest(type: "Post", path: "character/1/") {
-					id
-					name
-					status
-					species
-					type
-					gender
-					origin {
-						name
-						type
-						dimension
-					}
-					location {
-						name
-						type
-						dimension
-					}
-					image
-					episode {
-						name
-						episode
-					}
-				}
-			}
-		`});
+		//	const queryCharacter = await clientApollo.query({query: gql`
+		//		query Character($id: ID){
+		//			character(id: "1") @rest(type: "Post", path: "character/1") {
+		//				id
+		//				name
+		//				status
+		//				species
+		//				type
+		//				gender
+		//				origin {
+		//					name
+		//					type
+		//					dimension
+		//				}
+		//				location {
+		//					name
+		//					type
+		//					dimension
+		//				}
+		//				image
+		//				episode {
+		//					name
+		//					episode
+		//				}
+		//			}
+		//		}
+		//	`});
 
 		//	console.log('>>>> SERVER > clientApollo.query > REST: ', queryCharacter);
+
+		clientApollo.writeQuery({
+		  query: gql`
+		    query GetCartItems {
+		      cartItems
+		    }
+		  `,
+		  data: {
+		    cartItems: []
+		  }
+		});
 
 		// ==========================================================================
 		// ==========================================================================
@@ -244,20 +276,21 @@ export default ({ clientStats }) => async (req, res) => {
 		//	prefetch data (load data into cache): "client.query"
 		//	set "initialState" of data
 		// -------------------------------------------------------------------
-		const q = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
+		const qq = await clientApollo.query({ query: GetCharacter });
+		// const qq = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
 		// const q = await clientApollo.query({ query: GetADroid, variables: { droidID: 2001 } });
 		// await clientApollo.query({ query: graphqlQueries.GET_HERO, });
 		// await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
 		// -------------------------------------------------------------------
 
-		console.log('>>>> SERVER > clientApollo.query: ', JSON.stringify(q));
+		console.log('>>>> SERVER > clientApollo.query: ', JSON.stringify(qq));
 
-		Object.keys(q).forEach(key => {
-			const k = q[key];
-			console.log('>>>> SERVER > clientApollo.query > Object.keys().forEach(): ', k);
-		});
+		//	Object.keys(q).forEach(key => {
+		//		const k = q[key];
+		//		console.log('>>>> SERVER > clientApollo.query > Object.keys().forEach(): ', k);
+		//	});
 
-		enumerateObjectValues(q);
+		//	enumerateObjectValues(q);
 
 		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract() 2: ', cache.extract());
 

@@ -1,4 +1,8 @@
 
+query GetCharacter {
+	character @client
+}
+
 query GetReviews($episode: Episode!) {
 	reviews(episode: $episode) {
 		episode

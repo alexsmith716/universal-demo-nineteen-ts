@@ -163,18 +163,6 @@ export default ({ clientStats }) => async (req, res) => {
 		resolvers,
 	});
 
-	//	cache.writeFragment({
-	//		id: '2001',
-	//		fragment: gql`
-	//			fragment MyTodo on Todo {
-	//				completed
-	//			}
-	//		`,
-	//		data: {
-	//			completed: true,
-	//		},
-	//	});
-
 	// =====================================================
 
 	function hydrate(a) {

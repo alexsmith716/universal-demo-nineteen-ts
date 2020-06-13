@@ -273,7 +273,7 @@ export default ({ clientStats }) => async (req, res) => {
 		//	prefetch data (load data into cache): "client.query"
 		//	set "initialState" of data
 		// -------------------------------------------------------------------
-		const qq = await clientApollo.query({ query: GetCharacter });
+		// const qq = await clientApollo.query({ query: GetCharacter });
 		// const qq = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
 		// const qq = await clientApollo.query({ query: GetADroid, variables: { droidID: 2001 } });
 		// await clientApollo.query({ query: graphqlQueries.GET_HERO, });

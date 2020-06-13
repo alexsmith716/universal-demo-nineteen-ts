@@ -258,6 +258,15 @@ export default ({ clientStats }) => async (req, res) => {
 		  }
 		});
 
+		//	const q = await clientApollo.query({
+		//		fetchPolicy: 'network-only',
+		//		query: gql`
+		//			query {
+		//				character
+		//			}`
+		//	})
+		//	.then(result => console.log(result))
+
 		// ==========================================================================
 		// ==========================================================================
 
@@ -266,12 +275,12 @@ export default ({ clientStats }) => async (req, res) => {
 		// -------------------------------------------------------------------
 		const qq = await clientApollo.query({ query: GetCharacter });
 		// const qq = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
-		// const q = await clientApollo.query({ query: GetADroid, variables: { droidID: 2001 } });
+		// const qq = await clientApollo.query({ query: GetADroid, variables: { droidID: 2001 } });
 		// await clientApollo.query({ query: graphqlQueries.GET_HERO, });
 		// await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
 		// -------------------------------------------------------------------
 
-		console.log('>>>> SERVER > clientApollo.query: ', JSON.stringify(qq));
+		// console.log('>>>> SERVER > clientApollo.query: ', JSON.stringify(qq));
 
 		//	Object.keys(q).forEach(key => {
 		//		const k = q[key];

@@ -8,6 +8,10 @@ import {
 	useApolloClient, } from '@apollo/client';
 import { graphql } from '@apollo/react-hoc';
 
+import {
+  fragmentTypeDroid,
+} from "../../graphql/fragments/fragments";
+
 import { GetCharacter } from '../../graphql/queries/queries.graphql';
 
 //	https://www.apollographql.com/docs/react/v3.0-beta/api/core/ApolloClient/
@@ -72,22 +76,13 @@ export const GET_A_DROID = gql`
 export const GET_A_DROID_ALIAS = gql`
 	query GetADroid($droidIDa: ID!, $droidIDb: ID!) {
 		droidIDa: droid(id: $droidIDa) {
-			...comparisonFields
+			...fragmentTypeDroid
 		}
 		droidIDb: droid(id: $droidIDb) {
-			...comparisonFields
+			...fragmentTypeDroid
 		}
 	}
-	fragment comparisonFields on Droid {
-		id
-		name
-		friends {
-			id
-			name
-		}
-		appearsIn
-		primaryFunction
-	}
+	${fragmentTypeDroid}
 `;
 
 export const GET_REVIEWS = gql`

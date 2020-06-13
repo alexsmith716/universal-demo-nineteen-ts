@@ -8,6 +8,8 @@ import {
 	useApolloClient, } from '@apollo/client';
 import { graphql } from '@apollo/react-hoc';
 
+import { GetCharacter } from '../../graphql/queries/queries.graphql';
+
 //	https://www.apollographql.com/docs/react/v3.0-beta/api/core/ApolloClient/
 //	https://www.apollographql.com/docs/react/v3.0-beta/data/queries/
 //	https://www.apollographql.com/docs/react/v3.0-beta/data/mutations/
@@ -55,6 +57,31 @@ import { graphql } from '@apollo/react-hoc';
 export const GET_A_DROID = gql`
 	query GetADroid($droidID: ID!) {
 		droid(id: $droidID) {
+			id
+			name
+			friends {
+				id
+				name
+			}
+			appearsIn
+			primaryFunction
+		}
+	}
+`;
+
+export const GET_A_DROID_ALIAS = gql`
+	query GetADroid($droidIDa: ID!, $droidIDb: ID!) {
+		droidIDa: droid(id: $droidIDa) {
+			id
+			name
+			friends {
+				id
+				name
+			}
+			appearsIn
+			primaryFunction
+		}
+		droidIDb: droid(id: $droidIDb) {
 			id
 			name
 			friends {
@@ -129,15 +156,23 @@ export const GraphiQLExample = () => {
 
 	const styles = require('./scss/GraphiQLExample.scss');
 
-	// const { loading, error, data } = useQuery(GET_DROID_RD);
-	// const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
-	const { loading: queryLoading, error: queryError, data: queryData, refetch } = useQuery(
+	//	const { loading, error, data } = useQuery(GET_A_DROID, { variables: { droidID: 2000 }});
+	const { loading: queryLoadingDroid, error: queryErrorDroid, data: queryDataDroid } = useQuery(
+		GET_A_DROID_ALIAS,
+		{
+			variables: {
+				droidIDa: 2000,
+				droidIDb: 2001,
+			},
+		},
+	);
+	const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
 		GET_REVIEWS,
 		{
 			variables: {
 				episode: "EMPIRE",
 			},
-		}
+		},
 	);
 
 	//	If a mutation updates a single existing entity, 
@@ -178,24 +213,39 @@ export const GraphiQLExample = () => {
 				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > clientExtract: ', clientExtract);
 			}
 
-			// componentDidUpdate
+			// -------------------------------
+
+			if (queryErrorDroid) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > queryErrorDroid: ', queryErrorDroid);
+			}
+			if (queryLoadingDroid) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > queryLoadingDroid: ', queryLoadingDroid);
+			}
+			if (queryDataDroid) {
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > queryDataDroid: ', queryDataDroid);
+			}
+
+			// -------------------------------
+
 			if (queryError) {
 				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > queryError: ', queryError);
 			}
-			// componentDidUpdate
+
 			if (queryLoading) {
 				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > queryLoading: ', queryLoading);
 			}
-			// componentDidUpdate
+
 			if (queryData) {
 				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > queryData: ', queryData);
 			}
 
-			// componentDidUpdate
+			// -------------------------------
+
+
 			if (mutationError) {
 				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > mutationError: ', mutationError);
 			}
-			// componentDidUpdate
+
 			if (mutationLoading) {
 				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentDidUpdate > mutationLoading: ', mutationLoading);
 			}
@@ -210,7 +260,7 @@ export const GraphiQLExample = () => {
 				console.log('>>>>>>>>>>>>>>>>>>>>>>>> GraphiQLExample > useEffect() > componentWillUnmount > cleanup phase');
 			};
 		},
-		//	[clientExtract] // only re-run the effect if an array item changes
+		[] // only re-run the effect if an array item changes
 	);
 
 	return (

@@ -72,25 +72,21 @@ export const GET_A_DROID = gql`
 export const GET_A_DROID_ALIAS = gql`
 	query GetADroid($droidIDa: ID!, $droidIDb: ID!) {
 		droidIDa: droid(id: $droidIDa) {
-			id
-			name
-			friends {
-				id
-				name
-			}
-			appearsIn
-			primaryFunction
+			...comparisonFields
 		}
 		droidIDb: droid(id: $droidIDb) {
+			...comparisonFields
+		}
+	}
+	fragment comparisonFields on Droid {
+		id
+		name
+		friends {
 			id
 			name
-			friends {
-				id
-				name
-			}
-			appearsIn
-			primaryFunction
 		}
+		appearsIn
+		primaryFunction
 	}
 `;
 

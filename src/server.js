@@ -104,7 +104,7 @@ export default ({ clientStats }) => async (req, res) => {
 	//	Composing a link chain:
 	//	Each link should represent a self-contained modification to a GraphQL operation. 
 	//	By composing these links into a chain, you can create an arbitrarily complex model for your client's data flow.
-	//	
+
 	//	There are two forms of link composition: additive and directional.
 	//		* Additive composition involves combining a set of links into a serially executed chain.
 	//		* Directional composition involves branching to one of multiple links, depending on the details of an operation.
@@ -150,7 +150,7 @@ export default ({ clientStats }) => async (req, res) => {
 	//	one of "uri" or "link" is required; if both are specified, "link" will take precedence
 	const link = ApolloLink.from([
 		//	authLink,
-		// restLink,
+		//	restLink,
 		errorLink,
 		//	retryLink,
 		httpLink,
@@ -264,8 +264,7 @@ export default ({ clientStats }) => async (req, res) => {
 		//			query {
 		//				character
 		//			}`
-		//	})
-		//	.then(result => console.log(result))
+		//	}).then(result => console.log(result))
 
 		// ==========================================================================
 		// ==========================================================================

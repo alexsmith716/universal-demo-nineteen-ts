@@ -3,46 +3,6 @@
 * ----------------------------------------
 * ----------------------------------------
 
-Local Storage:
-
-KEY:
-	localforage/persist:root
-VALUE:
-	"{\"device\":\"{\\\"userAgent\\\":\\\"desktop\\\",\\\"isBot\\\":false}\",\"info\":\"{\\\"loaded\\\":true,\\\"data\\\":{\\\"time\\\":1587752834668,\\\"delay\\\":6600,\\\"message\\\":\\\"RESOLVED! 200 - Data Found. P1 Good Result!\\\",\\\"status\\\":200},\\\"loading\\\":false}\",\"infoAlert\":\"{\\\"loaded\\\":true,\\\"data\\\":{\\\"time\\\":1587752836274,\\\"delay\\\":1600,\\\"message\\\":\\\"RESOLVED! 200 - Data Found. P1 Good Result!\\\",\\\"status\\\":200},\\\"loading\\\":false}\",\"infoAlertThree\":\"{\\\"loaded\\\":false,\\\"data\\\":null}\",\"infoAlertFour\":\"{\\\"loaded\\\":false,\\\"data\\\":null}\"}"
-
-
-window.__PRELOADED__=true; window.REDUX_DATA={"online":true,"counterCollection":{"AboutOneMultireducer1":{"countMultireducer":0},"AboutTwoMultireducer1":{"countMultireducer":0},"AboutTwoMultireducer2":{"countMultireducer":0},"AboutTwoMultireducer3":{"countMultireducer":0}},"counterPreloaded":{"counterPreloadedState":56},"device":{"userAgent":"desktop","isBot":false},"filterableTableCollection":{"AboutOneMultireducerFilterableTable1":{"loaded":false,"data":null},"AboutOneMultireducerFilterableTable2":{"loaded":false,"data":null}},"info":{"loaded":true,"data":{"time":1587752834668,"delay":6600,"message":"RESOLVED! 200 - Data Found. P1 Good Result!","status":200},"loading":false},"infoAlert":{"loaded":true,"data":{"time":1587752836274,"delay":1600,"message":"RESOLVED! 200 - Data Found. P1 Good Result!","status":200},"loading":false},"infoAlertOne":{"loaded":false,"data":null},"infoAlertTwo":{"loaded":false,"data":null},"infoAlertThree":{"loaded":false,"data":null},"infoAlertFour":{"loaded":false,"data":null},"lineChartCollection":{"AboutTwoMultireducerLineChart1":{"loaded":false,"data":null},"AboutTwoMultireducerLineChart2":{"loaded":false,"data":null}},"temperatureCalculatorCollection":{"AboutOne1":{"temperature":"","scale":"c"},"AboutOne2":{"temperature":"","scale":"c"},"AboutTwo1":{"temperature":"","scale":"c"},"AboutTwo2":{"temperature":"","scale":"c"}}};
-
-window.__APOLLO_STATE__ = {
-		"ROOT_QUERY": {
-				"__typename": "Query",
-				"cartItems": [],
-				"character": {
-						"id": 1,
-						"name": "Rick Sanchez",
-						"status": "Alive",
-						"species": "Human",
-						"type": "",
-						"gender": "Male",
-						"origin": {
-								"name": "Earth (C-137)",
-								"url": "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Flocation\u002F1"
-						},
-						"location": {
-								"name": "Earth (Replacement Dimension)",
-								"url": "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Flocation\u002F20"
-						},
-						"image": "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fcharacter\u002Favatar\u002F1.jpeg",
-						"episode": ["https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F1", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F2", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F3", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F4", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F5", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F6", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F7", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F8", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F9", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F10", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F11", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F12", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F13", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F14", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F15", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F16", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F17", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F18", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F19", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F20", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F21", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F22", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F23", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F24", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F25", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F26", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F27", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F28", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F29", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F30", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F31", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F32", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F33", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F34", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F35", "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fepisode\u002F36"],
-						"url": "https:\u002F\u002Frickandmortyapi.com\u002Fapi\u002Fcharacter\u002F1",
-						"created": "2017-11-04T18:48:46.250Z"
-				}
-		}
-};
-
-* ----------------------------------------
-* ----------------------------------------
-
 The fetch policy is an option which allows you to specify how you want your component to interact with the Apollo data cache. By default your component will try to read from the cache first, and if the full data for your query is in the cache then Apollo simply returns the data from the cache. If the full data for your query is not in the cache then Apollo will execute your request using your network interface. By changing this option you can change this behavior.
 
 fetchPolicy values are:

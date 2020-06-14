@@ -14,18 +14,6 @@ import {
 
 import { GetCharacter } from '../../graphql/queries/queries.graphql';
 
-//	https://www.apollographql.com/docs/react/v3.0-beta/api/core/ApolloClient/
-//	https://www.apollographql.com/docs/react/v3.0-beta/data/queries/
-//	https://www.apollographql.com/docs/react/v3.0-beta/data/mutations/
-//	https://www.apollographql.com/docs/react/v3.0-beta/data/local-state/
-//	https://www.apollographql.com/docs/react/v3.0-beta/caching/cache-configuration/
-//	https://www.apollographql.com/docs/react/v3.0-beta/caching/cache-interaction/
-//	https://www.apollographql.com/docs/react/v3.0-beta/performance/performance/
-//	https://www.apollographql.com/docs/react/v3.0-beta/api/react/hooks/
-
-//	https://www.apollographql.com/docs/react/v3.0-beta/performance/optimistic-ui/
-//	https://www.apollographql.com/docs/react/v3.0-beta/migrating/apollo-client-3-migration/
-
 //	update local data in the cache with either 'direct cache writes' or 'client resolvers'
 //	two ways to perform local state mutations:
 //		1) directly write to the cache by calling "cache.writeQuery"
@@ -157,6 +145,7 @@ export const GraphiQLExample = () => {
 			},
 		},
 	);
+
 	const { loading: queryLoading, error: queryError, data: queryData } = useQuery(
 		GET_REVIEWS,
 		{
@@ -171,7 +160,7 @@ export const GraphiQLExample = () => {
 
 	//	If a mutation modifies multiple entities, or if it creates or deletes entities, 
 	//		the Apollo Client cache is not automatically updated to reflect the result of the mutation
-	const [addReview,{ loading: mutationLoading, error: mutationError, data: mutationData },] = useMutation(
+	const [addReview, { loading: mutationLoading, error: mutationError, data: mutationData }] = useMutation(
 		ADD_REVIEW,
 		{
 			variables: {

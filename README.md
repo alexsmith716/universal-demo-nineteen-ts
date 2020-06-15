@@ -3,6 +3,16 @@
 * ----------------------------------------
 * ----------------------------------------
 
+https://reactjs.org/docs/test-utils.html
+https://reactjs.org/docs/test-renderer.html
+https://github.com/testing-library
+https://jestjs.io/docs/en/tutorial-react
+https://github.com/testing-library/react-testing-library
+https://github.com/testing-library/react-hooks-testing-library
+
+* ----------------------------------------
+* ----------------------------------------
+
 The fetch policy is an option which allows you to specify how you want your component to interact with the Apollo data cache. By default your component will try to read from the cache first, and if the full data for your query is in the cache then Apollo simply returns the data from the cache. If the full data for your query is not in the cache then Apollo will execute your request using your network interface. By changing this option you can change this behavior.
 
 fetchPolicy values are:

@@ -249,14 +249,14 @@ export default ({ clientStats }) => async (req, res) => {
 		//	console.log('>>>> SERVER > clientApollo.query > REST: ', queryCharacter);
 
 		clientApollo.writeQuery({
-		  query: gql`
-		    query GetCartItems {
-		      cartItems
-		    }
-		  `,
-		  data: {
-		    cartItems: []
-		  }
+			query: gql`
+				query GetCartItems {
+					cartItems
+				}
+			`,
+			data: {
+				cartItems: []
+			}
 		});
 
 		//	const q = await clientApollo.query({
@@ -276,7 +276,7 @@ export default ({ clientStats }) => async (req, res) => {
 		// const qq = await clientApollo.query({ query: GetCharacter });
 		// const qq = await clientApollo.query({ query: GetReviews, variables: { episode: "EMPIRE" } });
 		// const qq = await clientApollo.query({ query: GetADroid, variables: { droidID: 2001 } });
-		// await clientApollo.query({ query: graphqlQueries.GET_HERO, });
+		await clientApollo.query({ query: graphqlQueries.GET_HERO, });
 		// await clientApollo.query({ query: graphqlQueries.GET_THE_SCHEMA, });
 		// -------------------------------------------------------------------
 

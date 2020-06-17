@@ -9,7 +9,7 @@ import { Headers as ServerHeaders } from 'node-fetch';
 //	https://github.com/node-fetch/node-fetch/#loading-and-configuring-the-module
 
 function defineHeaders() {
-	global.Headers = process.env.IS_CLIENT ? global.Headers : ServerHeaders;
+	global.Headers = !process.env.IS_CLIENT ? ServerHeaders : global.Headers;
 }
 
 export default defineHeaders;

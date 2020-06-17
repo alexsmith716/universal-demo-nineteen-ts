@@ -80,7 +80,7 @@ module.exports = {
 				loader: 'babel-loader',
 				options: {
 					babelrc: false,
-					configFile: path.resolve(rootPath, 'babel.config.client.js'),
+					configFile: path.resolve(rootPath, 'babel.config.js'),
 					// cacheDirectory: true,
 					// cacheCompression: false,
 				},
@@ -339,7 +339,7 @@ module.exports = {
 
 		// '__DLLS__: false' : needed for SWPrecacheWebpackPlugin
 		new webpack.DefinePlugin({
-			'process.env.IS_CLIENT': true,
+			'process.env.IS_CLIENT': JSON.stringify(true),
 			__CLIENT__: true,
 			__SERVER__: false,
 			__DEVELOPMENT__: false,

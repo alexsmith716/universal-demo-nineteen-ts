@@ -1,4 +1,3 @@
-/*eslint no-undef: 0 */
 
 if (typeof window !== 'undefined') {
 	window.alert = (msg) => {};

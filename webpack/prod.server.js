@@ -61,7 +61,7 @@ module.exports = {
 				loader: 'babel-loader',
 				options: {
 					babelrc: false,
-					configFile: path.resolve(rootPath, 'babel.config.server.js'),
+					configFile: path.resolve(rootPath, 'babel.config.js'),
 					// cacheDirectory: true,
 					// cacheCompression: false,
 				},
@@ -252,7 +252,7 @@ module.exports = {
 		}),
 
 		new webpack.DefinePlugin({
-			'process.env.IS_CLIENT': false,
+			'process.env.IS_CLIENT': JSON.stringify(false),
 			__CLIENT__: false,
 			__SERVER__: true,
 			__DEVELOPMENT__: false,

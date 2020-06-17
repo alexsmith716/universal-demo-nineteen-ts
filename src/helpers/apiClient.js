@@ -10,10 +10,6 @@ export default function apiClient(req) {
 	instance.interceptors.request.use(
 		conf => {
 
-			if (!process.env.IS_CLIENT){
-				//
-			}
-
 			console.log('>>>> apiClient > process.env.IS_CLIENT: ', process.env.IS_CLIENT);
 
 			return conf;

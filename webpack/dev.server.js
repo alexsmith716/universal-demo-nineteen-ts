@@ -227,9 +227,9 @@ const webpackServerConfig = {
 
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.json', '.jsx', '.css', '.scss', '.mjs'],
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
+		alias: {
+			'react-dom': '@hot-loader/react-dom',
+		},
 	},
 
 	plugins: [
@@ -249,13 +249,13 @@ const webpackServerConfig = {
 			maxChunks: 1,
 		}),
 		new webpack.DefinePlugin({
-			'process.env': { NODE_ENV: JSON.stringify('development') },
+			'process.env.IS_CLIENT': JSON.stringify(false),
 			__CLIENT__: false,
 			__SERVER__: true,
 			__DEVELOPMENT__: true,
 			__DEVTOOLS__: true,
 		}),
-    // new webpack.HotModuleReplacementPlugin(),
+		// new webpack.HotModuleReplacementPlugin(),
 		// new BundleAnalyzerPlugin({
 		//   analyzerMode: 'static',
 		//   reportFilename: '../../analyzers/bundleAnalyzer/dev.serverAA.html',

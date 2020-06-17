@@ -1,6 +1,6 @@
 import { isLoaded as isInfoLoaded, load as loadInfo } from '../../redux/modules/info';
 import { isLoaded as isInfoAlertLoaded, load as loadInfoAlert } from '../../redux/modules/infoAlert';
-// import { isLoaded as isInfoAlertFourLoaded, load as loadInfoAlertFour } from '../../redux/modules/infoAlertFour';
+//	import { isLoaded as isInfoAlertFourLoaded, load as loadInfoAlertFour } from '../../redux/modules/infoAlertFour';
 import { isLoaded as isInfoTESTLoaded, load as loadInfoTEST } from '../../redux/modules/infoTEST';
 
 async function preloadData(store, getState) {
@@ -22,7 +22,6 @@ async function preloadData(store, getState) {
 	// }
 
 	console.log('>>>>>>>>>>>>>>>> APP > preloadData > isInfoTESTLoaded?: ', isInfoTESTLoaded(store.getState()))
-	// await store.dispatch(loadInfoTEST());
 	if (!isInfoTESTLoaded(store.getState())) {
 		await store.dispatch(loadInfoTEST());
 	}

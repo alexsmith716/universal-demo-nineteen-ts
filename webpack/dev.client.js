@@ -264,9 +264,9 @@ const webpackClientConfig = {
 
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.json', '.jsx', '.css', '.scss', '.mjs'],
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
+		alias: {
+			'react-dom': '@hot-loader/react-dom',
+		},
 	},
 
 	plugins: [
@@ -288,9 +288,7 @@ const webpackClientConfig = {
 
 		// https://webpack.js.org/plugins/define-plugin
 		new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: JSON.stringify('development'),
-			},
+			'process.env.IS_CLIENT': JSON.stringify(true),
 			__CLIENT__: true,
 			__SERVER__: false,
 			__DEVELOPMENT__: true,

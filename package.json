@@ -14,7 +14,7 @@
 		"prod": "NODE_ENV=production PORT=8080 APIPORT=3030 node --trace-deprecation ./bin/server.js",
 		"clean:all": "yarn clean",
 		"clean": "rimraf build/dist build/server build/service-worker.js ./analyzers",
-		"test": "jest src",
+		"test": "IS_CLIENT=false jest src",
 		"check-types-t": "tsc --traceResolution",
 		"check-types-w": "tsc --watch",
 		"check-types": "tsc --noEmit true",

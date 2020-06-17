@@ -90,7 +90,8 @@ export default ({ clientStats }) => async (req, res) => {
 	const preloadedState = initialStatePreloaded(req);
 
 	const providers = {
-		client: apiClient(req),
+		//	app: createApp(req),
+		client: apiClient(req)
 	};
 
 	const store = configureStore({

@@ -3,15 +3,15 @@ module.exports = {
 		[
 			'@babel/preset-env',
 			{
-				modules: false,
+				modules: 'auto',
 				useBuiltIns: undefined,
 				corejs: false,
 				targets: { node: 'current' },
 				// debug: true
 			}
 		],
-		'@babel/preset-react',
-		'@babel/preset-typescript'
+		'@babel/preset-typescript',
+		'@babel/preset-react'
 	],
 	extends: './babel.config.plugins.js'
 };

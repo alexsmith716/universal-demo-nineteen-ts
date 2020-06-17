@@ -3,9 +3,9 @@ import axios from 'axios';
 
 export default function apiClient(req) {
 
-	const instance = axios.create({
-		// baseURL: !process.env.IS_CLIENT ? `http://${config.apiHost}:${config.apiPort}` : '/api'
-	});
+	console.log('>>>> apiClient > REQ > IncomingMessage: ', req);
+
+	const instance = axios.create();
 
 	instance.interceptors.request.use(
 		conf => {
@@ -13,6 +13,8 @@ export default function apiClient(req) {
 			if (!process.env.IS_CLIENT){
 				//
 			}
+
+			console.log('>>>> apiClient > process.env.IS_CLIENT: ', process.env.IS_CLIENT);
 
 			return conf;
 		},
@@ -23,6 +25,8 @@ export default function apiClient(req) {
 		response => response.data,
 		error => Promise.reject(error.response ? error.response.data : error)
 	);
+
+	console.log('>>>> apiClient > INSTANCE: ', instance);
 
 	return instance;
 }

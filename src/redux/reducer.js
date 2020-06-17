@@ -9,6 +9,7 @@ import counterPreloaded from './modules/counterPreloaded';
 import device from './modules/device';
 import filterableTable from './modules/filterableTable';
 import info from './modules/info';
+import infoTEST from './modules/infoTEST';
 import infoAlert from './modules/infoAlert';
 import infoAlertOne from './modules/infoAlertOne';
 import infoAlertTwo from './modules/infoAlertTwo';
@@ -34,6 +35,7 @@ export default function rootReducer() {
       AboutOneMultireducerFilterableTable2: filterableTable,
     }),
     info,
+    infoTEST,
     infoAlert,
     infoAlertOne,
     infoAlertTwo,

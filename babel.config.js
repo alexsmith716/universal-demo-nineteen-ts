@@ -11,7 +11,7 @@ module.exports = (api) => {
 				{
 					modules: web ? false : 'auto',
 					useBuiltIns: web ? 'usage' : undefined,
-					corejs: web ? { version: 3, proposals: true } : false,
+					corejs: web ? {version: 3, proposals: true} : false,
 					targets: web ? {browsers: ['last 2 versions']} : {node: 'current'},
 					debug: web ? false : false,
 				}

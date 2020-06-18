@@ -10,8 +10,6 @@ import flushChunks from 'webpack-flush-chunks';
 import { HelmetProvider } from 'react-helmet-async';
 import serialize from 'serialize-javascript';
 import fetch from 'node-fetch';
-// import fetch from 'cross-fetch';
-// mport fetch from 'isomorphic-unfetch';
 
 import defineHeaders from './graphql/defineHeaders';
 
@@ -25,8 +23,6 @@ import routes from './routes';
 import configureStore from './redux/configureStore';
 import initialStatePreloaded from './redux/initial-preloaded-state';
 import { getUserAgent, isBot } from './utils/device';
-
-import enumerateObjectValues from './utils/enumerateObjectValues';
 
 import Html from './helpers/Html';
 import apiClient from './helpers/apiClient';
@@ -286,8 +282,6 @@ export default ({ clientStats }) => async (req, res) => {
 		//		const k = q[key];
 		//		console.log('>>>> SERVER > clientApollo.query > Object.keys().forEach(): ', k);
 		//	});
-
-		//	enumerateObjectValues(q);
 
 		console.log('>>>> SERVER > InMemoryCache > CACHE > cache.extract() 2: ', cache.extract());
 

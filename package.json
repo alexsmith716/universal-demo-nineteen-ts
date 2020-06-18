@@ -24,7 +24,7 @@
 		"format": "prettier --config .prettierrc --write ./bin/start.js"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.0.0-rc.4",
+		"@apollo/client": "^3.0.0-rc.6",
 		"@apollo/link-context": "2.0.0-beta.3",
 		"@apollo/link-error": "^2.0.0-beta.3",
 		"@apollo/react-components": "4.0.0-beta.1",
@@ -33,7 +33,7 @@
 		"@babel/runtime-corejs3": "^7.10.2",
 		"@fortawesome/fontawesome-free": "^5.13.0",
 		"apollo-link": "^1.2.14",
-		"apollo-link-rest": "^0.7.3",
+		"apollo-link-rest": "^0.8.0-beta.0",
 		"axios": "^0.19.2",
 		"body-parser": "^1.19.0",
 		"bootstrap": "^4.4.1",
@@ -59,7 +59,7 @@
 		"lru-memoize": "^1.1.0",
 		"mongoose": "^5.9.15",
 		"multireducer": "^3.1.2",
-		"node-fetch": "^3.0.0-beta.6-exportfix",
+		"node-fetch": "3.0.0-beta.7",
 		"popper.js": "^1.16.1",
 		"prop-types": "^15.7.2",
 		"qs": "^6.9.4",
@@ -166,8 +166,5 @@
 		"webpackbar": "^4.0.0",
 		"write-file-webpack-plugin": "^4.5.1"
 	},
-	"peerDependencies": {},
-	"engines": {
-		"node": ">=10.13.0"
-	}
+	"peerDependencies": {}
 }

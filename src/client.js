@@ -127,7 +127,7 @@ const providers = {
 	});
 
 	const link = ApolloLink.from([
-		restLink,
+		// restLink,
 		errorLink,
 		httpLink,
 	]);

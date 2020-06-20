@@ -3,6 +3,11 @@
 * ----------------------------------------
 * ----------------------------------------
 
+error "apollo-link-rest#@apollo/client@>=3" doesn't satisfy found match of "@apollo/client@3.0.0-rc.6"
+
+https://medium.com/@GavMac2010/developing-a-client-side-testing-strategy-193d740c2359
+https://medium.com/better-programming/developing-a-client-side-testing-strategy-fdc2886f4acb
+
 https://github.com/kentcdodds/babel-plugin-macros
 https://reactjs.org/docs/test-utils.html
 https://reactjs.org/docs/test-renderer.html

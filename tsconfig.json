@@ -30,7 +30,7 @@
     "src"
   ],
   "exclude": [
-    "build"
+    "build",
     "node_modules",
   ]
 }
